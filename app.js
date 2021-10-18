@@ -1,18 +1,21 @@
-const loaders = require("./loaders");
 const express = require("express");
+const bodyParser = require("body-parser");
+const PORT = require("./config").port;
 
-async function startServer() {
-  const app = express();
+const app = express();
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 
-  // await loaders.init({ expressApp: app });
+const user = require("./routes/userRoutes")
 
-  app.listen(process.env.PORT, (err) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log(`Your server is ready !`);
-  });
-}
+app.use('/user', user);
 
-startServer();
+app.listen(PORT, (err) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log(`Your server is ready !`);
+});
+
+
