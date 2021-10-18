@@ -1,0 +1,30 @@
+{
+  "name": "college-social-media-system",
+  "version": "1.0.0",
+  "description": "Design and implement an application software to connect students around NITC.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aktgb31/College-Social-Media-System.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aktgb31/College-Social-Media-System/issues"
+  },
+  "homepage": "https://github.com/aktgb31/College-Social-Media-System#readme",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "cryptr": "^6.0.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.2",
+    "sequelize": "^6.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
