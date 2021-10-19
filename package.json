@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/aktgb31/College-Social-Media-System#readme",
   "dependencies": {
+    "connect-session-sequelize": "^7.1.2",
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "mysql2": "^2.3.2",
     "sequelize": "^6.7.0"
   },
