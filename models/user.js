@@ -2,6 +2,7 @@ const { DataTypes } = require("sequelize");
 const { database } = require("../config");
 const { db } = require("../loaders/connectDb");
 const { hash } = require("../utils/encrypt")
+const { pwdstring } = require("../utils/pwdgenerator.js")
 
 const user = db.define("user", {
   userId: { type: DataTypes.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true },
@@ -12,7 +13,10 @@ const user = db.define("user", {
       isEmail: true, isNitcEmail(value) { if (value.slice(-11) != "@nitc.ac.in") { throw new Error('Only nitc emails are allowed'); } }
     }
   },
-  password: { type: DataTypes.STRING, allowNull: false, set(value) { this.setDataValue('password', hash(this.emailId + value)); } },
+
+  yearofStudy: { type: DataTypes.INTEGER.UNSIGNED,allowNull: false},
+  branch: { type: DataTypes.STRING, allowNull: false, validate: { isAlpha: true } },
+  password: { type: DataTypes.STRING, allowNull: false,defaultValue=pwdstring, set(value) { this.setDataValue('password', hash(this.emailId + value)); } },
   dob: { type: DataTypes.DATEONLY, allowNull: false, validate: { isValidDob(value) { if (value > Date()) { throw new Error('Invalid Date of Birth'); } } } },
   gender: { type: DataTypes.STRING(20), allowNull: false, set(value) { this.setDataValue('gender', value.toUpperCase()); }, validate: { isIn: [['MALE', 'FEMALE', 'DECLINE TO SAY']] } },
   profilePic: { type: DataTypes.STRING, set(value) { if (this.gender == 'FEMALE') { this.setDataValue('profilePic', 'female.png') } else { this.setDataValue('profilePic', 'male.png') } } }
