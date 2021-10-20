@@ -7,13 +7,14 @@ const Register = () => {
   const history = useHistory();
 
   const [user, setUser] = useState({
-    fname: "",
-    lname:"",
-    email: "",
+    firstName: "",
+    lastName: "",
+    emailId: "",
     password: "",
     branch: "",
-    year: "",
-    dob: ""
+    passingYear: "",
+    dob: "",
+    gender: "",
   });
 
   const handleChange = (e) => {
@@ -25,24 +26,32 @@ const Register = () => {
     });
   };
 
-    function isnitcid(email){
-        let lastpart= email.slice(-11)
-        console.log(lastpart)
-        if(lastpart=='@nitc.ac.in'){
-            return true
-        }
-        else{
-            return false
-        }
-    }  
+  function isnitcid(emailId) {
+    let lastpart = emailId.slice(-11);
+    console.log(lastpart);
+    if (lastpart == "@nitc.ac.in") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   const register = () => {
-    const { fname, lname,email, password,branch,year,dob } = user;
-    if (fname && lname && email && password ) {
-      axios.post("http://localhost:4444/register", user).then((res) => {
+    const {
+      firstName,
+      lastName,
+      emailId,
+      password,
+      branch,
+      passingYear,
+      dob,
+      gender,
+    } = user;
+    if (firstName && lastName && emailId && password) {
+      axios.post("/user/register", user).then((res) => {
         alert(res.data.message);
       });
-      console.log(isnitcid(email))
+      console.log(isnitcid(emailId));
       history.push("/login");
       alert("Response Saved");
     } else {
@@ -56,24 +65,24 @@ const Register = () => {
       <h1>Register</h1>
       <input
         type="text"
-        name="fname"
-        value={user.fname}
+        name="firstName"
+        value={user.firstName}
         placeholder="Your First Name"
         onChange={handleChange}
       ></input>
       <input
         type="text"
-        name="lname"
-        value={user.lname}
+        name="lastName"
+        value={user.lastName}
         placeholder="Your Last Name"
         onChange={handleChange}
       ></input>
-     
+
       <input
         type="text"
-        name="email"
-        value={user.email}
-        placeholder="Your Email"
+        name="emailId"
+        value={user.emailId}
+        placeholder="Your EmailId"
         onChange={handleChange}
       ></input>
       <input
@@ -90,18 +99,25 @@ const Register = () => {
         placeholder="Your Branch"
         onChange={handleChange}
       ></input>
-       <input
+      <input
         type="number"
-        name="year"
-        value={user.year}
-        placeholder="Your Year"
+        name="passingYear"
+        value={user.passingYear}
+        placeholder="Your passingYear"
         onChange={handleChange}
       ></input>
-        <input
+      <input
         type="date"
         name="dob"
         value={user.dob}
         placeholder="Your Date of Birth"
+        onChange={handleChange}
+      ></input>
+      <input
+        type="text"
+        name="gender"
+        value={user.gender}
+        placeholder="Your Gender"
         onChange={handleChange}
       ></input>
       <div className="button" onClick={register}>
