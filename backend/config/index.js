@@ -15,6 +15,5 @@ module.exports = {
   },
   session: {
     secret: process.env.SESSION_SECRET,
-    age: parseInt(process.env.SESSION_AGE)
-  }
+  },
 };

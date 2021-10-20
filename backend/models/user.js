@@ -1,9 +1,9 @@
 const { DataTypes } = require("sequelize");
-const db = require("../config/database");
+const Db = require("../config/database");
 const { hash } = require("../utils/encrypt");
 const errorHandler = require("../utils/errorHandler");
 
-const user = db.define("user", {
+const User = Db.define("user", {
   userId: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -69,14 +69,8 @@ const user = db.define("user", {
   },
   profilePic: {
     type: DataTypes.STRING,
-    set(value) {
-      if (this.gender == "FEMALE") {
-        this.setDataValue("profilePic", "female.png");
-      } else {
-        this.setDataValue("profilePic", "male.png");
-      }
-    },
-  },
+    allowNull: false,
+  }
 });
-user.sync();
-module.exports = user;
+User.sync();
+module.exports = User;
