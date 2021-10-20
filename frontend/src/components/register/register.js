@@ -18,19 +18,33 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(user);
     setUser({
       ...user,
       [name]: value,
     });
   };
 
+    function isnitcid(email){
+        let lastpart= email.slice(-11)
+        console.log(lastpart)
+        if(lastpart=='@nitc.ac.in'){
+            return true
+        }
+        else{
+            return false
+        }
+    }  
+
   const register = () => {
-    const { name, email, password } = user;
-    if (name && email && password ) {
-      axios.post("http://localhost:9002/register", user).then((res) => {
+    const { fname, lname,email, password,branch,year,dob } = user;
+    if (fname && lname && email && password ) {
+      axios.post("http://localhost:4444/register", user).then((res) => {
         alert(res.data.message);
-        history.push("/login");
       });
+      console.log(isnitcid(email))
+      history.push("/login");
+      alert("Response Saved");
     } else {
       alert("invlid input");
     }
