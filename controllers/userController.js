@@ -1,17 +1,18 @@
-const { user } = require("../models/user");
-const { db } = require("../loaders/connectDb")
+const user = require("../models/user");
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
+const { passwordGenerator } = require("../utils/pwdgenerator");
+const errorHandler = require("../utils/errorHandler");
 
-const registerUser = async (req, res) => {
-    const userDetails = req.body;
-    console.log(userDetails)
-    try {
-        await db.sync();
-        await user.create(userDetails);
-        console.log("Data  Inserted")
-        res.send("Succesfull");
-    } catch (e) {
-        console.error(e);
-    }
-};
+exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+    userDetails = req.body;
+    userDetails.password = passwordGenerator();
+    await user.create(userDetails).then(() => { res.status(201).json({ success: true, message: "User Registered" }) });
 
-module.exports = { registerUser }
+});
+
+// exports.loginUser = async (req, res, next) => {
+//     const { email, password } = req.body;
+//     if (!email || !password)
+//         return next(new Err)
+//     const
+// }

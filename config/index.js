@@ -13,4 +13,8 @@ module.exports = {
     pass: process.env.DATABASE_PASS,
     dialect: process.env.DATABASE_DIALECT,
   },
+  session: {
+    secret: process.env.SESSION_SECRET,
+    age: parseInt(process.env.SESSION_AGE)
+  }
 };
