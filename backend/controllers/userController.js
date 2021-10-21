@@ -62,12 +62,12 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
   let user;
   if (req.body.userId)
     user = await User.findByPk(req.body.userId, {
-      attributes: { exclude: ["createdAt", "updatedAt"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "password"] },
     });
   else if (req.body.emailId)
     user = await User.findOne({
       where: { emailId: req.body.emailId },
-      attributes: { exclude: ["createdAt", "updatedAt"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "password"] },
     });
   else res.status(401).json({ success: false, message: "User doesn't exist" });
   const isSameUser = req.session.userId == user.userId;
