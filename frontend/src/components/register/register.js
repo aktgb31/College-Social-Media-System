@@ -10,7 +10,6 @@ const Register = () => {
     firstName: "",
     lastName: "",
     emailId: "",
-    password: "",
     branch: "",
     passingYear: "",
     dob: "",
@@ -41,13 +40,13 @@ const Register = () => {
       firstName,
       lastName,
       emailId,
-      password,
       branch,
       passingYear,
       dob,
       gender,
     } = user;
-    if (firstName && lastName && emailId && password) {
+    const valid=isnitcid(emailId);
+    if (firstName && lastName && emailId && valid ) {
       axios.post("/user/register", user).then((res) => {
         alert(res.data.message);
       });
@@ -83,13 +82,6 @@ const Register = () => {
         name="emailId"
         value={user.emailId}
         placeholder="Your EmailId"
-        onChange={handleChange}
-      ></input>
-      <input
-        type="password"
-        name="password"
-        value={user.password}
-        placeholder="Your Password"
         onChange={handleChange}
       ></input>
       <input

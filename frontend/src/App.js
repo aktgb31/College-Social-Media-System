@@ -5,14 +5,15 @@ import Register from "./components/register/register"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState } from 'react';
 function App() {
-  const [ user, setLoginUser] = useState({})
+  const [ user, setLoginUser] = useState({  
+})
   return (
     <div className="App">
        <Router>
         <Switch>
           <Route exact path="/">
             {
-              user ? <Homepage setLoginUser={setLoginUser} /> : <Login setLoginUser={setLoginUser}/>
+              user && user.id ?(<Homepage setLoginUser={setLoginUser} />):(<Login setLoginUser={setLoginUser}/>)
             }
           </Route>
           <Route path="/login">
