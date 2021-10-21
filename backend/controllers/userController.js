@@ -57,7 +57,19 @@ exports.changePassword = catchAsyncErrors(async (req, res, next) => {
     .json({ success: true, message: "Password Changed Successfully" });
 });
 
+//Function that returns user details
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.findByPk(req.body.userId).toJSON();
-  res.status(200).json({ success: true, user });
+  let user;
+  if (req.body.userId)
+    user = await User.findByPk(req.body.userId, {
+      attributes: { exclude: ["createdAt", "updatedAt", "password"] },
+    });
+  else if (req.body.emailId)
+    user = await User.findOne({
+      where: { emailId: req.body.emailId },
+      attributes: { exclude: ["createdAt", "updatedAt", "password"] },
+    });
+  else res.status(401).json({ success: false, message: "User doesn't exist" });
+  const isSameUser = req.session.userId == user.userId;
+  res.status(200).json({ success: true, isSameUser: isSameUser, user });
 });
