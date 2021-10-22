@@ -18,7 +18,7 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(user);
+    //console.log(user);
     setUser({
       ...user,
       [name]: value,
