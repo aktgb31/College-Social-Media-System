@@ -15,6 +15,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
+    rolling: true,
   })
 );
 sessionStore.sync();

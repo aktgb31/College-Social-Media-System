@@ -5,12 +5,14 @@ const {
   logout,
   changePassword,
   getUserDetails,
+  updateUserDetails,
 } = require("../controllers/userController");
-const { isAuthenticatedUser } = require("../middlewares/auth");
+const { isAuthenticatedUser, isLoginedUser } = require("../middlewares/auth");
 
-router.post("/register", register);
-router.post("/login", login);
+router.post("/register", isLoginedUser, register);
+router.post("/login", isLoginedUser, login);
 router.post("/logout", isAuthenticatedUser, logout);
 router.post("/password/change", isAuthenticatedUser, changePassword);
-router.get("/view", isAuthenticatedUser, getUserDetails);
+router.get("/profile", isAuthenticatedUser, getUserDetails);
+router.post("/profile/update", isAuthenticatedUser, updateUserDetails);
 module.exports = router;
