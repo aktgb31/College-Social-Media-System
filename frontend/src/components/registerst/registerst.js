@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./register.css";
+import "./registerst.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -61,7 +61,7 @@ const Register = () => {
   return (
     <div className="register">
       {console.log("User", user)}
-      <h1>Register</h1>
+      <h1>Register as Student</h1>
       <input
         type="text"
         name="firstName"

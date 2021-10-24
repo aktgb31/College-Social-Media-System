@@ -37,7 +37,9 @@ const Login = ({ setLoginUser}) => {
             <input type="password" name="password" value={user.password} onChange={handleChange}  placeholder="Enter your Password" ></input>
             <div className="button" onClick={login}>Login</div>
             <div>or</div>
-            <div className="button" onClick={() => history.push("/register")}>Register</div>
+            <div className="button" onClick={() => history.push("/registerst")}>Register as Student</div>
+            <div>or</div>
+            <div className="button" onClick={() => history.push("/registercl")}>Register as Club</div>
             <div>or</div>
             <div className="button" onClick={() => history.push("/forgot")}>Forgot Password</div>
         </div>

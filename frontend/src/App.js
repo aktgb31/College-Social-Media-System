@@ -2,20 +2,21 @@ import './App.css';
 import Homepage from './components/homepage/homepage'
 import Login from "./components/login/login"
 import Forgot from "./components/forgot/forgot"
-import Register from "./components/register/register"
+import Registerst from "./components/registerst/registerst"
+import Registercl from "./components/registercl/registercl"
 import Logout from "./components/logout/logout"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState } from 'react';
 function App() {
   const [ user, setLoginUser] = useState({ 
-    firstName: "",
-    id:"1",
-    lastName: "",
-    emailId: "",
-    branch: "",
-    passingYear: "",
-    dob: "",
-    gender: "", 
+    // firstName: "",
+    // id:"1",
+    // lastName: "",
+    // emailId: "",
+    // branch: "",
+    // passingYear: "",
+    // dob: "",
+    // gender: "", 
 })
   return (
     <div className="App">
@@ -29,8 +30,11 @@ function App() {
           <Route path="/login">
             <Login setLoginUser={setLoginUser}/>
           </Route>
-          <Route path="/register">
-            <Register />
+          <Route path="/registerst">
+            <Registerst />
+          </Route>
+          <Route path="/registercl">
+            <Registercl />
           </Route>
           <Route path="/forgot">
             <Forgot />
