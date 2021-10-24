@@ -52,9 +52,7 @@ exports.changePassword = catchAsyncErrors(async (req, res, next) => {
       await user.save();
     }
   });
-  res
-    .status(200)
-    .json({ success: true, message: "Password Changed Successfully" });
+  res.status(200).json({ success: true, message: "Password Changed" });
 });
 
 //Function that returns user details
@@ -69,7 +67,27 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
       where: { emailId: req.body.emailId },
       attributes: { exclude: ["createdAt", "updatedAt", "password"] },
     });
-  else res.status(401).json({ success: false, message: "User doesn't exist" });
+  else next(new ErrorHandler("No User Id or email Id found", 400));
+  if (user == null)
+    res.status(401).json({ success: false, message: "User doesn't exist" });
   const isSameUser = req.session.userId == user.userId;
   res.status(200).json({ success: true, isSameUser: isSameUser, user });
 });
+
+// Function that updates user profile
+exports.updateUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const data = req.body;
+  const userId = req.session.userId;
+  if (userId != data.userId) next(new ErrorHandler("User Id mismatch"), 400);
+  await User.findByPk(userId).then(async (user) => {
+    if (user == null) next(new ErrorHandler("Expected Key Not Found", 500));
+    else {
+      for (let [key, value] of Object.entries(data))
+        if (user[key]) user[key] = value;
+      await user.save();
+    }
+  });
+  res.status(200).json({ success: true, message: "User Details Updated" });
+});
+
+//Function that deletes current user details

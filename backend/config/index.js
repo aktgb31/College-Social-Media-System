@@ -11,7 +11,6 @@ module.exports = {
     uri: process.env.DATABASE_URI,
     user: process.env.DATABASE_USER,
     pass: process.env.DATABASE_PASS,
-    dialect: process.env.DATABASE_DIALECT,
   },
   session: {
     secret: process.env.SESSION_SECRET,
