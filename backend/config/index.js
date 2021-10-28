@@ -5,14 +5,19 @@ if (envFound.error) {
 }
 
 module.exports = {
-  port: parseInt(process.env.PORT),
-  database: {
+  ENVIRONMENT: process.env.NODE_ENV,
+  PORT: parseInt(process.env.PORT),
+  DATABASE: {
     name: process.env.DATABASE_NAME,
     uri: process.env.DATABASE_URI,
     user: process.env.DATABASE_USER,
     pass: process.env.DATABASE_PASS,
   },
-  session: {
+  SESSION: {
     secret: process.env.SESSION_SECRET,
+  },
+  EMAIL: {
+    user: process.env.GMAIL_ID,
+    password: process.env.GMAIL_PASSWORD,
   },
 };

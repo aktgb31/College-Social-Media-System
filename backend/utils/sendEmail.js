@@ -1,14 +1,36 @@
-var API_KEY = "YOUR_API_KEY";
-var DOMAIN = "YOUR_DOMAIN_NAME";
-var mailgun = require("mailgun-js")({ apiKey: API_KEY, domain: DOMAIN });
+const nodemailer = require("nodemailer");
+const { EMAIL, ENVIRONMENT } = require("../config");
 
-const data = {
-  from: "Excited User <me@samples.mailgun.org>",
-  to: "foo@example.com, bar@example.com",
-  subject: "Hello",
-  text: "Testing some Mailgun awesomeness!",
-};
+const verificationSubject = "College Social Media System Account Verification";
+function verificationHTML(to, password) {
+  return `<p>Your account on College Social Media System has been created sucessfully. Use following details to sign in.<br>User_ID : ${to}<br>Password : ${password}</p>`;
+}
 
-mailgun.messages().send(data, (error, body) => {
-  console.log(body);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: EMAIL.user,
+    pass: EMAIL.password,
+  },
 });
+
+exports.emailService = transporter;
+
+async function sendVerificationEmail(to, password) {
+  if (ENVIRONMENT == "development") {
+    console.log(`User_ID : ${to} , Password : ${password}`);
+    return;
+  }
+  const mailOptions = {
+    from: {
+      name: "College Social media System",
+      address: "armdihtk@gmail.com",
+    },
+    to: to,
+    subject: verificationSubject,
+    html: verificationHTML(to, password),
+  };
+  await transporter.sendMail(mailOptions);
+}
+
+exports.sendVerificationEmail = sendVerificationEmail;

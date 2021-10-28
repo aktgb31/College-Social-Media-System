@@ -1,19 +1,34 @@
-const User = require("../models/user");
+const { User, Student, Club } = require("../models/user");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const { passwordGenerator } = require("../utils/pwdGenerator");
 const ErrorHandler = require("../utils/errorHandler");
 const { hash } = require("../utils/encrypt");
+const { sendVerificationEmail } = require("../utils/sendEmail");
 
 // Function to Register a new user
 exports.register = catchAsyncErrors(async (req, res, next) => {
   userDetails = req.body;
-  userDetails.password = passwordGenerator(); // Generate Random Password
-  if (userDetails.gender.toUpperCase() == "FEMALE")
-    // Applying correct profile pic gender-wise
-    userDetails.profilePic = "female.png";
-  else userDetails.profilePic = "male.png";
-  console.log(userDetails);
-  await User.create(userDetails);
+
+  // Generate Random Password
+  userDetails.password = passwordGenerator();
+
+  //Insert data into user table
+  const userInserted = await User.create(userDetails);
+  userDetails.userId = userInserted.userId;
+  try {
+    let y;
+    if (userInserted.type == "STUDENT") y = await Student.create(userDetails);
+    else y = await Club.create(userDetails);
+    try {
+      await sendVerificationEmail(userDetails.emailId, userDetails.password);
+    } catch (err) {
+      y.destroy(); // No waiting for destruction
+      throw err;
+    }
+  } catch (err) {
+    userInserted.destroy(); // No waiting for destruction
+    throw err;
+  }
   res.status(201).json({ success: true, message: "User Registered" });
 });
 
@@ -25,13 +40,15 @@ exports.login = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Please Enter Email and Password", 400));
   }
   const user = await User.findOne({
-    attributes: ["userId", "emailId", "password"],
     where: { emailId: emailId, password: password },
   });
   if (!user) {
     return next(new ErrorHandler("Invalid Username or Password"), 400);
   }
   req.session.userId = user.userId;
+  req.session.userType = user.type;
+  user.verified = true;
+  user.save(); // No waiting for saving
   res.status(200).json({ success: true, message: "Login Successful" });
 });
 
