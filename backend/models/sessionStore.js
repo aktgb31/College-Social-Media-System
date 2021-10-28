@@ -4,7 +4,7 @@ const Db = require("../config/database");
 
 const sessionStore = new SequelizeStore({
   db: Db,
-  checkExpirationInterval: 15 * 60 * 1000,
+  checkExpirationInterval: 15 * 60 * 1000, // After 15 mins
   expiration: 1 * 60 * 60 * 1000, // 1hour
 });
 module.exports = sessionStore;
