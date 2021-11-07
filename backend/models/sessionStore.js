@@ -23,13 +23,17 @@ const Session = Db.define("session", {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
     },
+    userType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     expires: DataTypes.DATE,
     data: DataTypes.TEXT,
 
 });
 
 function extendDefaultFields(defaults, session) {
-    return { data: defaults.data, expires: defaults.expires, userId: session.userId };
+    return { data: defaults.data, expires: defaults.expires, userId: session.userId, userType: session.userType };
 }
 const sessionStore = new SequelizeStore({
     db: Db,

@@ -8,7 +8,9 @@ const { formatStudentDetails, formatClubDetails } = require("../utils/userUtils"
 const { Session } = require("../models/sessionStore");
 
 //Function to register a new user
-async function register(userDetails, model) {
+async function register(userDetails, model, type) {
+    userDetails.userType = type;
+    userDetails.password = passwordGenerator();
     const user = await User.findOne({ where: { emailId: userDetails.emailId }, raw: true });
     if (user) {
         throw new ErrorHandler(409, "User already exists");
@@ -32,9 +34,7 @@ async function register(userDetails, model) {
 // Function to Register a new student
 exports.registerStudent = catchAsyncErrors(async(req, res, next) => {
     let userDetails = formatStudentDetails(req.body.firstName, req.body.lastName, req.body.emailId, req.body.passingYear, req.body.branch, req.body.dob, req.body.gender);
-    userDetails.userType = "STUDENT";
-    userDetails.password = passwordGenerator();
-    await register(userDetails, Student);
+    await register(userDetails, Student, "STUDENT");
     res.status(201).json({
         success: true,
         message: "Student Registered Successfully",
@@ -44,9 +44,7 @@ exports.registerStudent = catchAsyncErrors(async(req, res, next) => {
 //Function to Register a new club
 exports.registerClub = catchAsyncErrors(async(req, res, next) => {
     let userDetails = formatClubDetails(req.body.name, req.body.emailId, req.body.clubType);
-    userDetails.userType = "CLUB";
-    userDetails.password = passwordGenerator();
-    await register(userDetails, Club);
+    await register(userDetails, Club, "CLUB");
     res.status(201).json({
         success: true,
         message: "Club Registered Successfully",
@@ -69,7 +67,7 @@ exports.login = catchAsyncErrors(async(req, res, next) => {
         return next(new ErrorHandler(400, "Invalid Username or Password"));
     }
     req.session.userId = user.userId;
-    req.session.userType = user.type;
+    req.session.userType = user.userType;
     user.verified = true;
     user.save(); // No waiting for saving
     res.status(202).json({ success: true, message: "Login Successful" });
@@ -88,47 +86,158 @@ exports.changePassword = catchAsyncErrors(async(req, res, next) => {
     await User.findByPk(userId).then(async(user) => {
         if (user == null) next(new ErrorHandler(500, "Expected Key Not Found"));
         else {
-            user.password = hash(User.emailId + newPassword);
+            user.password = newPassword;
             await user.save();
         }
     });
     res.status(200).json({ success: true, message: "Password Changed" });
 });
 
-//Function that returns user details
+//Function for forgot password
+exports.forgotPassword = catchAsyncErrors(async(req, res, next) => {
+    const emailId = req.body.emailId;
+    const user = await User.findOne({ where: { emailId: emailId } });
+    if (!user) {
+        return next(new ErrorHandler(400, "User not found"));
+    }
+    const newPassword = passwordGenerator();
+    user.password = newPassword
+    await user.save();
+    await sendVerificationEmail(emailId, newPassword);
+    res.status(200).json({ success: true, message: `New Password sent to ${emailId}` });
+});
+
+//Function that returns all User details
+exports.getAllUsers = catchAsyncErrors(async(req, res, next) => {
+    let users;
+    if (req.query.perPage) {
+        let perPage = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
+            users = await User.findAll({
+                attributes: { exclude: ["createdAt", "updatedAt", "password"] },
+                limit: perPage,
+                offset: (page - 1) * perPage,
+                raw: true,
+            });
+        } else
+            users = await User.findAll({
+                attributes: { exclude: ["createdAt", "updatedAt", "password"] },
+                limit: perPage,
+                offset: 0,
+                raw: true,
+            });
+    } else
+        users = await User.findAll({ attributes: { exclude: ["createdAt", "updatedAt", "password"] }, raw: true });
+    res.status(200).json({ success: true, data: users });
+});
+
+//Function that returns all Students details
+exports.getAllStudents = catchAsyncErrors(async(req, res, next) => {
+    let students;
+    if (req.query.perPage) {
+        let perPage = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
+            students = await Student.findAll({
+                attributes: { exclude: ["createdAt", "updatedAt"] },
+                limit: perPage,
+                offset: (page - 1) * perPage,
+                raw: true,
+            });
+        } else
+            students = await Student.findAll({
+                attributes: { exclude: ["createdAt", "updatedAt"] },
+                limit: perPage,
+                offset: 0,
+                raw: true,
+            });
+    } else
+        students = await Student.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] }, raw: true });
+    res.status(200).json({ success: true, data: students });
+});
+
+//Function that returns all Club details
+exports.getAllClubs = catchAsyncErrors(async(req, res, next) => {
+    let clubs;
+    if (req.query.perPage) {
+        let perPage = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
+            clubs = await Club.findAll({
+                attributes: { exclude: ["createdAt", "updatedAt"] },
+                limit: perPage,
+                offset: (page - 1) * perPage,
+                raw: true,
+            });
+        } else
+            clubs = await Club.findAll({
+                attributes: { exclude: ["createdAt", "updatedAt"] },
+                limit: perPage,
+                offset: 0,
+                raw: true,
+            });
+    } else
+        clubs = await Club.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] }, raw: true });
+    res.status(200).json({ success: true, data: clubs });
+});
+
+// Function that returns current user details
+exports.getMyDetails = catchAsyncErrors(async(req, res, next) => {
+    const userId = req.session.userId;
+    const user = await User.findByPk(userId, { raw: true });
+    if (!user) return next(new ErrorHandler(500, "Expected Key Not Found"));
+    else {
+        if (user.userType == "STUDENT")
+            user.student = await Student.findByPk(user.userId, { attributes: { exclude: ['userId'] }, raw: true });
+        else
+            user.club = await Club.findByPk(user.userId, { attributes: { exclude: ['userId'] }, raw: true });
+    }
+    res.status(200).json({ success: true, data: user });
+});
+
+//Function that returns any user details
 exports.getUserDetails = catchAsyncErrors(async(req, res, next) => {
     let user = null;
-    if (req.body.userId)
-        user = await User.findByPk(req.body.userId, {
+    if (req.query.userId)
+        user = await User.findByPk(req.query.userId, {
             attributes: { exclude: ["createdAt", "updatedAt", "password"] },
             raw: true
         });
-    else if (req.body.emailId)
+    else if (req.query.emailId)
         user = await User.findOne({
-            where: { emailId: req.body.emailId },
+            where: { emailId: req.query.emailId },
             attributes: { exclude: ["createdAt", "updatedAt", "password"] },
             raw: true
         });
-    else return next(new ErrorHandler(400, "No User Id or email Id is required"));
+    else return next(new ErrorHandler(400, "User Id or email Id is required"));
     if (user == null)
         return next(new ErrorHandler(404, "User not found"));
     if (user.userType == "STUDENT")
         user.student = await Student.findByPk(user.userId, { attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] }, raw: true });
     else
         user.club = await Club.findByPk(user.userId, { attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] }, raw: true });
-    const isSameUser = req.session.userId == user.userId;
-    res.status(200).json({ success: true, isSameUser: isSameUser, user });
+    res.status(200).json({ success: true, data: user });
 });
+
 
 // Function that updates user profile
 exports.updateUserDetails = catchAsyncErrors(async(req, res, next) => {
-    const data = req.body;
     const userId = req.session.userId;
-    if (userId != data.userId) next(new ErrorHandler(400, "User Id mismatch"));
-    await User.findByPk(userId).then(async(user) => {
-        if (user == null) next(new ErrorHandler(500, "Expected Key Not Found"));
+    const userType = req.session.userType;
+
+    let Conn, userDetails = {};
+    if (userType == "STUDENT") {
+        userDetails = formatStudentDetails(req.body.firstName, req.body.lastName, req.body.emailId, req.body.passingYear, req.body.branch, req.body.dob, req.body.gender, false);
+        Conn = Student;
+    } else {
+        userDetails = formatClubDetails(req.body.name, req.body.emailId, req.body.clubType, false);
+        Conn = Club;
+    }
+    await Conn.findByPk(userId).then(async(user) => {
+        if (user == null) return next(new ErrorHandler(500, "Expected Key Not Found"));
         else {
-            for (let [key, value] of Object.entries(data))
+            for (let [key, value] of Object.entries(userDetails))
                 if (user[key]) user[key] = value;
             await user.save();
         }
@@ -139,7 +248,7 @@ exports.updateUserDetails = catchAsyncErrors(async(req, res, next) => {
 //Function that deletes current user details
 exports.deleteUser = catchAsyncErrors(async(req, res, next) => {
     const userId = req.session.userId;
-    await User.destroy({ where: { userId: userId } });
-    await Session.destroy({ where: { userId: userId } });
+    await User.destroy({ where: { userId: userId } }); // Delete user data
+    await Session.destroy({ where: { userId: userId } }); // Delete all sessions of user
     res.status(200).json({ success: true, message: "User Deleted" });
 });

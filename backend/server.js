@@ -13,7 +13,7 @@ process.on("uncaughtException", (err) => {
 Db.authenticate()
     .then(async() => {
         console.log("Connection to Database established Successfully");
-        await Db.sync();
+        await Db.sync({ alter: true });
     })
     .then(() => console.log("Models Synced"))
     .catch((err) => {
