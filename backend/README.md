@@ -29,5 +29,5 @@ To start the Server, run `npm start` and the server will start on http://localho
 ## API Documentation
 
  * #### User Related 
- 	User Related apis [here](./USER)
+ 	User Related apis [here](./USER.md)
 
