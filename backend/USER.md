@@ -183,13 +183,16 @@
   * **Method:** `GET`
   * **Auth Required:** Yes
 
-  * **Request Body:**
+  * **Request Query:**
   
   	(Any one required. userId will be preferred if both are given)
     | Field | Type | Description |
       |--- | ---| ---|
       |userId | integer | userId of the user |
       |emailId | string | emailId of the user |
+   	
+    Example: `/api/user/profile?emailId=amit_b190343cs@nitc.ac.in`
+    
 
   * **Success Response:**
   	
@@ -199,18 +202,17 @@
           ```json
           {
           	"success": true,
-          	"isSameUser": true/false, // true when current user is same as user requested
-          	"user":	{
+          	"data":	{
             			"userId":  ,
                         "emailId": ,
-                        "userType: "CLUB"/"STUDENT" ,
-                        "verified": 1/0 ,
-                        "club":	{  // When requested user is club
+                        "userType:  ,
+                        "verified": ,
+                        "club":	{ 
                         			"name" : ,
                                     "clubType" : ,
                                     "profilePic" : ,
                         		},
-                        "student": { // When requested user is student
+                        "student": {
                         			"firstName" : ,
                                     "lastName" : ,
                                     "passingYear": ,
@@ -222,6 +224,7 @@
             		}
           }
           ```
+          "club" will be present when user is club and "student" will be present when student.
    
   * **Error Response:**   
 
@@ -252,6 +255,49 @@
         {
       		"success": false,
       		"message": "User not found"
+        }
+      	```
+   
+* #### Current User Profile
+
+  * **URL:** `/api/user/profile/me`
+
+  * **Method:** `GET`
+  
+  * **Auth Required:** Yes
+  
+  * **Success Response:**
+  	
+      * **Code:** 200
+
+          **Content:** 
+          ```json
+          {
+          	"success": true,
+          	"data":	{
+            		}
+          }
+          ```
+   
+  * **Error Response:**   
+
+      * **Code:** 401
+
+        **Content:** 
+        ```json
+        {
+      		"success": false,
+      		"message": "Please log in to access this resource"
+        }
+      	```
+   
+      * **Code:** 500
+
+        **Content:**
+        ```json
+        {
+      		"success": false,
+      		"message": "Server Error"
         }
       	```
       

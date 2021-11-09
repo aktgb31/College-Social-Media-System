@@ -68,8 +68,6 @@ exports.login = catchAsyncErrors(async(req, res, next) => {
     }
     req.session.userId = user.userId;
     req.session.userType = user.userType;
-    user.verified = true;
-    user.save(); // No waiting for saving
     res.status(202).json({ success: true, message: "Login Successful" });
 });
 
@@ -109,83 +107,63 @@ exports.forgotPassword = catchAsyncErrors(async(req, res, next) => {
 
 //Function that returns all User details
 exports.getAllUsers = catchAsyncErrors(async(req, res, next) => {
-    let users;
+    const queryOptions = {};
+    queryOptions.attributes = { exclude: ["createdAt", "updatedAt", "password"] };
     if (req.query.perPage) {
-        let perPage = parseInt(req.query.perPage);
+        queryOptions.limit = parseInt(req.query.perPage);
         if (req.query.page) {
-            let page = parseInt(req.query.page);
-            users = await User.findAll({
-                attributes: { exclude: ["createdAt", "updatedAt", "password"] },
-                limit: perPage,
-                offset: (page - 1) * perPage,
-                raw: true,
-            });
+            let page = parseInt(req.query.page)
+            queryOptions.offset = (page - 1) * perPage;
         } else
-            users = await User.findAll({
-                attributes: { exclude: ["createdAt", "updatedAt", "password"] },
-                limit: perPage,
-                offset: 0,
-                raw: true,
-            });
-    } else
-        users = await User.findAll({ attributes: { exclude: ["createdAt", "updatedAt", "password"] }, raw: true });
+            queryOptions.offset = 0;
+    }
+    queryOptions.raw = true;
+    const users = await User.findAll(queryOptions);
     res.status(200).json({ success: true, data: users });
 });
 
 //Function that returns all Students details
 exports.getAllStudents = catchAsyncErrors(async(req, res, next) => {
-    let students;
+
+    const queryOptions = {};
+    queryOptions.attributes = { exclude: ["createdAt", "updatedAt"] };
     if (req.query.perPage) {
-        let perPage = parseInt(req.query.perPage);
+        queryOptions.limit = parseInt(req.query.perPage);
         if (req.query.page) {
-            let page = parseInt(req.query.page);
-            students = await Student.findAll({
-                attributes: { exclude: ["createdAt", "updatedAt"] },
-                limit: perPage,
-                offset: (page - 1) * perPage,
-                raw: true,
-            });
+            let page = parseInt(req.query.page)
+            queryOptions.offset = (page - 1) * perPage;
         } else
-            students = await Student.findAll({
-                attributes: { exclude: ["createdAt", "updatedAt"] },
-                limit: perPage,
-                offset: 0,
-                raw: true,
-            });
-    } else
-        students = await Student.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] }, raw: true });
+            queryOptions.offset = 0;
+    }
+    queryOptions.raw = true;
+    const students = await Student.findAll(queryOptions);
     res.status(200).json({ success: true, data: students });
 });
 
 //Function that returns all Club details
 exports.getAllClubs = catchAsyncErrors(async(req, res, next) => {
-    let clubs;
+    const queryOptions = {};
+    queryOptions.attributes = { exclude: ["createdAt", "updatedAt"] };
     if (req.query.perPage) {
-        let perPage = parseInt(req.query.perPage);
+        queryOptions.limit = parseInt(req.query.perPage);
         if (req.query.page) {
-            let page = parseInt(req.query.page);
-            clubs = await Club.findAll({
-                attributes: { exclude: ["createdAt", "updatedAt"] },
-                limit: perPage,
-                offset: (page - 1) * perPage,
-                raw: true,
-            });
+            let page = parseInt(req.query.page)
+            queryOptions.offset = (page - 1) * perPage;
         } else
-            clubs = await Club.findAll({
-                attributes: { exclude: ["createdAt", "updatedAt"] },
-                limit: perPage,
-                offset: 0,
-                raw: true,
-            });
-    } else
-        clubs = await Club.findAll({ attributes: { exclude: ["createdAt", "updatedAt"] }, raw: true });
+            queryOptions.offset = 0;
+    }
+    queryOptions.raw = true;
+    const clubs = await Club.findAll(queryOptions);
     res.status(200).json({ success: true, data: clubs });
 });
 
 // Function that returns current user details
 exports.getMyDetails = catchAsyncErrors(async(req, res, next) => {
     const userId = req.session.userId;
-    const user = await User.findByPk(userId, { raw: true });
+    const user = await User.findByPk(userId, {
+        attributes: { exclude: ['password'] },
+        raw: true
+    });
     if (!user) return next(new ErrorHandler(500, "Expected Key Not Found"));
     else {
         if (user.userType == "STUDENT")

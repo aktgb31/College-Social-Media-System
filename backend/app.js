@@ -6,8 +6,11 @@ const errorMiddleware = require("./middlewares/error");
 const { sessionStore } = require("./models/sessionStore");
 const ping = require("./utils/ping");
 const user = require("./routes/userRoutes");
-//const thread = require("./routes/threadRoutes");
-//const post = require("./routes/postRoutes");
+const thread = require("./routes/threadRoutes");
+const post = require("./routes/postRoutes");
+const event = require("./routes/eventRoutes");
+const message = require("./routes/messageRoutes");
+
 const app = express();
 
 app.use(cors());
@@ -27,8 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 //Routes
 app.get("/api/ping", ping); // Ping Support
 app.use("/api/user", user); // User based services
-//app.use("/api/thread", thread); // Thread based services
-//app.use("/api/post", post); // Post based services
+app.use("/api/thread", thread); // Thread based services
+app.use("/api/post", post); // Post based services
+app.use("/api/event", event); // Event based services
+app.use("/api/message", message); // Message based services
 
 //Error Middleware in the end
 app.use(errorMiddleware);

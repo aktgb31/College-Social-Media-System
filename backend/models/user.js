@@ -89,11 +89,6 @@ const User = Db.define("user", {
             ],
         },
     },
-    verified: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: false,
-    },
 });
 
 User.hasOne(Student, {

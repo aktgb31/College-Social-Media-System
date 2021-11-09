@@ -1,19 +1,22 @@
 const { DataTypes } = require("sequelize");
-const { db } = require("../loaders/connectDb");
-const { user } = require("./user");
+const Db = require("../config/database");
+const { User } = require("./user");
 
-const thread = db.define("thread", {
+const Thread = Db.define("thread", {
     threadId: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
     },
     creatorId: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
-    threadtitle: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
-    isActive: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+    threadTitle: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
 });
 
-thread.belongsTo(user, { foreignKey: "creatorId", targetKey: "userId" });
+User.hasMany(Thread, {
+    foreignKey: "creatorId",
+    targetKey: "userId",
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+});
 
-db.sync();
-module.exports = { message };
+exports.Thread = Thread;
