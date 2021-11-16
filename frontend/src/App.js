@@ -5,6 +5,7 @@ import Forgot from "./components/forgot/forgot"
 import Registerst from "./components/registerst/registerst"
 import Registercl from "./components/registercl/registercl"
 import Logout from "./components/logout/logout"
+import Post from './components/post/post'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useState } from 'react';
 function App() {
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path="/forgot">
             <Forgot />
+          </Route>
+          <Route path="/post">
+            <Post />
           </Route>
           <Route path="/logout">
             <Logout />
