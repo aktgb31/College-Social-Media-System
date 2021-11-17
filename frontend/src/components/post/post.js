@@ -14,6 +14,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Button from "@material-ui/core/Button";
+import ReportIcon from '@mui/icons-material/Report';
+import CommentIcon from '@mui/icons-material/Comment';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,7 +31,7 @@ const ExpandMore = styled((props) => {
 
 export default function Post() {
   const [expanded, setExpanded] = React.useState(false);
-
+  const [liked, setLiked] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -42,31 +45,42 @@ export default function Post() {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          <IconButton aria-label="settings" onClick={() => {
+            alert("post reported");
+          }}>
+            <ReportIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title="post title"
+        subheader="post creator name"
       />
-      <CardMedia
+      <CardMedia 
         component="img"
-        height="400"
+        height="auto"
         image="https://cdn.pixabay.com/photo/2014/11/13/06/12/boy-529067__340.jpg"
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          content text
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton aria-label="add to favorites" onClick={() => {
+          alert("clicked");
+        }}>
+          <FavoriteIcon style={{ color: "red" }}/>
+          <p>5&emsp;</p>
         </IconButton>
-        <IconButton aria-label="share">
+        <IconButton aria-label="share" onClick={() => {
+         const el = document.createElement('input');
+         el.value = window.location.href;
+         document.body.appendChild(el);
+         el.select();
+         document.execCommand('copy');
+         document.body.removeChild(el);
+         alert("post link copied ");
+        }}>
           <ShareIcon />
         </IconButton>
         <ExpandMore
@@ -75,7 +89,8 @@ export default function Post() {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <p>comments &emsp;</p>
+          <CommentIcon />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
