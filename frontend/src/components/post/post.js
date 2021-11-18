@@ -32,6 +32,7 @@ const ExpandMore = styled((props) => {
 export default function Post() {
   const [expanded, setExpanded] = React.useState(false);
   const [liked, setLiked] = React.useState(false);
+  const [likes, setLikes] = React.useState(0);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -67,10 +68,18 @@ export default function Post() {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites" onClick={() => {
-          alert("clicked");
+          if(liked){
+            alert("already liked");
+          }
+          else{
+            alert("liked");
+            setLikes(likes + 1);
+            setLiked(!liked);
+          }
+          //alert("clicked");
         }}>
-          <FavoriteIcon style={{ color: "red" }}/>
-          <p>5&emsp;</p>
+          {liked ? <FavoriteIcon style={{ color: "red" }}/> : <FavoriteIcon style={{ color: "grey" }}/>}
+          <p>{likes}&emsp;</p>
         </IconButton>
         <IconButton aria-label="share" onClick={() => {
          const el = document.createElement('input');
