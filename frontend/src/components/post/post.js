@@ -33,6 +33,7 @@ export default function Post() {
   const [expanded, setExpanded] = React.useState(false);
   const [liked, setLiked] = React.useState(false);
   const [likes, setLikes] = React.useState(0);
+  const [report, setReport] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -47,9 +48,19 @@ export default function Post() {
         }
         action={
           <IconButton aria-label="settings" onClick={() => {
-            alert("post reported");
+            if(report) {
+              alert("Post is already reported by you");
+            }
+            else{
+              alert("Post Reported");
+              setReport(true);
+            }
           }}>
-            <ReportIcon />
+            {
+              report ?
+              (<ReportIcon style={{ color: "red" }}/>):
+              (<ReportIcon style={{ color: "grey" }}/>)
+            }
           </IconButton>
         }
         title="post title"
