@@ -7,17 +7,18 @@ import Registercl from "./components/registercl/registercl"
 import Logout from "./components/logout/logout"
 import Post from './components/post/post'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 function App() {
   const [ user, setLoginUser] = useState({ 
-    // firstName: "",
-    // id:"1",
-    // lastName: "",
-    // emailId: "",
-    // branch: "",
-    // passingYear: "",
-    // dob: "",
-    // gender: "", 
+    firstName: "",
+    id:"1",
+    lastName: "",
+    emailId: "",
+    branch: "",
+    passingYear: "",
+    dob: "",
+    gender: "", 
 })
   return (
     <div className="App">
