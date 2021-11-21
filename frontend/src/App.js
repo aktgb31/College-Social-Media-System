@@ -9,6 +9,7 @@ import Post from './components/post/post'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
+import User from './components/user/user'
 function App() {
   const [ user, setLoginUser] = useState({ 
     firstName: "",
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route path="/forgot">
             <Forgot />
+          </Route>
+          <Route path="/user">
+            <User />
           </Route>
           <Route path="/post">
             <Post />
