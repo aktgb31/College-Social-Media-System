@@ -31,9 +31,13 @@ const Login = ({ setLoginUser}) => {
     }
 
     return (
+        <div className="b1">
         <div className="login">
-            <h1>Login</h1>
-            <input type="text" name="emailId" value={user.emailId} onChange={handleChange} placeholder="Enter your Email"></input>
+            
+            <div className="form">
+                <center><h2>LOGIN</h2></center>
+                
+            <input type="text" name="emailId" value={user.emailId} onChange={handleChange} placeholder="Enter your Email ID"></input>
             <input type="password" name="password" value={user.password} onChange={handleChange}  placeholder="Enter your Password" ></input>
             <div className="button" onClick={login}>Login</div>
             <div>or</div>
@@ -42,7 +46,8 @@ const Login = ({ setLoginUser}) => {
             <div className="button" onClick={() => history.push("/registercl")}>Register as Club</div>
             <div>or</div>
             <div className="button" onClick={() => history.push("/forgot")}>Forgot Password</div>
-        </div>
+            </div>
+        </div></div>
     )
 }
 
