@@ -1,19 +1,10 @@
 
 
 
-.b1 {
-    /* background-color: #395591; */
-    background-image: url(images/nitc.jpg);
-    width: 100%;
-    height: auto;
-   
-    
-}
-
 .login {
     
     width: 360px;
-    padding: 8% 0 0.1%;
+    padding: 8% 0 0;
     
     margin: auto;
     font-family: 'Helvetica';
