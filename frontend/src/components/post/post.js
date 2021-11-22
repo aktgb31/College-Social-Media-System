@@ -39,6 +39,7 @@ export default function Post() {
   };
 
   return (
+    <center>
     <Card sx={{ maxWidth: 600 }}>
       <CardHeader
         avatar={
@@ -143,5 +144,6 @@ export default function Post() {
         </CardContent>
       </Collapse>
     </Card>
+    </center>
   );
 }

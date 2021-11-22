@@ -12,14 +12,14 @@ import { useState } from 'react';
 import User from './components/user/user'
 function App() {
   const [ user, setLoginUser] = useState({ 
-    firstName: "",
-    id:"1",
-    lastName: "",
-    emailId: "",
-    branch: "",
-    passingYear: "",
-    dob: "",
-    gender: "", 
+    // firstName: "",
+    // id:"1",
+    // lastName: "",
+    // emailId: "",
+    // branch: "",
+    // passingYear: "",
+    // dob: "",
+    // gender: "", 
 })
   return (
     <div className="App">

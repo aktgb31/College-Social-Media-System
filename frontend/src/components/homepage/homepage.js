@@ -13,7 +13,7 @@ const Homepage = ({ setLoginUser }) => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as : <a href="#login">Mark Otto </a>
+              Signed in as : <a href="user">Navnit</a>
             </Navbar.Text>
             <Navbar.Text>&nbsp;</Navbar.Text>
             <Navbar.Text>
