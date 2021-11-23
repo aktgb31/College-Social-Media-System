@@ -4,9 +4,11 @@ import NavbarComponent from '../navbar/navbar'
 function chat() {
     return (
         <div>
-            <NavbarComponent/>
+            <NavbarComponent />
         </div>
     )
 }
 
 export default chat
+//indonesia-idr
+//bulgaria -bgn

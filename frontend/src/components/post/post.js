@@ -23,6 +23,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import NavbarComponent from "../navbar/navbar";
+import CommentCompent from "../comment/comment";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -151,20 +152,7 @@ export default function Post() {
                 Add Comment
               </Button>
             </FormControl>
-            <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                >
-                  Author name
-                </Typography>
-                <Typography variant="h6" component="div">
-                  this is the comment by the user
-                </Typography>
-              </CardContent>
-            </Card>
+                <CommentCompent author="Navnit" comment="sample comment"/>
           </CardContent>
         </Collapse>
       </Card>
