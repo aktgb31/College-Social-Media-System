@@ -52,8 +52,9 @@ const Register = () => {
 
   return (
     <div className="register">
+      <div className="form">
       {console.log("User", user)}
-      <h1>Register as Club</h1>
+      <center><h2>Register as Club</h2></center>
       <input
         type="text"
         name="clubName"
@@ -82,7 +83,7 @@ const Register = () => {
       <div className="button" onClick={() => history.push("/login")}>
         Login
       </div>
-    </div>
+    </div></div>
   );
 };
 

@@ -1,34 +1,72 @@
-
 .register {
-    width: 400px;
-    background: #fff;
-    border: 1px solid #dddfe2;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-    border-radius: 8px;
-    padding: 1rem;
-    align-items: center;
+
+    width: 360px;
+    padding: 10% 0 2%;
+    background-image: linear-gradient(to bottom right, rgb(241, 241, 245), rgb(194, 194, 241));
+    /* margin: auto; */
+    font-family: 'Helvetica';
+}
+
+
+.form {
+    background-image: linear-gradient(to bottom right, rgb(241, 241, 245), rgb(194, 194, 241));
+    position: relative;
+    z-index: 1;
+    opacity: 0.99;
+    /* #background: #FFFFFF; */
+    border-radius: 7px;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 35px 45px 45px 45px;
+    
     text-align: center;
 }
 
-.register > input {
-    border-radius: 8px;
-    border: 2px solid #dddfe2;
-    outline: none;
-    color: #1d2129;
-    margin: 0.5rem 0;
-    padding: 0.5rem 0.75rem;
-    width: 92%;
-    font-size: 1rem;
+.form input {
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: 'Helvetica';
 }
 
-.register > .button {
-    background: #1877f2;
-    border: 1px solid #1877f2;
-    color: #fff;
-    font-size: 1.25rem;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border-radius: 8px;
-    outline: none;
+.form input:focus {
+    background: #dbdbdb;
+}
+
+.form .button {
+    font-family: 'Helvetica';
+    text-transform: uppercase;
+    outline: 0;
+    background: #4b6cb7;
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
     cursor: pointer;
+}
+
+.form .button:active {
+    background: #395591;
+}
+
+.form span {
+    font-size: 75px;
+    color: #4b6cb7;
+}
+
+.form h2 {
+    font-size: 35px;
+    color: #153372;
+    font-family: Copperplate,
+        fantasy;
 }

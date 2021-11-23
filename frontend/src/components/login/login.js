@@ -31,7 +31,7 @@ const Login = ({ setLoginUser}) => {
     }
 
     return (
-        <div className="b1">
+        
         <div className="login">
             
             <div className="form">
@@ -47,7 +47,7 @@ const Login = ({ setLoginUser}) => {
             <div>or</div>
             <div className="button" onClick={() => history.push("/forgot")}>Forgot Password</div>
             </div>
-        </div></div>
+        </div>
     )
 }
 
