@@ -1,9 +1,9 @@
 .register {
 
     width: 360px;
-    padding: 10% 0 2%;
+    padding: 10.4% 0 2%;
     background-image: linear-gradient(to bottom right, rgb(241, 241, 245), rgb(194, 194, 241));
-    /* margin: auto; */
+   
     font-family: 'Helvetica';
 }
 
@@ -13,7 +13,7 @@
     position: relative;
     z-index: 1;
     opacity: 0.99;
-    /* #background: #FFFFFF; */
+    
     border-radius: 7px;
     max-width: 360px;
     margin: 0 auto 100px;
@@ -69,4 +69,13 @@
     color: #153372;
     font-family: Copperplate,
         fantasy;
+}
+
+#register-form{
+    padding: 0 0 0 0;
+}
+
+#form-id{
+    padding: 15px 45px 0px 45px;
+
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./registerst.css";
+import "../registercl/registercl.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -59,9 +59,10 @@ const Register = () => {
   };
 
   return (
-    <div className="register">
+    <div className="register" id="register-form">
       {console.log("User", user)}
-      <h1>Register as Student</h1>
+      <div className="form" id="form-id">
+      <h2>Register as Student</h2>
       <input
         type="text"
         name="firstName"
@@ -119,7 +120,7 @@ const Register = () => {
       <div className="button" onClick={() => history.push("/login")}>
         Login
       </div>
-    </div>
+    </div></div>
   );
 };
 
