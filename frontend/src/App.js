@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import User from './components/user/user'
+import CreatePost from './components/createpost/createpost';
 function App() {
   const [ user, setLoginUser] = useState({ 
     firstName: "",
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route  path="/home">
             <Homepage/>
+          </Route>
+          <Route  path="/createpost">
+            <CreatePost/>
           </Route>
           <Route path="/login">
             <Login setLoginUser={setLoginUser}/>

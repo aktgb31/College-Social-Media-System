@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
+import { Button } from "@mui/material";
 function NavbarComponent() {
   return (
     <div>
@@ -10,6 +11,11 @@ function NavbarComponent() {
           <Navbar.Brand href="#home">College Social Media System</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
+            <Link to="/createpost">
+              <Button variant="contained" color="primary">
+                Create Post
+              </Button>
+            </Link>
             <Navbar.Text>
               Signed in as : <a href="user">Navnit</a>
             </Navbar.Text>
