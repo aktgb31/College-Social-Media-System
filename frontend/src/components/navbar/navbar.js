@@ -15,7 +15,7 @@ function NavbarComponent() {
             </Navbar.Text>
             <Navbar.Text>&nbsp;</Navbar.Text>
             <Navbar.Text>
-              Logout: <Link to="/logout">logout</Link>
+              Logout: <Link to="/login">logout</Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>

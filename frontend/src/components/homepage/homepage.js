@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import NavbarComponent from "../navbar/navbar";
 import Hppost from "../hppost.js/hppost";
-const Homepage = ({ setLoginUser }) => {
+const Homepage = () => {
   return (
     <>
      <NavbarComponent/>
