@@ -1,7 +1,7 @@
 .register {
 
     width: 360px;
-    padding: 10.4% 0 2%;
+    padding: 10.4% 0 8.5%;
     background-image: linear-gradient(to bottom right, rgb(241, 241, 245), rgb(194, 194, 241));
    
     font-family: 'Helvetica';
@@ -79,3 +79,7 @@
     padding: 15px 45px 0px 45px;
 
 }
+
+#register-form{
+    padding: 1% 0 2.1%;
+} 

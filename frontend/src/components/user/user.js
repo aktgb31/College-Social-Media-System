@@ -28,7 +28,7 @@ function User() {
       setOpen(false);
     };
   return (
-    <div>
+    <>
     <div>
       <Navbar bg="dark" variant="dark">
         <Container>
@@ -36,7 +36,7 @@ function User() {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Link to="/home">
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" id="btn-nav">
                Homepage
               </Button>
             </Link>
@@ -44,7 +44,7 @@ function User() {
             
             <Navbar.Text>&nbsp;&nbsp;&nbsp;</Navbar.Text>
             <Link to="/login">
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" id="btn-nav">
                Logout
               </Button>
             </Link>
@@ -136,7 +136,7 @@ function User() {
       <Alert severity="success">This is a success message!</Alert> */}
     </Stack>
       </center>
-    </div></div>
+    </div></>
   );
 }
 
