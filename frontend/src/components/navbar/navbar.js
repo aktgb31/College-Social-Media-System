@@ -16,6 +16,12 @@ function NavbarComponent() {
                 Create Post
               </Button>
             </Link>
+            <Link to="/chat">
+              <Button variant="contained" color="primary">
+                Chat
+              </Button>
+              
+            </Link>
             <Navbar.Text>
               Signed in as : <a href="user">Navnit</a>
             </Navbar.Text>
