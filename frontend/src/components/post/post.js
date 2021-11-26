@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./post.css";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -47,8 +48,10 @@ export default function Post() {
   return (
     <>
     <NavbarComponent/>
+    <div>&nbsp;&nbsp;</div>
+    <div>&nbsp;&nbsp;</div>
     <center>
-      <Card sx={{ maxWidth: 600 }}>
+      <Card sx={{ maxWidth: 600 }} id="post-file">
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

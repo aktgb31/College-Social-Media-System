@@ -9,7 +9,8 @@ import Box from "@mui/material/Box";
 import Container from "react-bootstrap/Container";
 import "./user.css";
 import TextField from "@mui/material/TextField";
-
+import { FaHome } from 'react-icons/fa';
+import {ImExit} from 'react-icons/im';
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -37,7 +38,8 @@ function User() {
           <Navbar.Collapse className="justify-content-end">
             <Link to="/home">
               <Button variant="contained" color="primary" id="btn-nav">
-               Homepage
+               <FaHome/>
+               
               </Button>
             </Link>
 
@@ -45,7 +47,8 @@ function User() {
             <Navbar.Text>&nbsp;&nbsp;&nbsp;</Navbar.Text>
             <Link to="/login">
               <Button variant="contained" color="primary" id="btn-nav">
-               Logout
+               <ImExit/>
+               
               </Button>
             </Link>
             

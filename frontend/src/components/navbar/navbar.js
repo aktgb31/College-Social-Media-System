@@ -1,7 +1,10 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import "./navbar.css";
-
+import { FaFacebookMessenger } from 'react-icons/fa';
+import { FaRegPlusSquare } from 'react-icons/fa';
+import { BsFillPersonFill } from 'react-icons/bs';
+import {ImExit} from 'react-icons/im';
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Button } from "@mui/material";
@@ -15,23 +18,29 @@ function NavbarComponent() {
           <Navbar.Collapse className="justify-content-end">
             <Link to="/createpost">
               <Button variant="contained" color="primary" id="btn-nav">
-                Create Post
+                <FaRegPlusSquare/>
               </Button>
             </Link>
             <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
             <Link to="/chat">
               <Button variant="contained" color="primary" id="btn-nav">
-                Chat
+                <FaFacebookMessenger className="App-logo"/>
               </Button>
               
             </Link>
             <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
             <Navbar.Text>
-              Signed in as : <a href="user">Navnit</a>
+               
+              <Link to="/user"> <Button variant="contained" color="primary" id="btn-nav">
+                Navneet&nbsp;
+               <BsFillPersonFill/> 
+              </Button></Link>
             </Navbar.Text>
             <Navbar.Text>&nbsp;</Navbar.Text>
             <Navbar.Text>
-              Logout: <Link to="/login">logout</Link>
+              <Link to="/login"> <Button variant="contained" color="primary" id="btn-nav">
+               <ImExit/> 
+              </Button></Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>

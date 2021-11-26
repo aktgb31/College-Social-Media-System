@@ -1,0 +1,10 @@
+#post-file{
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-image: linear-gradient(to bottom right, rgb(222, 222, 228), rgb(169, 169, 173));
+    border-style: solid;
+    border-color: dimgrey;
+    
+     
+}
