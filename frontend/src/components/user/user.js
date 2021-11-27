@@ -2,11 +2,15 @@ import React from "react";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
+import Navbar from "react-bootstrap/Navbar";
+import { Link } from "react-router-dom";
 import MuiAlert from '@mui/material/Alert';
 import Box from "@mui/material/Box";
+import Container from "react-bootstrap/Container";
 import "./user.css";
 import TextField from "@mui/material/TextField";
-
+import { FaHome } from 'react-icons/fa';
+import {ImExit} from 'react-icons/im';
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -25,7 +29,34 @@ function User() {
       setOpen(false);
     };
   return (
-    <div class="userdetails">
+    <>
+    <div>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="/home">USER PROFILE</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Link to="/home">
+              <Button variant="contained" color="primary" id="btn-nav">
+               <FaHome/>
+               
+              </Button>
+            </Link>
+
+            
+            <Navbar.Text>&nbsp;&nbsp;&nbsp;</Navbar.Text>
+            <Link to="/login">
+              <Button variant="contained" color="primary" id="btn-nav">
+               <ImExit/>
+               
+              </Button>
+            </Link>
+            
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
+    <div className="userdetails">
       <Box
         component="form"
         sx={{
@@ -34,7 +65,7 @@ function User() {
         noValidate
         autoComplete="off"
       >
-        <div>
+        <div id="innerform">
           <TextField
             required
             id="filled-required"
@@ -49,6 +80,7 @@ function User() {
             defaultValue="Anand"
             variant="filled"
           />
+          <br/>
           <TextField
             id="filled-read-only-input"
             label="Email-id"
@@ -57,14 +89,14 @@ function User() {
                 readOnly: true,
               }}
             variant="filled"
-          />
+          /><br/>
             <TextField
             required
             id="filled-required"
             label="Branch"
             defaultValue="Computer Science"
             variant="filled"
-          />
+          /><br/>
            <TextField
             required
             id="filled-required"
@@ -72,14 +104,14 @@ function User() {
             type="number"
             defaultValue="2022"
             variant="filled"
-          />
+          /><br/>
           <TextField
             required
             id="filled-required"
             label="Gender"
             defaultValue="male"
             variant="filled"
-          />
+          /><br/>
           <TextField
             required
             id="filled-required"
@@ -93,7 +125,7 @@ function User() {
 
       <center>
       <Stack spacing={2} sx={{ width: '100%' }}>
-      <Button variant="outlined" onClick={handleClick}>
+      <Button id="update-button" variant="outlined" onClick={handleClick}>
         Update Details
       </Button>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
@@ -107,7 +139,7 @@ function User() {
       <Alert severity="success">This is a success message!</Alert> */}
     </Stack>
       </center>
-    </div>
+    </div></>
   );
 }
 

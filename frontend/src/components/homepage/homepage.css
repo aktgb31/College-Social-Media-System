@@ -1,0 +1,15 @@
+div.h1{
+    animation: mymove 10s;
+    animation-iteration-count: 10;
+    position: relative;
+
+}
+@keyframes mymove {
+    from {
+        left: 0%;
+    }
+
+    to {
+        left: 100%;
+    }
+}

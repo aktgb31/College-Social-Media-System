@@ -3,18 +3,26 @@ import Button from "@mui/material/Button";
 // import UploadButtons from "../imguploader/imguploader";
 import { Grid, Paper, TextField } from "@mui/material";
 import Navbar  from "../navbar/navbar";
+import "./createpost.css";
+
 function CreatePost() {
   return (
     <>
     
     <Navbar/>
-      <h1>Create Your Post Here</h1>
+      
+       <div>&nbsp;&nbsp;</div>
+       <div>&nbsp;&nbsp;</div>
+       <div>&nbsp;&nbsp;</div>
+       <div>&nbsp;&nbsp;</div>
         <form class="form">
+           <h1>Create Your Post Here</h1> 
+         
         <input
         type="text"
-        name="content"
+        name="content" id="content-text"
         // value={user.lastName}
-        placeholder="Type your content here"
+        placeholder="         Type your content here"
         // onChange={handleChange}
       ></input>
               <input

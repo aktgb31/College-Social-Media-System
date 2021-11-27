@@ -3,4 +3,5 @@
 } */
 body{
   background-image: url(images/nitc.jpg);
+  background-attachment: fixed;
 }

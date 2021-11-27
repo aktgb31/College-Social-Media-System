@@ -7,9 +7,9 @@ const Homepage = () => {
   return (
     <>
      <NavbarComponent/>
-      <div>
-        <h1>welcome to nitc social media app</h1>
-      </div>
+      
+        <center><h1>HOMEPAGE</h1></center>
+     
       <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>
       <Hppost title="Title fetched" author="Amit Kumar" content="this is the content"/>
       <Hppost title="Title fetched" author="Gopal Chaudhary" content="this is the content"/>
