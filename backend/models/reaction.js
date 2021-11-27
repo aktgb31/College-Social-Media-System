@@ -18,7 +18,7 @@ const Reaction = Db.define("reaction", {
     },
     reactionType: {
         type: DataTypes.ENUM,
-        values: ['upvote', 'downvote'],
+        values: ['upvote', 'downvote', 'report'],
         allowNull: false
     }
 }, {

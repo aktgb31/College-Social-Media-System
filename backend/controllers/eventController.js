@@ -12,6 +12,26 @@ exports.addEvent = catchAsyncErrors(async(req, res, next) => {
     });
 });
 
+exports.getEvents = catchAsyncErrors(async(req, res, next) => {
+    const queryOptions = {};
+    if (req.body.userId)
+        queryOptions.where = { creatorId: req.body.userId };
+    if (req.body.perPage) {
+        queryOptions.limit = req.body.perPage;
+        if (req.body.page) {
+            let page = req.body.page;
+            queryOptions.offset = (page - 1) * perPage;
+        } else
+            queryOptions.offset = 0;
+    }
+    queryOptions.order = [
+        ['eventTime', 'DESC']
+    ];
+    queryOptions.raw = true;
+    const events = await Event.findAll(queryOptions);
+    res.status(200).json({ success: true, data: events });
+});
+
 exports.deleteEvent = catchAsyncErrors(async(req, res, next) => {
     let event = await Event.findByPk(req.body.eventId);
     if (event) {

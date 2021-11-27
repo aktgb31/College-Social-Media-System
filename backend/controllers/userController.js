@@ -109,10 +109,10 @@ exports.forgotPassword = catchAsyncErrors(async(req, res, next) => {
 exports.getAllUsers = catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
     queryOptions.attributes = { exclude: ["createdAt", "updatedAt", "password"] };
-    if (req.query.perPage) {
-        queryOptions.limit = parseInt(req.query.perPage);
-        if (req.query.page) {
-            let page = parseInt(req.query.page)
+    if (req.body.perPage) {
+        queryOptions.limit = req.body.perPage;
+        if (req.body.page) {
+            let page = req.body.page;
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;
@@ -127,10 +127,10 @@ exports.getAllStudents = catchAsyncErrors(async(req, res, next) => {
 
     const queryOptions = {};
     queryOptions.attributes = { exclude: ["createdAt", "updatedAt"] };
-    if (req.query.perPage) {
-        queryOptions.limit = parseInt(req.query.perPage);
-        if (req.query.page) {
-            let page = parseInt(req.query.page)
+    if (req.body.perPage) {
+        queryOptions.limit = req.body.perPage;
+        if (req.body.page) {
+            let page = req.body.page;
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;
@@ -144,10 +144,10 @@ exports.getAllStudents = catchAsyncErrors(async(req, res, next) => {
 exports.getAllClubs = catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
     queryOptions.attributes = { exclude: ["createdAt", "updatedAt"] };
-    if (req.query.perPage) {
-        queryOptions.limit = parseInt(req.query.perPage);
-        if (req.query.page) {
-            let page = parseInt(req.query.page)
+    if (req.body.perPage) {
+        queryOptions.limit = req.body.perPage;
+        if (req.body.page) {
+            let page = req.body.page;
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;
@@ -177,14 +177,14 @@ exports.getMyDetails = catchAsyncErrors(async(req, res, next) => {
 //Function that returns any user details
 exports.getUserDetails = catchAsyncErrors(async(req, res, next) => {
     let user = null;
-    if (req.query.userId)
-        user = await User.findByPk(req.query.userId, {
+    if (req.body.userId)
+        user = await User.findByPk(req.body.userId, {
             attributes: { exclude: ["createdAt", "updatedAt", "password"] },
             raw: true
         });
-    else if (req.query.emailId)
+    else if (req.body.emailId)
         user = await User.findOne({
-            where: { emailId: req.query.emailId },
+            where: { emailId: req.body.emailId },
             attributes: { exclude: ["createdAt", "updatedAt", "password"] },
             raw: true
         });

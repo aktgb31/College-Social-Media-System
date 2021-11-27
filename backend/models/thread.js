@@ -9,7 +9,7 @@ const Thread = Db.define("thread", {
         primaryKey: true,
     },
     creatorId: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
-    threadTitle: { type: DataTypes.INTEGER.UNSIGNED, allowNull: false },
+    threadTitle: { type: DataTypes.STRING, allowNull: false },
 });
 
 User.hasMany(Thread, {

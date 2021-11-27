@@ -6,19 +6,21 @@ const { emailService } = require("./utils/sendEmail");
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
-    console.log(`Error: ${err.message}`);
+    console.log(`Error: ${err.stack}`);
     console.log(`Shutting down the server due to Uncaught Exception`);
     process.exit(1);
 });
 
+const force = true;
 Db.authenticate()
     .then(async() => {
         console.log("Connection to Database established Successfully");
-        await Db.sync({ force: true });
+        await Db.sync({ force: force });
     })
     .then(async() => {
         console.log("Models Synced");
-        await dbInitiation();
+        if (force == true)
+            await dbInitiation();
     })
     .catch((err) => {
         console.log("Unable to connect to Database", err.message);
@@ -51,3 +53,5 @@ process.on("unhandledRejection", (err) => {
         process.exit(1);
     });
 });
+
+exports.server = server;

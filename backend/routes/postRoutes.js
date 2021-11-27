@@ -1,11 +1,16 @@
-const { getPosts, addPost, deletePost } = require('../controllers/postController');
+const { getPost, addPost, deletePost, addComment, addReaction } = require('../controllers/postController');
 const { isAuthenticatedUser } = require('../middlewares/auth');
+
 const router = require('express').Router();
 
-router.get("/", isAuthenticatedUser, getPosts);
+router.get("/", isAuthenticatedUser, getPost);
 
 router.post("/", isAuthenticatedUser, addPost);
 
-router.delete("/:postId", isAuthenticatedUser, deletePost);
+router.delete("/", isAuthenticatedUser, deletePost);
+
+router.post("/comment", isAuthenticatedUser, addComment);
+
+router.post("/reaction", isAuthenticatedUser, addReaction);
 
 module.exports = router;
