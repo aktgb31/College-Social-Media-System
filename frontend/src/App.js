@@ -16,6 +16,8 @@ import Message from './components/message/message';
 import Eventspg from './components/eventspg/eventspg';
 import Eventcreate from './components/eventspg/eventcreate';
 import Myevents from './components/eventspg/myevents';
+import Thread from './components/thread/thread';
+import Createthread from './components/thread/createthread';
 function App() {
   const [ user, setLoginUser] = useState({ 
     firstName: "",
@@ -48,6 +50,12 @@ function App() {
           </Route>
           <Route  path="/myevents">
             <Myevents/>
+          </Route>
+          <Route  path="/thread">
+            <Thread/>
+          </Route>
+          <Route  path="/createthread">
+            <Createthread/>
           </Route>
           <Route  path="/message">
             <Message/>
