@@ -13,6 +13,8 @@ import { useState } from 'react';
 import User from './components/user/user'
 import CreatePost from './components/createpost/createpost';
 import Message from './components/message/message';
+import Eventspg from './components/eventspg/eventspg';
+import Eventcreate from './components/eventspg/eventcreate';
 function App() {
   const [ user, setLoginUser] = useState({ 
     firstName: "",
@@ -36,6 +38,12 @@ function App() {
           </Route>
           <Route  path="/createpost">
             <CreatePost/>
+          </Route>
+          <Route  path="/event">
+            <Eventspg/>
+          </Route>
+          <Route  path="/eventcreate">
+            <Eventcreate/>
           </Route>
           <Route  path="/message">
             <Message/>
