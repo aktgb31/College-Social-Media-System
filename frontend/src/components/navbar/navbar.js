@@ -21,6 +21,12 @@ function NavbarComponent() {
                 <FaRegPlusSquare/>
               </Button>
             </Link>
+            <Link to="/thread">
+              <Button variant="contained" color="primary" id="btn-nav">
+                
+                thread
+              </Button>
+            </Link>
             <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
             <Link to="/chat">
               <Button variant="contained" color="primary" id="btn-nav">
