@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import NavbarComponent from "../navbar/navbar";
+import "./thread.css";
 
 function Createthread() {
     const [user, setUser] = useState({
@@ -22,24 +23,24 @@ function Createthread() {
   return (
     <div>
       <NavbarComponent />
-      <div className="register" id="register-form">
-        <div className="form" id="form-id">
+      <div className="login" >
+        <div className="form" >
           <h2>Create Thread Here</h2>
           <input
             type="text"
             name="threadName"
             value={user.threadName}
-            placeholder="Event Name"
+            placeholder="Thread Name"
             onChange={handleChange}
           ></input>
           <input
             type="text"
             name="threadAuthor"
             value={user.threadAuthor}
-            placeholder="Event Author"
+            placeholder="Thread Author"
             onChange={handleChange}
           ></input>
-          <div className="button" onClick={register}>
+          <div className="button" id="thread-btn" onClick={register}>
             Create
           </div>
         </div>
