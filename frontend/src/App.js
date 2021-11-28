@@ -15,6 +15,7 @@ import CreatePost from './components/createpost/createpost';
 import Message from './components/message/message';
 import Eventspg from './components/eventspg/eventspg';
 import Eventcreate from './components/eventspg/eventcreate';
+import Myevents from './components/eventspg/myevents';
 function App() {
   const [ user, setLoginUser] = useState({ 
     firstName: "",
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route  path="/eventcreate">
             <Eventcreate/>
+          </Route>
+          <Route  path="/myevents">
+            <Myevents/>
           </Route>
           <Route  path="/message">
             <Message/>

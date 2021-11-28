@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-function EventComponent(props) {
+function MyEventComponent(props) {
   return (
     <div>
       <Link to="/eventcreate"><Button variant="primary">Create Event</Button></Link>
@@ -12,13 +12,12 @@ function EventComponent(props) {
         <Card.Body>
           <Card.Text>{props.author}</Card.Text>
           <Card.Text>{props.time}</Card.Text>
-          {/* <Link to="/post">
-          <Button variant="primary">Read More</Button>
-          </Link> */}
+          <Link to="/post">
+          <Button variant="primary">Delete</Button>
+          </Link> 
         </Card.Body>
       </Card>
     </div>
   );
 }
-
-export default EventComponent;
+export default MyEventComponent;
