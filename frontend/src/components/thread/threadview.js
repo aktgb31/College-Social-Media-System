@@ -2,7 +2,7 @@ import { Button } from 'bootstrap'
 import React from 'react'
 import { Navbar } from 'react-bootstrap'
 import NavbarComponent from '../navbar/navbar'
-import ThreadMessage from './threadmessage'
+import ThreadMessage from './threadMessage'
 
 function ThreadView() {
     return (

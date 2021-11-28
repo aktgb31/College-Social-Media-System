@@ -48,9 +48,10 @@ const Register = () => {
   };
 
   return (
-    <div className="register">
+    <div className="forgot">
       {console.log("User", user)}
-      <h1>Forgot</h1>
+      <div className="form">
+      <h2>Reset Password</h2>
       <input
         type="text"
         name="emailId"
@@ -67,7 +68,7 @@ const Register = () => {
       ></input>
       <div className="button" onClick={() => history.push("/login")}>
         Reset Password
-      </div>
+      </div></div>
     </div>
   );
 };

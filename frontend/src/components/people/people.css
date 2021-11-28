@@ -1,0 +1,52 @@
+#chat-card {
+    /* padding: 0 0 5px; */
+    background-image: linear-gradient(to bottom, rgb(222, 222, 230), rgb(136, 135, 151));
+    opacity: 0.98;
+    /* border-radius: 15px; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+
+
+
+
+
+}
+
+#outer-message {
+    padding: 1% 6% 1% 4%;
+
+
+}
+#chat-box{
+   background-image: linear-gradient(to bottom, rgb(222, 222, 230), rgb(127, 126, 136));
+   width:40%;
+   margin: auto;
+   border-radius: 5px;
+   padding-bottom: 1%;
+   
+   
+
+}
+
+#btn-chat {
+    background: #395591;
+    color: white;
+    height: 10%;
+    width:20%;
+}
+
+#chat-title{
+    /* background-image: linear-gradient(to bottom, rgb(222, 222, 230), rgb(136, 135, 151)); */
+    width:100%;
+    border-radius: 5px;
+    font-size: 35px;
+    color:#626469;
+    font-family: Copperplate,
+    fantasy;
+    text-align: center;
+    padding-top: 1%;
+    
+
+}
+
