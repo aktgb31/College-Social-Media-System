@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
@@ -15,6 +16,26 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 function User() {
+  const [user, setUser] = useState({
+    firstName: "Navnit",
+    lastName: "Anand",
+    emailId: "navnit_b190404cs@nitc.ac.in",
+    branch: "CSE",
+    passingYear: "2023",
+    dob: "28-04-2001",
+    gender: "male",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    //console.log(user);
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
+  const updateDetails = () => {
+    console.log(user);
+  };
     const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
@@ -72,6 +93,9 @@ function User() {
             label="First Name"
             defaultValue="Navnit"
             variant="filled"
+            name="firstName"
+            value={user.firstName}
+            onChange={handleChange}
           />
            <TextField
             required
@@ -79,6 +103,9 @@ function User() {
             label="Last Name"
             defaultValue="Anand"
             variant="filled"
+            name="lastName"
+            value={user.lastName}
+            onChange={handleChange}
           />
           <br/>
           <TextField
@@ -88,7 +115,10 @@ function User() {
             InputProps={{
                 readOnly: true,
               }}
+              name="emailId"
+            value={user.emailId}
             variant="filled"
+            onChange={handleChange}
           /><br/>
             <TextField
             required
@@ -96,6 +126,9 @@ function User() {
             label="Branch"
             defaultValue="Computer Science"
             variant="filled"
+            name="branch"
+            value={user.branch}
+            onChange={handleChange}
           /><br/>
            <TextField
             required
@@ -104,6 +137,9 @@ function User() {
             type="number"
             defaultValue="2022"
             variant="filled"
+            name="passingYear"
+            value={user.passingYear}
+            onChange={handleChange}
           /><br/>
           <TextField
             required
@@ -111,6 +147,9 @@ function User() {
             label="Gender"
             defaultValue="male"
             variant="filled"
+            name="gender"
+            value={user.gender}
+            onChange={handleChange}
           /><br/>
           <TextField
             required
@@ -119,13 +158,16 @@ function User() {
             type="date"
             defaultValue=""
             variant="filled"
+            name="dob"
+            value={user.dob}
+            onChange={handleChange}
           />
         </div>
       </Box>
 
       <center>
       <Stack spacing={2} sx={{ width: '100%' }}>
-      <Button id="update-button" variant="outlined" onClick={handleClick}>
+      <Button id="update-button" variant="outlined" onClick={updateDetails}>
         Update Details
       </Button>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
