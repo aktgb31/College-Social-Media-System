@@ -15,6 +15,7 @@ function chat() {
             <PeopleComponent author="Amit Kumar"/>
             <PeopleComponent author="Gopal"/>
             
+            
         </div></div></>
     )
 }
