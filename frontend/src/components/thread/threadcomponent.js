@@ -9,7 +9,7 @@ function Threadcomponent(props) {
         <Card.Header as="h5">{props.name}</Card.Header>
         <Card.Body>
           <Card.Text>{props.author}</Card.Text>
-          <Link to="/post">
+          <Link to="/threadview">
           <Button variant="primary">Join Discussion</Button>
           </Link> 
         </Card.Body>
