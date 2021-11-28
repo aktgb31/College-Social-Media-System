@@ -24,8 +24,8 @@ function Eventcreate() {
   return (
       <>
       <NavbarComponent/>
-    <div className="register" id="register-form">
-      <div className="form" id="form-id">
+    <div className="login">
+      <div className="form">
         <h2>Create Event Here</h2>
         <input
           type="text"
