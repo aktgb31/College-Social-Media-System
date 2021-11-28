@@ -7,7 +7,7 @@ const Register = () => {
   const history = useHistory();
 
   const [user, setUser] = useState({
-      clubName:"",
+      name:"",
       emailId:"",
       clubType:"",
   });
@@ -33,13 +33,13 @@ const Register = () => {
 
   const register = () => {
     const {
-        clubName,
+        name,
         emailId,
         clubType
     } = user;
     const valid=isnitcid(emailId);
-    if (clubName && clubType && emailId && valid ) {
-      axios.post("/user/register", user).then((res) => {
+    if (name && clubType && emailId && valid ) {
+      axios.post("http://localhost:4444/api/user/register/club", user).then((res) => {
         alert(res.data.message);
       });
       console.log(isnitcid(emailId));
@@ -57,8 +57,8 @@ const Register = () => {
       <center><h2>Register as Club</h2></center>
       <input
         type="text"
-        name="clubName"
-        value={user.clubName}
+        name="name"
+        value={user.name}
         placeholder="Club Name"
         onChange={handleChange}
       ></input>

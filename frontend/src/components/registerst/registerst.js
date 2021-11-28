@@ -47,8 +47,9 @@ const Register = () => {
     } = user;
     const valid=isnitcid(emailId);
     if (firstName && lastName && emailId && valid ) {
-      axios.post("/user/register", user).then((res) => {
+      axios.post("http://localhost:4444/api/user/register/student", user).then((res) => {
         alert(res.data.message);
+        console.log(res);
       });
       console.log(isnitcid(emailId));
       history.push("/login");
