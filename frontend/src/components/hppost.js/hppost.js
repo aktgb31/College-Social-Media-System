@@ -12,7 +12,7 @@ function Hppost(props) {
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.content}</Card.Text>
           <Link to="/post">
-          <Button variant="primary">Read More</Button>
+          <Button id="btn-post" variant="primary">Read More</Button>
           </Link>
         </Card.Body>
       </Card>

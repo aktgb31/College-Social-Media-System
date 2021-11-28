@@ -3,11 +3,14 @@ import Navbar from "react-bootstrap/Navbar";
 import "./navbar.css";
 import { FaFacebookMessenger } from 'react-icons/fa';
 import { FaRegPlusSquare } from 'react-icons/fa';
+import { MdGroups } from 'react-icons/md';
 import { BsFillPersonFill } from 'react-icons/bs';
+import { BsFillCalendarEventFill } from 'react-icons/bs';
 import {ImExit} from 'react-icons/im';
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Button } from "@mui/material";
+
 function NavbarComponent() {
   return (
     <div>
@@ -21,10 +24,18 @@ function NavbarComponent() {
                 <FaRegPlusSquare/>
               </Button>
             </Link>
+            <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
             <Link to="/thread">
               <Button variant="contained" color="primary" id="btn-nav">
                 
-                thread
+                <MdGroups/>
+              </Button>
+            </Link>
+            <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
+            <Link to="/event">
+              <Button variant="contained" color="primary" id="btn-nav">
+                
+                <BsFillCalendarEventFill/>
               </Button>
             </Link>
             <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>

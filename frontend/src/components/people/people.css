@@ -32,8 +32,8 @@
 #btn-chat {
     background: #395591;
     color: white;
-    height: 10%;
-    width:20%;
+    height: 40px;
+    width:100px;
 }
 
 #chat-title{
