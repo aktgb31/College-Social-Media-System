@@ -13,29 +13,29 @@ import { Button } from "@mui/material";
 
 function NavbarComponent() {
   return (
-    <div>
-      <Navbar bg="dark" variant="dark">
+    <div >
+      <Navbar id="nav-id" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/home" >COLLEGE SOCIAL MEDIA SYSTEM</Navbar.Brand>
           <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
+          <Navbar.Collapse className="justify-content-end" id="nav-nav">
             <Link to="/createpost">
               <Button variant="contained" color="primary" id="btn-nav">
-                <FaRegPlusSquare/>
+                <FaRegPlusSquare className="App-logo"/>
               </Button>
             </Link>
             <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
             <Link to="/thread">
               <Button variant="contained" color="primary" id="btn-nav">
                 
-                <MdGroups/>
+                <MdGroups className="App-logo"/>
               </Button>
             </Link>
             <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
             <Link to="/event">
               <Button variant="contained" color="primary" id="btn-nav">
                 
-                <BsFillCalendarEventFill/>
+                <BsFillCalendarEventFill className="App-logo"/>
               </Button>
             </Link>
             <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
@@ -50,7 +50,7 @@ function NavbarComponent() {
                
               <Link to="/user"> <Button variant="contained" color="primary" id="btn-nav">
                 Navneet&nbsp;
-               <BsFillPersonFill/> 
+               <BsFillPersonFill className="App-logo"/> 
               </Button></Link>
             </Navbar.Text>
             <Navbar.Text>&nbsp;</Navbar.Text>

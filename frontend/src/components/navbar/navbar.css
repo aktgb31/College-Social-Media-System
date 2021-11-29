@@ -1,14 +1,18 @@
+#nav-id{
+    opacity: 0.9;
+}
+
+
 #btn-nav {
     background: #395591;
     color: white;
-    /* height: 40px; */
+    opacity: 1;
+    
 }
+
 
 .App-logo{
     width: 40px;
 }
 
-#navbar-d{
-    width:100%;
-}
 

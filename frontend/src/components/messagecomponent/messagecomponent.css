@@ -1,0 +1,70 @@
+#message-card {
+    padding: 0 0 5px;
+    background-image: linear-gradient(to bottom, rgb(222, 222, 230), rgb(136, 135, 151));
+    opacity: 0.98;
+    border-radius: 15px;
+    border-top-left-radius: 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index:1;
+    
+
+
+
+
+
+}
+
+
+#message-outer {
+    padding: 0 50% 0 1%;
+    z-index:1;
+    
+    
+
+
+}
+
+#author-box {
+    background-color: rgb(146, 146, 151);
+
+
+}
+
+#thread-message {
+    /* border: black; */
+    /* background: transparent; */
+    /* padding: 0.8em; */
+    background-image: linear-gradient(to bottom , rgb(241, 241, 247), rgb(148, 148, 168));
+    outline: none;
+    color: rgb(8, 7, 7);
+    width: 100%;
+    border-radius: 5px;
+    z-index:2;
+}
+#send-btn {
+     background: #395591;
+    color: #FFF;
+    width: 17%;
+    border-radius: 4px;
+    padding: 0.8em;
+    margin: 0 1em;
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    z-index:2;
+}
+
+#input-form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top:2%;
+    padding-bottom: 1%;
+    
+    padding-left: 50%;
+    padding-right: 0px;
+    position: absolute;
+    z-index:2;
+}
+

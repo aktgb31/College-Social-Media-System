@@ -52,14 +52,14 @@ function User() {
   return (
     <>
     <div>
-      <Navbar bg="dark" variant="dark">
+      <Navbar id="nav-id" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/home">USER PROFILE</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Link to="/home">
               <Button variant="contained" color="primary" id="btn-nav">
-               <FaHome/>
+               <FaHome className="App-logo"/>
                
               </Button>
             </Link>
@@ -68,7 +68,7 @@ function User() {
             <Navbar.Text>&nbsp;&nbsp;&nbsp;</Navbar.Text>
             <Link to="/login">
               <Button variant="contained" color="primary" id="btn-nav">
-               <ImExit/>
+               <ImExit className="App-logo"/>
                
               </Button>
             </Link>
