@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import NavbarComponent from "../navbar/navbar";
-import Hppost from "../hppost.js/hppost";
+import Hppost from "../hppost/hppost";
 const Homepage = () => {
   return (
     <>
