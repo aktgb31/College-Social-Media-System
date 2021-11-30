@@ -14,7 +14,6 @@ exports.getPost = catchAsyncErrors(async(req, res, next) => {
         queryOptions.include.push({ model: Reaction, as: 'Upvotes', raw: true, where: { reactionType: 'upvote' } });
         queryOptions.include.push({ model: Reaction, as: 'Downvotes', raw: true, where: { reactionType: 'downvote' } });
     }
-    if (req.body.threadId)
         if (!req.body.threadId)
             queryOptions.where.threadId = null;
         else

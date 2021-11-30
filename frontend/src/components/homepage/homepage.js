@@ -19,7 +19,7 @@ const Homepage = () => {
       
         <center><h1>HOMEPAGE</h1></center>
         {post.map( (postdetails)=>{
-            return<Hppost title="home" author={postdetails.creatorId} content={postdetails.content}/>
+            return<Hppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content}/>
         
         })}
       {/* <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>
@@ -31,3 +31,15 @@ const Homepage = () => {
 };
 
 export default Homepage;
+
+// let data=qs.stringify({"userId":`${postdetails.creatorId}`});
+            // console.log(data);
+            // const userDetail=await axios({url:'/api/user/profile',method:'get', headers: { 
+            //   'Content-Type': 'application/x-www-form-urlencoded'
+            // },data:data},{withCredentials:true}).catch(res => console.log(res.response.data.message));;
+            // console.log(userDetail);
+            // let name;
+            // name=userDetail.name;
+            // if(userDetail.firstName && userDetail.lastName)
+            //   name=userDetail.firstName+" "+userDetail.lastName;
+            

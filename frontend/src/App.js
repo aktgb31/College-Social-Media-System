@@ -1,4 +1,4 @@
-import './App.css';
+  import './App.css';
 import Homepage from './components/homepage/homepage'
 import Login from "./components/login/login"
 import Forgot from "./components/forgot/forgot"
@@ -78,9 +78,9 @@ function App() {
           </Route>
           <Route path="/user">
             <User />
-          </Route>
-          <Route path="/post">
-            <Post />
+            </Route>
+          < Route path="/post" >
+            <Post/>
           </Route>
           <Route path="/logout">
             <Logout />

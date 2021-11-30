@@ -25,6 +25,10 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import NavbarComponent from "../navbar/navbar";
 import CommentCompent from "../comment/comment";
+import {useLocation} from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -36,17 +40,28 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Post() {
+export default function Post(props) {
   const [expanded, setExpanded] = React.useState(false);
   const [liked, setLiked] = React.useState(false);
   const [likes, setLikes] = React.useState(0);
   const [report, setReport] = React.useState(false);
+  const search = useLocation().search;
+  const name = new URLSearchParams(search).get('postId');
+  
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const [post,setPost] = useState([]);
+  useEffect(async () => {
+    const response= await fetch("/api/post");
+    const data= await response.json();
+    console.log(data);
+    setPost(data.data);
+  },[])
 
   return (
     <>
+    {console.log(name)}
     <NavbarComponent/>
     <div>&nbsp;&nbsp;</div>
     <div>&nbsp;&nbsp;</div>

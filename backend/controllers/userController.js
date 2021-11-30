@@ -176,6 +176,7 @@ exports.getMyDetails = catchAsyncErrors(async(req, res, next) => {
 
 //Function that returns any user details
 exports.getUserDetails = catchAsyncErrors(async(req, res, next) => {
+    console.log(req.body);
     let user = null;
     if (req.body.userId)
         user = await User.findByPk(req.body.userId, {

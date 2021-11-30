@@ -12,6 +12,7 @@ import "./user.css";
 import TextField from "@mui/material/TextField";
 import { FaHome } from 'react-icons/fa';
 import {ImExit} from 'react-icons/im';
+import { useEffect } from "react";
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -25,6 +26,22 @@ function User() {
     dob: "28-04-2001",
     gender: "male",
   });
+  useEffect(async () => {
+  const response= await fetch("/api/user/profile/me");
+  const data= await response.json();
+  console.log(data);
+  const tr=data.data;
+  const qw={
+    firstName: tr.student.firstName,
+    lastName: tr.student.lastName,
+    emailId: tr.emailId,
+    branch: tr.student.branch,
+    passingYear: tr.student.passingYear,
+    dob: tr.student.dob,
+    gender: tr.student.gender,
+  }
+  setUser(qw);
+},[])
   const handleChange = (e) => {
     const { name, value } = e.target;
     //console.log(user);
@@ -34,7 +51,7 @@ function User() {
     });
   };
   const updateDetails = () => {
-    console.log(user);
+
   };
     const [open, setOpen] = React.useState(false);
 
