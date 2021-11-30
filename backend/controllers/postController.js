@@ -20,7 +20,7 @@ exports.getPost = catchAsyncErrors(async(req, res, next) => {
         else
             queryOptions.where.threadId = req.body.threadId;
     if (req.body.userId)
-        queryOptions.where.userId = req.body.userId;
+        queryOptions.where.creatorId = req.body.userId;
 
     queryOptions.order = [
         ['createdAt', 'DESC']
@@ -54,7 +54,6 @@ exports.addPost = catchAsyncErrors(async(req, res, next) => {
     res.status(201).json({
         success: true,
         message: "Post added successfully",
-        data: post
     });
 })
 
