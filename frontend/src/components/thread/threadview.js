@@ -31,16 +31,16 @@ function ThreadView() {
       <h1 id="thread-name">Thread Name</h1>
       <ThreadMessage author="Utkarsh" content="CP is god" />
       <ThreadMessage author="Kunal" content="CP is shit" />
-      <form>
+      <form id="input-msg-form">
         <input
           type="text"
           placeholder="Type a message"
-          id="thread-message"
+          id="thread-msg"
           name="message"
           value={user.message}
           onChange={handleChange}
         />
-        <Button variant="primary" onClick={sendMessage}>
+        <Button variant="primary" onClick={sendMessage} id="send-msg-btn">
           Send
         </Button>
       </form>

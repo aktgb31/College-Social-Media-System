@@ -75,3 +75,36 @@
    
 
 }
+
+
+
+
+#thread-msg {
+    
+    background-image: linear-gradient(to bottom, rgb(241, 241, 247), rgb(148, 148, 168));
+    outline: none;
+    color: rgb(8, 7, 7);
+    width: 100%;
+    border-radius: 5px;
+    height:50px;
+}
+
+#send-msg-btn {
+    background: #395591;
+    color: #FFF;
+    width: 120px;
+    height:45px;
+    border-radius: 4px;
+    margin-left: 35%;
+    margin-top: 2%;
+    
+  
+}
+
+#input-msg-form {
+    width: 100%;
+    justify-content: center;
+    padding:2% 30% 1% 30%;
+   
+    
+}
