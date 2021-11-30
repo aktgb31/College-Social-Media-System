@@ -4,10 +4,8 @@ const ErrorHandler = require("../utils/errorHandler");
 const { formatEventDetails } = require("../utils/eventUtils");
 
 exports.addEvent = catchAsyncErrors(async(req, res, next) => {
-    console.log(req.body);
     let event = formatEventDetails(req.body.eventName, req.body.eventTime);
     event.creatorId = req.session.userId;
-    console.log(event);
     await Event.create(event);
     res.status(200).json({
         message: "Event added successfully"
@@ -16,12 +14,12 @@ exports.addEvent = catchAsyncErrors(async(req, res, next) => {
 
 exports.getEvents = catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
-    if (req.body.userId)
-        queryOptions.where = { creatorId: req.body.userId };
-    if (req.body.perPage) {
-        queryOptions.limit = req.body.perPage;
-        if (req.body.page) {
-            let page = req.body.page;
+    if (req.query.userId)
+        queryOptions.where = { creatorId: parseInt(req.query.userId) };
+    if (req.query.perPage) {
+        queryOptions.limit = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;
