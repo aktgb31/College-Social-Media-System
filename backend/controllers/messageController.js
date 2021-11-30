@@ -5,7 +5,7 @@ const { Message } = require("../models/message");
 exports.getMessage = (catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
     const id1 = req.session.userId;
-    const id2 = req.body.userId;
+    const id2 = parseInt(req.query.userId);
     queryOptions.where = {
         senderId: {
             [Op.or]: [id1, id2]
@@ -15,10 +15,10 @@ exports.getMessage = (catchAsyncErrors(async(req, res, next) => {
         }
     };
 
-    if (req.body.perPage) {
-        queryOptions.limit = req.body.perPage;
-        if (req.body.page) {
-            let page = req.body.page;
+    if (req.query.perPage) {
+        queryOptions.limit = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;

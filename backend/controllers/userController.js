@@ -74,6 +74,7 @@ exports.login = catchAsyncErrors(async(req, res, next) => {
 //Function to logout
 exports.logout = catchAsyncErrors(async(req, res, next) => {
     req.session.destroy();
+    req.clearCookie("connect.sid");
     res.status(200).json({ success: true, message: "Logout Successful" });
 });
 
@@ -109,10 +110,10 @@ exports.forgotPassword = catchAsyncErrors(async(req, res, next) => {
 exports.getAllUsers = catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
     queryOptions.attributes = { exclude: ["createdAt", "updatedAt", "password"] };
-    if (req.body.perPage) {
-        queryOptions.limit = req.body.perPage;
-        if (req.body.page) {
-            let page = req.body.page;
+    if (req.query.perPage) {
+        queryOptions.limit = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;
@@ -127,10 +128,10 @@ exports.getAllStudents = catchAsyncErrors(async(req, res, next) => {
 
     const queryOptions = {};
     queryOptions.attributes = { exclude: ["createdAt", "updatedAt"] };
-    if (req.body.perPage) {
-        queryOptions.limit = req.body.perPage;
-        if (req.body.page) {
-            let page = req.body.page;
+    if (req.query.perPage) {
+        queryOptions.limit = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;
@@ -144,10 +145,10 @@ exports.getAllStudents = catchAsyncErrors(async(req, res, next) => {
 exports.getAllClubs = catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
     queryOptions.attributes = { exclude: ["createdAt", "updatedAt"] };
-    if (req.body.perPage) {
-        queryOptions.limit = req.body.perPage;
-        if (req.body.page) {
-            let page = req.body.page;
+    if (req.query.perPage) {
+        queryOptions.limit = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;
@@ -176,16 +177,15 @@ exports.getMyDetails = catchAsyncErrors(async(req, res, next) => {
 
 //Function that returns any user details
 exports.getUserDetails = catchAsyncErrors(async(req, res, next) => {
-    console.log(req.body);
     let user = null;
-    if (req.body.userId)
-        user = await User.findByPk(req.body.userId, {
+    if (req.query.userId)
+        user = await User.findByPk(parseInt(req.query.userId), {
             attributes: { exclude: ["createdAt", "updatedAt", "password"] },
             raw: true
         });
-    else if (req.body.emailId)
+    else if (req.query.emailId)
         user = await User.findOne({
-            where: { emailId: req.body.emailId },
+            where: { emailId: req.query.emailId },
             attributes: { exclude: ["createdAt", "updatedAt", "password"] },
             raw: true
         });

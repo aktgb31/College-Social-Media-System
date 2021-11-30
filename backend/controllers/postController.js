@@ -7,28 +7,28 @@ const ErrorHandler = require("../utils/errorHandler");
 exports.getPost = catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
     queryOptions.where = {};
-    if (req.body.postId) {
-        queryOptions.where.postId = req.body.postId;
+    if (req.query.postId) {
+        queryOptions.where.postId = parseInt(req.query.postId);
         queryOptions.include = [];
         queryOptions.include.push({ model: Comment, raw: true });
         queryOptions.include.push({ model: Reaction, as: 'Upvotes', raw: true, where: { reactionType: 'upvote' } });
         queryOptions.include.push({ model: Reaction, as: 'Downvotes', raw: true, where: { reactionType: 'downvote' } });
     }
-        if (!req.body.threadId)
-            queryOptions.where.threadId = null;
-        else
-            queryOptions.where.threadId = req.body.threadId;
-    if (req.body.userId)
-        queryOptions.where.creatorId = req.body.userId;
+    if (!req.query.threadId)
+        queryOptions.where.threadId = null;
+    else
+        queryOptions.where.threadId = parseInt(req.query.threadId);
+    if (req.query.userId)
+        queryOptions.where.creatorId = parseInt(req.query.userId);
 
     queryOptions.order = [
         ['createdAt', 'DESC']
     ];
 
-    if (req.body.perPage) {
-        queryOptions.limit = req.body.perPage;
-        if (req.body.page) {
-            let page = req.body.page;
+    if (req.query.perPage) {
+        queryOptions.limit = parseInt(req.query.perPage);
+        if (req.query.page) {
+            let page = parseInt(req.query.page);
             queryOptions.offset = (page - 1) * perPage;
         } else
             queryOptions.offset = 0;
@@ -57,7 +57,7 @@ exports.addPost = catchAsyncErrors(async(req, res, next) => {
 })
 
 exports.deletePost = catchAsyncErrors(async(req, res, next) => {
-    const postId = req.params.postId;
+    const postId = parseInt(req.query.postId);
     const post = await Post.findByPk(postId);
     if (!post) {
         return next(new Error("Post not found"));
