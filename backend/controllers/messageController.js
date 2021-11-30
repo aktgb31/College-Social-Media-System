@@ -1,4 +1,4 @@
-const { Op } = require("sequelize/types");
+const { Op } = require("sequelize");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const { Message } = require("../models/message");
 
