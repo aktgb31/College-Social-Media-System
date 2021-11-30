@@ -1,12 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import NavbarComponent from "../navbar/navbar";
+import axios from "axios"
+import { BsChevronCompactLeft } from "react-icons/bs";
+
 
 function Eventcreate() {
     const [user, setUser] = useState({
         eventName: "",
-        eventDate: "",
-        eventAuthor: ""
+        eventTime: "",
+        
       });
     
       const handleChange = (e) => {
@@ -18,8 +21,13 @@ function Eventcreate() {
         });
       };
       const register = () => {
-          console.log(user);
-          alert("Response Saved");
+        console.log(user);
+        axios.post("/api/event", user, { withCredentials: true })
+            .then(res => {
+                alert("Response Saved");
+            }).catch(res => alert(res.response.data.message));
+        
+        
       }
   return (
       <>
@@ -34,18 +42,12 @@ function Eventcreate() {
           placeholder="Event Name"
           onChange={handleChange}
         ></input>
+        
         <input
-          type="text"
-          name="eventAuthor"
-          value={user.eventAuthor}
-          placeholder="Event Author"
-          onChange={handleChange}
-        ></input>
-        <input
-          type="date"
-          name="eventDate"
-          value={user.eventDate}
-          placeholder="Event Date"
+          type="datetime-local"
+          name="eventTime"
+          value={user.eventTime}
+          placeholder="Event Date and Time"
           onChange={handleChange}
         ></input>
         <div className="button" onClick={register}>

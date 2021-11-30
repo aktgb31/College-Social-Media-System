@@ -2,11 +2,13 @@ import React from "react";
 import { useState } from "react";
 import NavbarComponent from "../navbar/navbar";
 import "./thread.css";
+import axios from "axios"
+import { useHistory } from "react-router-dom"
 
 function Createthread() {
     const [user, setUser] = useState({
-        threadName: "",
-        threadAuthor: ""
+        threadTitle: "",
+        // threadAuthor: ""
       });
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,7 +20,12 @@ function Createthread() {
       };
       const register = () => {
         console.log(user);
-        alert("Response Saved");
+        axios.post("/api/thread", user, { withCredentials: true })
+            .then(res => {
+                alert("Response Saved");
+            }).catch(res => alert(res.response.data.message));
+        
+        
     }
   return (
     <div>
@@ -28,18 +35,12 @@ function Createthread() {
           <h2>Create Thread Here</h2>
           <input
             type="text"
-            name="threadName"
-            value={user.threadName}
+            name="threadTitle"
+            value={user.threadTitle}
             placeholder="Thread Name"
             onChange={handleChange}
           ></input>
-          <input
-            type="text"
-            name="threadAuthor"
-            value={user.threadAuthor}
-            placeholder="Thread Author"
-            onChange={handleChange}
-          ></input>
+          
           <div className="button" id="thread-btn" onClick={register}>
             Create
           </div>

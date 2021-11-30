@@ -4,8 +4,10 @@ const ErrorHandler = require("../utils/errorHandler");
 const { formatEventDetails } = require("../utils/eventUtils");
 
 exports.addEvent = catchAsyncErrors(async(req, res, next) => {
+    console.log(req.body);
     let event = formatEventDetails(req.body.eventName, req.body.eventTime);
     event.creatorId = req.session.userId;
+    console.log(event);
     await Event.create(event);
     res.status(200).json({
         message: "Event added successfully"
