@@ -8,7 +8,6 @@ exports.formatEventDetails = (name, description, time) => {
         throw new ErrorHandler(400, "Event Time is not in ISO8601 format");
     let event = {};
     event.name = name.toUpperCase();
-    event.description = description;
     event.time = time;
     return event;
 };

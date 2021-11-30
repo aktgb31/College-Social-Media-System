@@ -4,7 +4,7 @@ const ErrorHandler = require("../utils/errorHandler");
 const { formatEventDetails } = require("../utils/eventUtils");
 
 exports.addEvent = catchAsyncErrors(async(req, res, next) => {
-    let event = formatEventDetails(req.body.eventName, req.body.eventDescription, req.body.eventTime);
+    let event = formatEventDetails(req.body.eventName, req.body.eventTime);
     event.creatorId = req.session.userId;
     await Event.create(event);
     res.status(200).json({
