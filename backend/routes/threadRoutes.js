@@ -5,9 +5,8 @@ const router = require('express').Router();
 
 router.get('/', isAuthenticatedUser, getAllThreads);
 
-router.get('/:threadId', isAuthenticatedUser, getThreadById);
-router.post("/create", isAuthenticatedUser, createThread);
+router.post("/", isAuthenticatedUser, createThread);
 
-router.delete("/delete", isAuthenticatedUser, deleteThread);
+router.delete("/", isAuthenticatedUser, deleteThread);
 
 module.exports = router;
