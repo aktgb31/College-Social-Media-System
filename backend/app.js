@@ -22,6 +22,7 @@ app.use(
         saveUninitialized: false,
         store: sessionStore,
         rolling: true,
+        cookie: { maxAge: 60 * 60 * 1000 }
     })
 );
 
