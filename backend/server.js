@@ -11,7 +11,7 @@ process.on("uncaughtException", (err) => {
     process.exit(1);
 });
 
-const force = true;
+const force = false;
 Db.authenticate()
     .then(async() => {
         console.log("Connection to Database established Successfully");

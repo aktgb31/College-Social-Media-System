@@ -3,7 +3,9 @@ import NavbarComponent from '../navbar/navbar'
 
 import PeopleComponent from '../people/people';
 import "../people/people.css";
+
 function chat() {
+   
     return (
         <>
             <NavbarComponent />

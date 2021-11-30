@@ -4,8 +4,17 @@ import EventComponent from './eventscmp'
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./event.css";
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 function Eventspg() {
+    const [post,setPost] = useState([]);
+    useEffect(async () => {
+    const response= await fetch("/api/event");
+    const data= await response.json();
+    console.log(data);
+    setPost(data.data);
+    },[])
     return (
         <div>
             <NavbarComponent/>
@@ -18,7 +27,12 @@ function Eventspg() {
             <div id="full-event-btn">
             <Link to="/myevents"><Button variant="primary" id="event-btn">My Events</Button></Link></div>
             <br></br>
-            <EventComponent name="Tathva 2022" time="22nd July 2022" author="Mihir Gokhale"/>
+            <div>&nbsp;</div>
+            {post.map( (postdetails)=>{
+            return <EventComponent name={postdetails.eventName} time={postdetails.eventTime} author={postdetails.creatorId}/>
+        
+        })}
+           
         </div></div></div>
     )
 }

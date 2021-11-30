@@ -6,6 +6,7 @@ import Navbar  from "../navbar/navbar";
 import "./createpost.css";
 
 function CreatePost() {
+  
   return (
     <>
     

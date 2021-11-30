@@ -8,10 +8,10 @@ import Hppost from "../hppost/hppost";
 const Homepage = () => {
   const [post,setPost] = useState([]);
   useEffect(async () => {
-    const response= await fetch("https://cat-fact.herokuapp.com/facts/");
+    const response= await fetch("/api/post");
     const data= await response.json();
     console.log(data);
-    setPost(data);
+    setPost(data.data);
   },[])
   return (
     <>
@@ -19,7 +19,7 @@ const Homepage = () => {
       
         <center><h1>HOMEPAGE</h1></center>
         {post.map( (postdetails)=>{
-            return<Hppost title={postdetails.type} author={postdetails.source} content={postdetails.text}/>
+            return<Hppost title="home" author={postdetails.creatorId} content={postdetails.content}/>
         
         })}
       {/* <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>
