@@ -1,9 +1,9 @@
-const { createThread, deleteThread, getAllThreads, getThreadById } = require('../controllers/threadController');
+const { createThread, deleteThread, getThreads } = require('../controllers/threadController');
 const { isAuthenticatedUser } = require('../middlewares/auth');
 
 const router = require('express').Router();
 
-router.get('/', isAuthenticatedUser, getAllThreads);
+router.get('/', isAuthenticatedUser, getThreads);
 
 router.post("/", isAuthenticatedUser, createThread);
 
