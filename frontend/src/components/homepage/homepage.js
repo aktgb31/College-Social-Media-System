@@ -14,8 +14,7 @@ const Homepage = () => {
     setPost(data.data);
     const res= await fetch("/api/user/profile/me");
     const dat= await res.json();
-    const tr=dat.data.student.lastName;
-    console.log(tr)
+    const tr=dat.data.student.firstName;
     setUser(tr);
     
   },[])
