@@ -7,7 +7,7 @@ exports.formatEventDetails = (name, time) => {
     if (!validator.isISO8601(time))
         throw new ErrorHandler(400, "Event Time is not in ISO8601 format");
     let event = {};
-    event.name = name.toUpperCase();
-    event.time = time;
+    event.eventName = name.toUpperCase();
+    event.eventTime = time;
     return event;
 };
