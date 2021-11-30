@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Button } from "@mui/material";
 
-function NavbarComponent() {
+function NavbarComponent(props) {
   return (
     <div >
       <Navbar id="nav-id" bg="dark" variant="dark">
@@ -49,7 +49,7 @@ function NavbarComponent() {
             <Navbar.Text>
                
               <Link to="/user"> <Button variant="contained" color="primary" id="btn-nav">
-                Navneet&nbsp;
+                {props.name}&nbsp;
                <BsFillPersonFill className="App-logo"/> 
               </Button></Link>
             </Navbar.Text>
