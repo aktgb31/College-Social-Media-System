@@ -7,16 +7,20 @@ import NavbarComponent from "../navbar/navbar";
 import Hppost from "../hppost/hppost";
 const Homepage = () => {
   const [post,setPost] = useState([]);
+  const [user,setUser] = useState(null);
   useEffect(async () => {
     const response= await fetch("/api/post");
     const data= await response.json();
-    console.log(data);
     setPost(data.data);
+    const res= await fetch("/api/user/profile/me");
+    const dat= await res.json();
+    const tr=dat.data.student.firstName;
+    setUser(tr);
+    
   },[])
   return (
     <>
-     <NavbarComponent/>
-      
+     <NavbarComponent name={user}/>
         <center><h1>HOMEPAGE</h1></center>
         {post.map( (postdetails)=>{
             return<Hppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content}/>
