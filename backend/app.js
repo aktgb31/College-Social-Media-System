@@ -29,7 +29,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/file", isAuthenticatedUser, express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", isAuthenticatedUser, express.static(path.join(__dirname, "uploads")));
 
 //Routes
 app.get("/api/ping", ping); // Ping Support
