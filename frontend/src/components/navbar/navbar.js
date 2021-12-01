@@ -10,8 +10,20 @@ import {ImExit} from 'react-icons/im';
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import { Button } from "@mui/material";
+import axios from "axios"
+import { useHistory } from "react-router-dom"
 
 function NavbarComponent(props) {
+  const history = useHistory()
+
+    
+  const logout = () => {
+        axios.post("/api/user/logout")
+            .then(res => {
+                history.push("/login");
+            }).catch(res => alert(res.response.data.message));
+        
+    }
   return (
     <div >
       <Navbar id="nav-id" bg="dark" variant="dark">
@@ -55,7 +67,7 @@ function NavbarComponent(props) {
             </Navbar.Text>
             <Navbar.Text>&nbsp;</Navbar.Text>
             <Navbar.Text>
-              <Link to="/login"> <Button variant="contained" color="primary" id="btn-nav">
+              <Link to="/login"> <Button onClick={logout} variant="contained" color="primary" id="btn-nav">
                <ImExit/> 
               </Button></Link>
             </Navbar.Text>

@@ -46,6 +46,13 @@ const Register = () => {
       gender,
     } = user;
   };
+  const forgot = () => {
+        axios.post("/api/user/password/forgot", user, { withCredentials: true })
+            .then(res => {
+                history.push("/login");
+            }).catch(res => alert(res.response.data.message));
+        console.log(user);
+    }
 
   return (
     <div className="forgot">
@@ -59,15 +66,15 @@ const Register = () => {
         placeholder="Your EmailId"
         onChange={handleChange}
       ></input>
-      <input
+      {/* <input
         type="password"
         name="password"
         value={user.password}
         placeholder="Your password"
         onChange={handleChange}
-      ></input>
-      <div className="button" onClick={() => history.push("/login")}>
-        Reset Password
+      ></input> */}
+      <div className="button" onClick={forgot}>
+        Send New Password
       </div></div>
     </div>
   );
