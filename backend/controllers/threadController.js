@@ -25,8 +25,8 @@ exports.getThreads = catchAsyncErrors(async(req, res, next) => {
         queryOptions.where.include.push({ model: Post, as: 'Posts', raw: true });
     }
 
-    if (req.query.userId)
-        queryOptions.where.creatorId = parseInt(req.query.userId);
+    if (req.query.creatorId)
+        queryOptions.where.creatorId = parseInt(req.query.creatorId);
 
     queryOptions.order = [
         ['createdAt', 'DESC']
@@ -44,7 +44,7 @@ exports.getThreads = catchAsyncErrors(async(req, res, next) => {
     queryOptions.nest = true;
     queryOptions.raw = true;
 
-    const threads = await Thread.findAll({ queryOptions });
+    const threads = await Thread.findAll(queryOptions);
     if (threads.length === 0 && req.query.threadId) { return next(new ErrorHandler(404, "No thread found with given ID")); }
 
     res.status(200).json({ status: "success", data: threads });

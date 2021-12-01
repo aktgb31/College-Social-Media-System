@@ -26,7 +26,7 @@ exports.getMessage = (catchAsyncErrors(async(req, res, next) => {
 
     queryOptions.order = ['createdAt', 'DESC'];
 
-    const messages = await Message.findAll({ queryOptions });
+    const messages = await Message.findAll(queryOptions);
     res.status(200).json({
         status: "success",
         data: {
