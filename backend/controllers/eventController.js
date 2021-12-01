@@ -14,8 +14,8 @@ exports.addEvent = catchAsyncErrors(async(req, res, next) => {
 
 exports.getEvents = catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
-    if (req.query.userId)
-        queryOptions.where = { creatorId: parseInt(req.query.userId) };
+    if (req.query.creatorId)
+        queryOptions.where = { creatorId: parseInt(req.query.creatorId) };
     if (req.query.perPage) {
         queryOptions.limit = parseInt(req.query.perPage);
         if (req.query.page) {
