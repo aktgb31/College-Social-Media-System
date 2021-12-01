@@ -31,9 +31,7 @@ exports.getMessage = (catchAsyncErrors(async(req, res, next) => {
     const messages = await Message.findAll(queryOptions);
     res.status(200).json({
         status: "success",
-        data: {
-            messages
-        }
+        data: messages
     });
 }));
 
