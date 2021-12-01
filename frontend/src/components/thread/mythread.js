@@ -15,9 +15,16 @@ function MyThread() {
   useEffect(async () => {
     const res = await fetch("/api/user/profile/me");
     const dat = await res.json();
-    const tr = dat.data.student.firstName;
-    const id = dat.data.userId;
+    try {
+       const tr=dat.data.student.firstName;
+       setUser(tr);
+    }
+  catch(err) {
+    const tr=dat.data.club.name;
     setUser(tr);
+  }
+    const id = dat.data.userId;
+    
     setId(id)
     console.log({id});
     const response = await axios.get('/api/thread', {

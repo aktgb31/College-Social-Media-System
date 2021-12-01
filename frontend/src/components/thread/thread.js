@@ -13,8 +13,14 @@ function Thread() {
     useEffect(async () => {
     const res = await fetch("/api/user/profile/me");
     const dat = await res.json();
-    const tr = dat.data.student.firstName;
+    try {
+       const tr=dat.data.student.firstName;
+       setUser(tr);
+    }
+  catch(err) {
+    const tr=dat.data.club.name;
     setUser(tr);
+  }
     const response= await fetch("/api/thread");
     const data= await response.json();
 
