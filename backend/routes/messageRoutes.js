@@ -1,9 +1,10 @@
 const { getMessage, sendMessage } = require('../controllers/messageController');
+const { isAuthenticatedUser } = require('../middlewares/auth');
 
 const router = require('express').Router();
 
-router.get('/', getMessage);
+router.get('/', isAuthenticatedUser, getMessage);
 
-router.post('/', sendMessage);
+router.post('/', isAuthenticatedUser, sendMessage);
 
 module.exports = router;

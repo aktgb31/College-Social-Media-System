@@ -24,7 +24,9 @@ exports.getMessage = (catchAsyncErrors(async(req, res, next) => {
             queryOptions.offset = 0;
     }
 
-    queryOptions.order = ['createdAt', 'DESC'];
+    queryOptions.order = [
+        ['createdAt', 'DESC']
+    ];
 
     const messages = await Message.findAll(queryOptions);
     res.status(200).json({
