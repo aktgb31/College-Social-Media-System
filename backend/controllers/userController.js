@@ -6,7 +6,6 @@ const { hash } = require("../utils/encrypt");
 const { sendVerificationEmail } = require("../utils/sendEmail");
 const { formatStudentDetails, formatClubDetails } = require("../utils/userUtils");
 const { Session } = require("../models/sessionStore");
-const { uploadProfilePic, deleteImage } = require("./fileController");
 
 //Function to register a new user
 async function register(userDetails, model, type) {
