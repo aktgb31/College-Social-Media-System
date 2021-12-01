@@ -18,6 +18,12 @@
     height: 45px;
 
 }
+#reset-button{
+    background: #395591;
+    color:white;
+    height: 45px;
+
+}
 
 
 #filled-required {
@@ -38,6 +44,16 @@
     height: 45px;
 }
 
+
+#pass-change{
+    background-image: linear-gradient(to bottom right, rgb(241, 241, 245), rgb(194, 194, 241));
+    height: 40px;
+    width:260px;
+    border-radius: 5px;
+    border-width:2px ;
+    border-color: rgb(184, 189, 194);
+
+}
 
 
 

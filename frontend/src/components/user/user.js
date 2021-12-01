@@ -14,10 +14,14 @@ import { FaHome } from 'react-icons/fa';
 import {ImExit} from 'react-icons/im';
 import { useEffect } from "react";
 import NavbarComponent from "../navbar/navbar";
+import axios from "axios"
+import { useHistory } from "react-router-dom"
+
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 function User() {
+  const history = useHistory()
   const [user, setUser] = useState({
     firstName: "Navnit",
     lastName: "Anand",
@@ -26,6 +30,7 @@ function User() {
     passingYear: "2023",
     dob: "28-04-2001",
     gender: "male",
+    newPassword:"",
   });
   useEffect(async () => {
   const response= await fetch("/api/user/profile/me");
@@ -67,6 +72,16 @@ function User() {
   
       setOpen(false);
     };
+   
+    const reset = () => {
+        
+        axios.put("/api/user/password/change", {data:{newPassword:user.newPassword},  withCredentials: true} )
+            .then(res => {
+                history.push("/user");
+                
+            }).catch(res => alert(res.response.data.message));
+        console.log(user.newPassword);
+    }
   return (
     <>
     <div>
@@ -114,7 +129,7 @@ function User() {
             value={user.emailId}
             variant="filled"
             onChange={handleChange}
-          /><br/>
+          />
             <TextField
             required
             id="filled-required"
@@ -135,7 +150,7 @@ function User() {
             name="passingYear"
             value={user.passingYear}
             onChange={handleChange}
-          /><br/>
+          />
           <TextField
             required
             id="filled-required"
@@ -165,6 +180,8 @@ function User() {
       <Button id="update-button" variant="outlined" onClick={updateDetails}>
         Update Details
       </Button>
+      <input id="pass-change" type="text" name="newPassword" placeholder="Enter your Email ID" value={user.newPassword} onChange={handleChange} placeholder="Enter your Password" ></input>
+      <Button id="reset-button" className="button" onClick={reset} >Reset password</Button>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           Details updated successfully!
