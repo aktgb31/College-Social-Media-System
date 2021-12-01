@@ -24,7 +24,7 @@ User.hasMany(Post, {
     onUpdate: "CASCADE",
 });
 
-Post.belongsTo(Thread, {
+Thread.hasMany(Post, {
     foreignKey: "threadId",
     targetKey: "threadId",
     onDelete: "CASCADE",
