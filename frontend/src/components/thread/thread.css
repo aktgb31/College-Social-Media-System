@@ -108,3 +108,16 @@
    
     
 }
+
+
+#show-thread-btn {
+    background: #395591;
+
+}
+
+
+#full-thread-btn {
+    padding-left: 4%;
+    /* padding-bottom: 2%; */
+    float: left;
+}
