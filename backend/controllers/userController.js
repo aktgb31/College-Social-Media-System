@@ -75,7 +75,7 @@ exports.login = catchAsyncErrors(async(req, res, next) => {
 //Function to logout
 exports.logout = catchAsyncErrors(async(req, res, next) => {
     req.session.destroy();
-    req.clearCookie("connect.sid");
+    res.clearCookie("connect.sid");
     res.status(200).json({ success: true, message: "Logout Successful" });
 });
 
@@ -228,7 +228,7 @@ exports.updateUserDetails = catchAsyncErrors(async(req, res, next) => {
 //Function that deletes current user details
 exports.deleteUser = catchAsyncErrors(async(req, res, next) => {
     const userId = req.session.userId;
-    req.clearCookie("connect.sid");
+    res.clearCookie("connect.sid");
     await User.destroy({ where: { userId: userId } }); // Delete user data
     await Session.destroy({ where: { userId: userId } }); // Delete all sessions of user
     res.status(200).json({ success: true, message: "User Deleted" });
