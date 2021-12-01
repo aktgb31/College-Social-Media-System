@@ -4,8 +4,11 @@ import NavbarComponent from "../navbar/navbar";
 import axios from "axios"
 import { BsChevronCompactLeft } from "react-icons/bs";
 
-
+import {
+  useHistory
+} from "react-router-dom"
 function Eventcreate() {
+    const history = useHistory()
     const [user, setUser] = useState({
         eventName: "",
         eventTime: "",
@@ -24,7 +27,8 @@ function Eventcreate() {
         console.log(user);
         axios.post("/api/event", user, { withCredentials: true })
             .then(res => {
-                alert("Response Saved");
+                alert("Event Created");
+                history.push("/myevents");
             }).catch(res => alert(res.response.data.message));
         
         

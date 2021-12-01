@@ -25,7 +25,7 @@ function Createthread() {
         axios.post("/api/thread", user, { withCredentials: true })
             .then(res => {
 
-                alert("Response Saved");
+                alert("Thread Created");
                 history.push("/mythread");
             }).catch(res => alert(res.response.data.message));
         
