@@ -9,7 +9,12 @@ import { useEffect } from 'react'
 
 function Eventspg() {
     const [post,setPost] = useState([]);
+    const [user, setUser] = useState();
     useEffect(async () => {
+    const res = await fetch("/api/user/profile/me");
+    const dat = await res.json();
+    const tr = dat.data.student.firstName;
+    setUser(tr);
     const response= await fetch("/api/event");
     const data= await response.json();
     console.log(data);
@@ -17,7 +22,7 @@ function Eventspg() {
     },[])
     return (
         <div>
-            <NavbarComponent/>
+            <NavbarComponent name={user}/>
             <div>&nbsp;&nbsp;</div><div>&nbsp;&nbsp;</div>
             <div id="event-box">
             <div>
