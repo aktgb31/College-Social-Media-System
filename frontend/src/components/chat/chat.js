@@ -25,11 +25,11 @@ function Chat() {
             const username=   postdetails.emailId.split("_")
              if(username.length==1){
                const authorname=postdetails.emailId.split("@")[0].toUpperCase();
-               return<PeopleComponent author={authorname}/>
+               return<PeopleComponent author={authorname} id_={postdetails.userId}/>
              }
              else{
                const authorname=username[0].toUpperCase();
-               return<PeopleComponent author={authorname}/>
+               return<PeopleComponent author={authorname} id_={postdetails.userId}/>
              }
           })}
         </div>
