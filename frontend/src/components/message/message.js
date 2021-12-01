@@ -31,12 +31,12 @@ function Message() {
     });
   };
   const sendMessage = () => {
-    console.log(user.message,  senderId);
+    console.log(user.message, senderId);
     const data = {
-      recieverId: senderId,
-      message: user.message
-    }
-    fetch("http://localhost:4444/api/message/", {
+      receiverId: senderId,
+      content: user.message,
+    };
+    fetch("/api/message/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
