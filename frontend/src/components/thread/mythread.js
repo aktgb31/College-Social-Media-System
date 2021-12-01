@@ -1,6 +1,6 @@
 import React from "react";
 import NavbarComponent from "../navbar/navbar";
-import Threadcomponent from "./threadcomponent";
+import Mythreadcomponent from "./mythreadcomponent";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import "./thread.css";
@@ -50,9 +50,10 @@ function MyThread() {
           {/* <Threadcomponent name="CP vs DEV" author="Kunal" />*/}
           {post.map((postdetails) => {
             return (
-              <Threadcomponent
+              <Mythreadcomponent
                 name={postdetails.threadTitle}
                 author={user}
+                threadId={postdetails.threadId}
               />
             );
           })}

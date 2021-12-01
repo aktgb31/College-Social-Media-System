@@ -67,6 +67,10 @@ function Myevents() {
                     author = {
                         user
                     }
+                    eventId = {
+                        postdetails.eventId
+                    }
+                        
                     />
                 );
             })
