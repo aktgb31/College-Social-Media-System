@@ -14,7 +14,7 @@ const path = require("path");
 
 const app = express();
 
-app.use(cors());
+//app.use(cors());
 app.use(
     session({
         secret: SESSION.secret,

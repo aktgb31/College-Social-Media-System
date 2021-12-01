@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { uploadProfilePic } = require("../controllers/fileController");
 const {
     login,
     logout,
@@ -13,6 +14,7 @@ const {
     getAllClubs,
     getMyDetails,
     getAllUsers,
+    updateProfilePic,
 } = require("../controllers/userController");
 
 const { isAuthenticatedUser, isLoginedUser } = require("../middlewares/auth");
@@ -40,6 +42,8 @@ router.get("/profile/me", isAuthenticatedUser, getMyDetails);
 router.get("/profile/", isAuthenticatedUser, getUserDetails);
 
 router.put("/profile/update", isAuthenticatedUser, updateUserDetails);
+
+router.post("/profile/update/profilePic", isAuthenticatedUser, uploadProfilePic, updateProfilePic);
 
 router.delete("/delete", isAuthenticatedUser, deleteUser);
 

@@ -3,6 +3,7 @@ const { Comment } = require("../models/comment");
 const { Post } = require("../models/post");
 const { Reaction } = require("../models/reaction");
 const ErrorHandler = require("../utils/errorHandler");
+const { uploadPostPic } = require("./fileController");
 
 exports.getPost = catchAsyncErrors(async(req, res, next) => {
     const queryOptions = {};
@@ -49,7 +50,8 @@ exports.addPost = catchAsyncErrors(async(req, res, next) => {
     if (content == null)
         return next(new ErrorHandler(400, "Content is required"));
     const threadId = req.body.threadId || null;
-    const post = await Post.create({ creatorId: creatorId, threadId: threadId, content: content });
+    await Post.create({ creatorId: creatorId, threadId: threadId, content: content, relatedImage: req.file.path || null });
+
     res.status(201).json({
         success: true,
         message: "Post added successfully",

@@ -6,6 +6,7 @@ const { hash } = require("../utils/encrypt");
 const { sendVerificationEmail } = require("../utils/sendEmail");
 const { formatStudentDetails, formatClubDetails } = require("../utils/userUtils");
 const { Session } = require("../models/sessionStore");
+const { uploadProfilePic, deleteImage } = require("./fileController");
 
 //Function to register a new user
 async function register(userDetails, model, type) {
@@ -230,4 +231,24 @@ exports.deleteUser = catchAsyncErrors(async(req, res, next) => {
     await User.destroy({ where: { userId: userId } }); // Delete user data
     await Session.destroy({ where: { userId: userId } }); // Delete all sessions of user
     res.status(200).json({ success: true, message: "User Deleted" });
+});
+
+//Function to update profilePic
+exports.updateProfilePic = catchAsyncErrors(async(req, res, next) => {
+    const userId = req.session.userId;
+    const userType = req.session.userType;
+    let Conn;
+    if (userType == "STUDENT")
+        Conn = Student;
+    else
+        Conn = Club;
+    console.log(req.file);
+    if (req.file) {
+        let user = await Conn.findByPk(userId);
+        user.profilePic = req.file.path;
+        await user.save();
+    } else
+        return next(new ErrorHandler(400, "Profile Pic is required"));
+
+    res.status(200).json({ success: true, message: "Profile Pic Updated" });
 });

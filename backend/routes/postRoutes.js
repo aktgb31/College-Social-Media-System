@@ -1,3 +1,4 @@
+const { uploadPostPic } = require('../controllers/fileController');
 const { getPost, addPost, deletePost, addComment, addReaction } = require('../controllers/postController');
 const { isAuthenticatedUser } = require('../middlewares/auth');
 
@@ -5,7 +6,7 @@ const router = require('express').Router();
 
 router.get("/", isAuthenticatedUser, getPost);
 
-router.post("/", isAuthenticatedUser, addPost);
+router.post("/", isAuthenticatedUser, uploadPostPic, addPost);
 
 router.delete("/", isAuthenticatedUser, deletePost);
 
