@@ -40,29 +40,22 @@ function Myevents() {
         // console.log(data);
         setPost(response.data.data);
     }, []);
-    return ( <
-        div >
-        <
-        NavbarComponent name = {
+    return ( 
+        <div>
+        <NavbarComponent name = {
             user
         }
-        /> <
-        div > & nbsp; & nbsp; < /div><div>&nbsp;&nbsp;</div >
-        <
-        div id = "event-box" >
-        <
-        div >
-        <
-        h2 id = "event-title" > My Events < /h2> <
-        div id = "full-event-btn" >
-        <
-        Link to = "/eventcreate" > < Button variant = "primary"
-        id = "event-btn" > Create Event < /Button></Link > < /div> <
-        div id = "full-event-btn" >
-        <
-        Link to = "/event" > < Button variant = "primary"
-        id = "event-btn" > All Events < /Button></Link > < /div> <
-        br > < /br> {
+        /> <div> &nbsp; &nbsp; </div><div>&nbsp;&nbsp;</div >
+        <div id = "event-box" >
+        <div>
+        <h2 id = "event-title" > My Events </h2> 
+        <div id = "full-event-btn" >
+        <Link to = "/eventcreate" > < Button variant = "primary"
+        id = "event-btn" > Create Event </Button></Link > </div> 
+        <div id = "full-event-btn" >
+        <Link to = "/event" > 
+        < Button variant = "primary" id = "event-btn" > All Events </Button></Link > </div> 
+        <br></br> {
             post.map((postdetails) => {
                 return ( <
                     MyEventComponent name = {
@@ -79,8 +72,7 @@ function Myevents() {
             })
         }
 
-        <
-        /div></div > < /div>
+        </div></div> </div>
     )
 }
 

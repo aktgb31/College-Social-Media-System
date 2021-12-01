@@ -6,6 +6,7 @@ import axios from "axios"
 import { useHistory } from "react-router-dom"
 
 function Createthread() {
+    const history = useHistory()
     const [user, setUser] = useState({
         threadTitle: "",
         // threadAuthor: ""
@@ -19,17 +20,20 @@ function Createthread() {
         });
       };
       const register = () => {
+        
         console.log(user);
         axios.post("/api/thread", user, { withCredentials: true })
             .then(res => {
+
                 alert("Response Saved");
+                history.push("/mythread");
             }).catch(res => alert(res.response.data.message));
         
         
     }
   return (
     <div>
-      <NavbarComponent />
+      < NavbarComponent />
       <div className="login" >
         <div className="form" >
           <h2>Create Thread Here</h2>
