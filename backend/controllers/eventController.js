@@ -33,7 +33,7 @@ exports.getEvents = catchAsyncErrors(async(req, res, next) => {
 });
 
 exports.deleteEvent = catchAsyncErrors(async(req, res, next) => {
-    let event = await Event.findByPk(req.body.eventId);
+    let event = await Event.findByPk(parseInt(req.query.eventId));
     if (event) {
         if (event.creatorId === req.session.userId) {
             event.destroy();
