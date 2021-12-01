@@ -11,6 +11,7 @@ const post = require("./routes/postRoutes");
 const event = require("./routes/eventRoutes");
 const message = require("./routes/messageRoutes");
 const path = require("path");
+const { isAuthenticatedUser } = require("./middlewares/auth");
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/file", isAuthenticatedUser, express.static(path.join(__dirname, "uploads")));
 
 //Routes
 app.get("/api/ping", ping); // Ping Support

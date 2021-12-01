@@ -245,7 +245,7 @@ exports.updateProfilePic = catchAsyncErrors(async(req, res, next) => {
     console.log(req.file);
     if (req.file) {
         let user = await Conn.findByPk(userId);
-        user.profilePic = req.file.path;
+        user.profilePic = req.file.filename;
         await user.save();
     } else
         return next(new ErrorHandler(400, "Profile Pic is required"));
