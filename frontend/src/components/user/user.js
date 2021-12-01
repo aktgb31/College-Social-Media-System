@@ -13,6 +13,7 @@ import TextField from "@mui/material/TextField";
 import { FaHome } from 'react-icons/fa';
 import {ImExit} from 'react-icons/im';
 import { useEffect } from "react";
+import NavbarComponent from "../navbar/navbar";
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -69,30 +70,7 @@ function User() {
   return (
     <>
     <div>
-      <Navbar id="nav-id" bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="/home">USER PROFILE</Navbar.Brand>
-          <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Link to="/home">
-              <Button variant="contained" color="primary" id="btn-nav">
-               <FaHome className="App-logo"/>
-               
-              </Button>
-            </Link>
-
-            
-            <Navbar.Text>&nbsp;&nbsp;&nbsp;</Navbar.Text>
-            <Link to="/login">
-              <Button variant="contained" color="primary" id="btn-nav">
-               <ImExit className="App-logo"/>
-               
-              </Button>
-            </Link>
-            
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+    <NavbarComponent name={user.firstName}/>
     </div>
     <div className="userdetails">
       <Box

@@ -38,13 +38,12 @@ const Register = () => {
         clubType
     } = user;
     const valid=isnitcid(emailId);
+    console.log(user);
     if (name && clubType && emailId && valid ) {
-      axios.post("http://localhost:4444/api/user/register/club", user).then((res) => {
+      axios.post("/api/user/register/club", user, { withCredentials: true }).then((res) => {
         alert(res.data.message);
-      });
-      console.log(isnitcid(emailId));
-      history.push("/login");
-      alert("Response Saved");
+        history.push("/login");
+      }).catch(err => alert(err.response.data.message));
     } else {
       alert("invlid input");
     }
