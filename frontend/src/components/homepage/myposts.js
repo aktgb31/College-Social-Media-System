@@ -2,13 +2,15 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import NavbarComponent from "../navbar/navbar";
-import Hppost from "../hppost/hppost";
-const Homepage = () => {
+import Myhppost from "../hppost/myhppost";
+import { Link } from "react-router-dom";
+import axios from "axios"
+const Myposts = () => {
   const [post,setPost] = useState([]);
   const [user,setUser] = useState(null);
+  const [id, setId] = useState();
   useEffect(async () => {
     const response= await fetch("/api/post");
     const data= await response.json();
@@ -23,20 +25,35 @@ const Homepage = () => {
     const tr=dat.data.club.name;
     setUser(tr);
   }
+  const id = dat.data.userId;
+    
+    setId(id)
+    console.log({id});
+    const pstresponse = await axios.get('/api/post', {
+      params: {
+        userId: id
+      }, 
+      withCredentials: true
+    
+    })
+    
+    // const data = await response.json();
+    // console.log(data);
+    setPost(pstresponse.data.data);
+    console.log(pstresponse)
     
     
   },[])
   return (
     <>
      <NavbarComponent name={user}/>
-        <center><h1>HOMEPAGE
-            < Link to = "/myposts"
-             > <center>< Button variant = "primary" id = "show-thread-btn" > My Posts </Button> </center></Link >
+        <center><h1>Myposts< Link to = "/home"
+             > <center>< Button variant = "primary" id = "show-thread-btn" > All Posts </Button> </center></Link >
             
             <div>&nbsp;</div></h1></center>
         
         {post.map( (postdetails)=>{
-            return<Hppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content}/>
+            return<Myhppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content} postId={postdetails.postId}/>
         
         })}
       {/* <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>
@@ -47,16 +64,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
-
-// let data=qs.stringify({"userId":`${postdetails.creatorId}`});
-            // console.log(data);
-            // const userDetail=await axios({url:'/api/user/profile',method:'get', headers: { 
-            //   'Content-Type': 'application/x-www-form-urlencoded'
-            // },data:data},{withCredentials:true}).catch(res => console.log(res.response.data.message));;
-            // console.log(userDetail);
-            // let name;
-            // name=userDetail.name;
-            // if(userDetail.firstName && userDetail.lastName)
-            //   name=userDetail.firstName+" "+userDetail.lastName;
-            
+export default Myposts;

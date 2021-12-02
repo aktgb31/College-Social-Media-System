@@ -20,6 +20,7 @@ import Thread from './components/thread/thread';
 import Createthread from './components/thread/createthread';
 import ThreadView from './components/thread/threadview';
 import MyThread from './components/thread/mythread';
+import Myposts from './components/homepage/myposts';
 function App() {
   const [ user, setLoginUser] = useState({ 
     firstName: "",
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route  path="/eventcreate">
             <Eventcreate/>
+          </Route>
+          <Route  path="/myposts">
+            <Myposts/>
           </Route>
           <Route  path="/myevents">
             <Myevents/>

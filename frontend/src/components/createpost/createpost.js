@@ -5,8 +5,10 @@ import { Grid, Paper, TextField } from "@mui/material";
 import Navbar from "../navbar/navbar";
 import "./createpost.css";
 import { useState } from "react";
+import { useHistory } from "react-router-dom"
 function CreatePost() {
   const [user, setUser] = useState({ content: "" });
+  const history = useHistory()
   const updateDetails = () => {
     //console.log(user);
     fetch("/api/post/", {
@@ -19,7 +21,8 @@ function CreatePost() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        alert("Profile updated");
+        alert("Post Created");
+        history.push("/myposts");
       })
       .catch((error) => {
         console.error("Error:", error);
