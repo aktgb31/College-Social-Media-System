@@ -6,7 +6,7 @@ import axios from "axios"
 import { AiFillDelete } from 'react-icons/ai';
 function MyEventComponent(props) {
   const deleteevent = () => {
-    console.log(props.eventId);
+    // console.log(props.eventId);
     axios.delete("/api/event", {params:{
           eventId: props.eventId
         }, 
