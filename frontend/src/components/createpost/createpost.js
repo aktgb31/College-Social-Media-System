@@ -9,24 +9,21 @@ import { useHistory } from "react-router-dom"
 function CreatePost() {
   const [user, setUser] = useState({ content: "" });
   const [selectedFile, setSelectedFile] = useState();
-	const [isFilePicked, setIsFilePicked] = useState(false);
+  const [isFilePicked, setIsFilePicked] = useState(false);
   const changeHandler = (event) => {
-		setSelectedFile(event.target.files[0]);
-		setIsFilePicked(true);
-	};
+    setSelectedFile(event.target.files[0]);
+    setIsFilePicked(true);
+  };
   const history = useHistory()
   const updateDetails = () => {
     //console.log(user);
     const formData = new FormData();
     console.log(user.content);
-    formData.append('File', selectedFile);
+    formData.append('relatedImage', selectedFile);
     formData.append('content', user.content);
     fetch("/api/post/", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -36,7 +33,7 @@ function CreatePost() {
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert("Error in Updating Profile");
+        alert("Error in Posting");
       });
   };
   const handleChange = (e) => {
@@ -70,21 +67,21 @@ function CreatePost() {
           type="file"
           name="file"
           // value={user.lastName}
-           onChange={changeHandler}
+          onChange={changeHandler}
         />
         {isFilePicked ? (
-				<div>
-					<p>Filename: {selectedFile.name}</p>
-					<p>Filetype: {selectedFile.type}</p>
-					<p>Size in bytes: {selectedFile.size}</p>
-					<p>
-						lastModifiedDate:{' '}
-						{selectedFile.lastModifiedDate.toLocaleDateString()}
-					</p>
-				</div>
-			) : (
-				<p>Select a file to show details</p>
-			)}
+          <div>
+            <p>Filename: {selectedFile.name}</p>
+            <p>Filetype: {selectedFile.type}</p>
+            <p>Size in bytes: {selectedFile.size}</p>
+            <p>
+              lastModifiedDate:{' '}
+              {selectedFile.lastModifiedDate.toLocaleDateString()}
+            </p>
+          </div>
+        ) : (
+          <p>Select a file to show details</p>
+        )}
         <Button id="update-button" variant="outlined" onClick={updateDetails}>
           Create Post
         </Button>

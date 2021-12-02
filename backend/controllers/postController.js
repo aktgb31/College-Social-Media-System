@@ -55,9 +55,10 @@ exports.getPost = catchAsyncErrors(async(req, res, next) => {
 
 
 exports.addPost = catchAsyncErrors(async(req, res, next) => {
+    console.log(req.body);
     const creatorId = req.session.userId;
     const content = req.body.content;
-    if (content == null)
+    if (content == null || content == '')
         return next(new ErrorHandler(400, "Content is required"));
     const threadId = req.body.threadId || null;
     let relatedImage = null;
