@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Navbar } from "react-bootstrap";
 import NavbarComponent from "../navbar/navbar";
+import { useLocation } from "react-router-dom";
 import ThreadMessage from "./threadMessage";
 import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -14,6 +15,9 @@ function ThreadView() {
   const [user, setUser] = useState({
     message: "",
   });
+  const search = useLocation().search;
+  const senderId = new URLSearchParams(search).get("threadId");
+  console.log(senderId);
   const handleChange = (e) => {
     const { name, value } = e.target;
     //console.log(user);
@@ -24,6 +28,7 @@ function ThreadView() {
   };
   const sendMessage = () => {
     console.log(user);
+    alert("Message sent");
   };
   return (
     <div>

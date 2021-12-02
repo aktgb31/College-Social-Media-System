@@ -38,12 +38,13 @@ function Thread() {
             <Link to="/createthread"><Button variant="primary" id="show-thread-btn">Create Thread</Button> </Link>
             </div>
             <div id="full-thread-btn">
-            < Link to = "/mythread" > < Button variant = "primary" id = "show-thread-btn" > My Threads </Button> </Link >
+            < Link to = "/mythread"
+             > < Button variant = "primary" id = "show-thread-btn" > My Threads </Button> </Link >
             </div>
             <div>&nbsp;</div>
             {/* <Threadcomponent name="CP vs DEV" author="Kunal" />*/}
             {post.map( (postdetails)=>{
-            return <Threadcomponent name={postdetails.threadTitle} author={postdetails.creatorId} /> 
+            return <Threadcomponent id_={postdetails.threadId} name={postdetails.threadTitle} author={postdetails.creatorId} /> 
         
         })}</div></div>
         </div>

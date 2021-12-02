@@ -57,7 +57,23 @@ function User() {
     });
   };
   const updateDetails = () => {
-
+    console.log(user);
+    fetch("/api/user/profile/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        alert("Profile updated");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error in Updating Profile");
+      });
   };
     const [open, setOpen] = React.useState(false);
 

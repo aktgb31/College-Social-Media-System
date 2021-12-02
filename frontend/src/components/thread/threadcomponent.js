@@ -12,7 +12,12 @@ function Threadcomponent(props) {
         <Card.Header as="h5">{props.name}</Card.Header>
         <Card.Body>
           <Card.Text>{props.author}</Card.Text>
-          <Link to="/threadview">
+          <Link
+            to={{
+              pathname: "/threadview",
+              search: `?threadId=${props.id_}`,
+            }}
+          >
           <Button variant="primary" id="thread-btn">Join Discussion</Button>
           </Link> 
         </Card.Body>
