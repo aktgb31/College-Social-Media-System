@@ -20,7 +20,6 @@ const storageProfilePic = multer.diskStorage({
         cb(null, "./uploads")
     },
     filename: function(req, file, cb) {
-        console.log(file.mimetype)
         cb(null, "profile" + req.session.userId + ".jpeg")
     }
 })

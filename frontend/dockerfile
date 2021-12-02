@@ -1,0 +1,13 @@
+FROM node:16.13.0
+
+WORKDIR /frontend
+
+COPY package*.json ./
+
+RUN npm install --silent
+
+COPY . .
+
+EXPOSE 3000
+
+ENTRYPOINT ["npm", "start"]

@@ -1,0 +1,36 @@
+version: "3"
+services:
+  social-backend:
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    image:  social-backend-image
+    container_name: social-backend-container
+    volumes:
+      - ./backend:/usr/src/app
+    ports:
+      - "4444:4444"
+    env_file: 
+      - ./backend/.env
+    depends_on:
+      - social-database
+    networks:
+      - social-network
+  social-database:
+    build:
+      context: ./database
+      dockerfile: dockerfile
+    image:  social-database-image
+    container_name: social-database-container
+    volumes:
+      - ./database/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./database/.env
+    networks:
+      - social-network
+
+networks:
+    social-network:
+        driver: bridge

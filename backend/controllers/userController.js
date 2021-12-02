@@ -242,7 +242,6 @@ exports.updateProfilePic = catchAsyncErrors(async(req, res, next) => {
         Conn = Student;
     else
         Conn = Club;
-    console.log(req.file);
     if (req.file) {
         let user = await Conn.findByPk(userId);
         user.profilePic = req.file.filename;

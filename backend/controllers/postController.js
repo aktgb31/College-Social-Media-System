@@ -55,7 +55,6 @@ exports.getPost = catchAsyncErrors(async(req, res, next) => {
 
 
 exports.addPost = catchAsyncErrors(async(req, res, next) => {
-    console.log(req.body);
     const creatorId = req.session.userId;
     const content = req.body.content;
     if (content == null || content == '')
@@ -68,7 +67,6 @@ exports.addPost = catchAsyncErrors(async(req, res, next) => {
         await Thread.findByPk(threadId).then(async(thread) => {
             thread.changed('updatedAt', true);
             await thread.save();
-            console.log(thread)
         });
 
     res.status(201).json({
