@@ -48,6 +48,7 @@ export default function Post(props) {
   const [comment, setComment] = React.useState();
   const [comments, setComments] = React.useState([]);
   const [commentCount, setCommentCount] = React.useState(0);
+  const [creator , setCreator] = React.useState();
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("postId");
 
@@ -58,10 +59,32 @@ export default function Post(props) {
   useEffect(async () => {
     const response = await fetch(`/api/post/?postId=${name}`);
     const data = await response.json();
-    // console.log(data.data[0]);
     setPost(data.data[0]);
+    const qwert=data.data[0].creatorId;
+    const resp= await fetch(`/api/user/profile/?userId=${qwert}`);
+    const dat = await resp.json();
+      //console.log(dat.data.student.firstName);
+      try{
+        setCreator(dat.data.student.firstName);
+      }
+      catch(err){
+        setCreator(dat.data.club.name);
+      }
     setLikes(data.data[0].Upvotes.length);
-    setComments(data.data[0].Comments);
+    
+    const qw=data.data[0].Comments;
+    qw.map(async(item)=>{
+      const resp= await fetch(`/api/user/profile/?userId=${item.creatorId}`);
+      const dat = await resp.json();
+      //console.log(dat.data.student.firstName);
+      try{
+        item.creatorId=dat.data.student.firstName;
+      }
+      catch(err){
+        item.creatorId=dat.data.club.name;
+      }
+    })
+    setComments(qw);
   }, [commentCount]);
 
   return (
@@ -97,7 +120,7 @@ export default function Post(props) {
                 )}
               </IconButton>
             }
-            title={post.creatorId}
+            title={creator}
             subheader={post.createdAt}
           />
           <CardMedia
