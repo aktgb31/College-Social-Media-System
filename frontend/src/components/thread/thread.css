@@ -121,3 +121,18 @@
     /* padding-bottom: 2%; */
     float: left;
 }
+h4{
+    font-size: 25px;
+    color:#153372;
+    font-family: Copperplate,
+    fantasy;
+}
+
+
+
+
+
+
+#content-thread-text{
+    height: 50px;
+}
