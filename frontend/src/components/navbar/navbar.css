@@ -7,12 +7,27 @@
     background: #395591;
     color: white;
     opacity: 1;
+    margin-top:1%;
+    
     
 }
 
 
-.App-logo{
+/* .App-logo{
     width: 40px;
+} */
+
+
+#search-outer{
+    
+    margin-bottom:0%;
+    padding-left: 20%;
+    padding-top: 1%;
 }
 
+#input-outer{
+    
+    padding-top:0.9%;
+    width:74%;
+}
 

@@ -56,7 +56,18 @@ export default function Post(props) {
     setExpanded(!expanded);
   };
   const [post, setPost] = useState({});
+  const [username,setName] = useState(null);
   useEffect(async () => {
+    const res= await fetch("/api/user/profile/me");
+    const datap= await res.json();
+    try {
+       const tr=datap.data.student.firstName;
+       setName(tr);
+    }
+  catch(err) {
+    const tr=datap.data.club.name;
+    setName(tr);
+  }
     const response = await fetch(`/api/post/?postId=${name}`);
     const data = await response.json();
     setPost(data.data[0]);
@@ -90,7 +101,7 @@ export default function Post(props) {
   return (
     <>
       {/* {console.log(post.postId)} */}
-      <NavbarComponent />
+      <NavbarComponent name={username}/>
       <div>&nbsp;&nbsp;</div>
       <div>&nbsp;&nbsp;</div>
       <center>

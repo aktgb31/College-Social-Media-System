@@ -6,6 +6,8 @@ import { FaRegPlusSquare } from 'react-icons/fa';
 import { MdGroups } from 'react-icons/md';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { BsFillCalendarEventFill } from 'react-icons/bs';
+
+import { FaSearch } from 'react-icons/fa';
 import {ImExit} from 'react-icons/im';
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
@@ -30,7 +32,20 @@ function NavbarComponent(props) {
         <Container>
           <Navbar.Brand href="/home" >COLLEGE SOCIAL MEDIA SYSTEM</Navbar.Brand>
           <Navbar.Toggle />
+            
           <Navbar.Collapse className="justify-content-end" id="nav-nav">
+            <div class="input-group" id="search-outer">
+            <div id="input-outer">
+              <input type="search" placeholder="search user by name" id="form1" class="form-control" />
+              <label class="form-label" for="form1">Search</label>
+            </div>
+            <div>&nbsp;&nbsp;&nbsp;</div>
+            <button type="button" id="btn-nav">
+              <FaSearch/>
+            </button>
+            </div>
+            
+            
             <Link to="/createpost">
               <Button variant="contained" color="primary" id="btn-nav">
                 <FaRegPlusSquare className="App-logo"/>
@@ -38,7 +53,7 @@ function NavbarComponent(props) {
             </Link>
             <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
             <Link to="/thread">
-              <Button variant="contained" color="primary" id="btn-nav">
+              <Button variant="contained" color="primary" id="btn-nav" >
                 
                 <MdGroups className="App-logo"/>
               </Button>

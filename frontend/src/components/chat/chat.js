@@ -7,15 +7,27 @@ import "../people/people.css";
 
 function Chat() {
   const [post, setPost] = useState([]);
+  const [user,setUser] = useState(null);
   useEffect(async () => {
     const response = await fetch("/api/user");
     const data = await response.json();
     console.log(data);
     setPost(data.data);
+
+    const res= await fetch("/api/user/profile/me");
+    const dat= await res.json();
+    try {
+       const tr=dat.data.student.firstName;
+       setUser(tr);
+    }
+  catch(err) {
+    const tr=dat.data.club.name;
+    setUser(tr);
+  }
   }, []);
   return (
     <>
-      <NavbarComponent />
+      <NavbarComponent name={user} />
       <div>&nbsp;&nbsp;</div>
       <div>&nbsp;&nbsp;</div>
       <div id="chat-box">

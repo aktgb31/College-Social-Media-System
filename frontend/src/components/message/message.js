@@ -9,12 +9,23 @@ import axios from "axios";
 function Message() {
   const search = useLocation().search;
   const [post, setPost] = useState([]);
+  const [name,setName] = useState(null);
   const senderId = new URLSearchParams(search).get("senderId");
   const [count, setCount] = useState(0);
   const [user, setUser] = useState({
     message: "",
   });
   useEffect(async () => {
+    const res= await fetch("/api/user/profile/me");
+    const datap= await res.json();
+    try {
+       const tr=datap.data.student.firstName;
+       setName(tr);
+    }
+  catch(err) {
+    const tr=datap.data.club.name;
+    setName(tr);
+  }
     {
       console.log("this is sender id", senderId);
     }
@@ -57,21 +68,8 @@ function Message() {
   };
   return (
     <div>
-      <NavbarComponent />
-
-      {/* <MessageComponent
-        author="Gopal"
-        content="this is sample content for messages"
-      /> */}
-      {post.map((postdetails) => {
-        return (
-          <MessageComponent
-            author={postdetails.senderId}
-            content={postdetails.hashedContent}
-          />
-        );
-      })}
-
+      <NavbarComponent name={name}/>
+      <div>&nbsp;</div>
       <form id="input-form">
         <input
           type="text"
@@ -85,6 +83,23 @@ function Message() {
           Send
         </Button>
       </form>
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      <div>&nbsp;</div>
+      {/* <MessageComponent
+        author="Gopal"
+        content="this is sample content for messages"
+      /> */}
+      {post.map((postdetails) => {
+        return (
+          <MessageComponent
+            author={postdetails.senderId}
+            content={postdetails.hashedContent}
+          />
+        );
+      })}
+
+      
     </div>
   );
 }
