@@ -12,7 +12,22 @@ const Homepage = () => {
   useEffect(async () => {
     const response= await fetch("/api/post");
     const data= await response.json();
-    setPost(data.data);
+    
+    const qw=data.data;
+    qw.map(async(item)=>{
+      const resp= await fetch(`/api/user/profile/?userId=${item.creatorId}`);
+      const dat = await resp.json();
+      //console.log(dat.data.student.firstName);
+      try{
+        item.creatorId=dat.data.student.firstName;
+      }
+      catch(err){
+        item.creatorId=dat.data.club.name;
+      }
+      
+    })
+    console.log(qw)
+    setPost(qw);
     const res= await fetch("/api/user/profile/me");
     const dat= await res.json();
     try {
@@ -36,6 +51,9 @@ const Homepage = () => {
             <div>&nbsp;</div></h1></center>
         
         {post.map( (postdetails)=>{
+              // const resp= await fetch(`/api/user/profile/?userId=${postdetails.creatorId}`);
+              // const dat = await resp.json();
+            // console.log(dat)
             return<Hppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content}/>
         
         })}
