@@ -25,7 +25,7 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import NavbarComponent from "../navbar/navbar";
 import CommentCompent from "../comment/comment";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -45,136 +45,190 @@ export default function Post(props) {
   const [liked, setLiked] = React.useState(false);
   const [likes, setLikes] = React.useState(0);
   const [report, setReport] = React.useState(false);
+  const [comment, setComment] = React.useState();
+  const [comments, setComments] = React.useState([]);
+  const [commentCount, setCommentCount] = React.useState(0);
   const search = useLocation().search;
-  const name = new URLSearchParams(search).get('postId');
-  
+  const name = new URLSearchParams(search).get("postId");
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [post,setPost] = useState([]);
+  const [post, setPost] = useState({});
   useEffect(async () => {
-    const response= await fetch("/api/post");
-    const data= await response.json();
-    console.log(data);
-    setPost(data.data);
-  },[])
+    const response = await fetch(`/api/post/?postId=${name}`);
+    const data = await response.json();
+    // console.log(data.data[0]);
+    setPost(data.data[0]);
+    setLikes(data.data[0].Upvotes.length);
+    setComments(data.data[0].Comments);
+  }, [commentCount]);
 
   return (
     <>
-    {console.log(name)}
-    <NavbarComponent/>
-    <div>&nbsp;&nbsp;</div>
-    <div>&nbsp;&nbsp;</div>
-    <center>
-      <Card sx={{ maxWidth: 600 }} id="post-file">
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-          }
-          action={
+      {/* {console.log(post.postId)} */}
+      <NavbarComponent />
+      <div>&nbsp;&nbsp;</div>
+      <div>&nbsp;&nbsp;</div>
+      <center>
+        <Card sx={{ maxWidth: 600 }} id="post-file">
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                N
+              </Avatar>
+            }
+            action={
+              <IconButton
+                aria-label="settings"
+                onClick={() => {
+                  if (report) {
+                    alert("Post is already reported by you");
+                  } else {
+                    alert("Post Reported");
+                    setReport(true);
+                  }
+                }}
+              >
+                {report ? (
+                  <ReportIcon style={{ color: "red" }} />
+                ) : (
+                  <ReportIcon style={{ color: "grey" }} />
+                )}
+              </IconButton>
+            }
+            title={post.creatorId}
+            subheader={post.createdAt}
+          />
+          <CardMedia
+            component="img"
+            height="auto"
+            image="https://cdn.pixabay.com/photo/2014/11/13/06/12/boy-529067__340.jpg"
+            alt="Paella dish"
+          />
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {post.content}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
             <IconButton
-              aria-label="settings"
+              aria-label="add to favorites"
               onClick={() => {
-                if (report) {
-                  alert("Post is already reported by you");
+                if (liked) {
+                  alert("already liked");
                 } else {
-                  alert("Post Reported");
-                  setReport(true);
+                  fetch("/api/post/reaction", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      reactionType: "upvote",
+                      postId: post.postId,
+                    }),
+                  })
+                    .then((response) => response.json())
+                    .then((data) => {
+                      console.log("Success:", data);
+                      alert("liked");
+                    })
+                    .catch((error) => {
+                      console.error("Error:", error);
+                      alert("Error in Liking");
+                    });
+                  setLikes(likes + 1);
+                  setLiked(!liked);
                 }
+                //alert("clicked");
               }}
             >
-              {report ? (
-                <ReportIcon style={{ color: "red" }} />
+              {liked ? (
+                <FavoriteIcon style={{ color: "red" }} />
               ) : (
-                <ReportIcon style={{ color: "grey" }} />
+                <FavoriteIcon style={{ color: "grey" }} />
               )}
+              <p>{likes}&emsp;</p>
             </IconButton>
-          }
-          title="post title"
-          subheader="post creator name"
-        />
-        <CardMedia
-          component="img"
-          height="auto"
-          image="https://cdn.pixabay.com/photo/2014/11/13/06/12/boy-529067__340.jpg"
-          alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            content text
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            onClick={() => {
-              if (liked) {
-                alert("already liked");
-              } else {
-                alert("liked");
-                setLikes(likes + 1);
-                setLiked(!liked);
-              }
-              //alert("clicked");
-            }}
-          >
-            {liked ? (
-              <FavoriteIcon style={{ color: "red" }} />
-            ) : (
-              <FavoriteIcon style={{ color: "grey" }} />
-            )}
-            <p>{likes}&emsp;</p>
-          </IconButton>
-          <IconButton
-            aria-label="share"
-            onClick={() => {
-              const el = document.createElement("input");
-              el.value = window.location.href;
-              document.body.appendChild(el);
-              el.select();
-              document.execCommand("copy");
-              document.body.removeChild(el);
-              alert("post link copied ");
-            }}
-          >
-            <ShareIcon />
-            <p>&emsp;</p>
-          </IconButton>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <p> &emsp;</p>
-            <CommentIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto">
-          <CardContent>
-            <FormControl fullWidth sx={{ m: 1 }}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Comment
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                // value={values.amount}
-                onChange={() => {
-                  //console.log("changed");
-                }}
-                label="Comment"
-              />
-              <Button variant="contained" endIcon={<SendIcon />}>
-                Add Comment
-              </Button>
-            </FormControl>
-                <CommentCompent author="Navnit" comment="sample comment"/>
-          </CardContent>
-        </Collapse>
-      </Card>
-    </center>
+            <IconButton
+              aria-label="share"
+              onClick={() => {
+                const el = document.createElement("input");
+                el.value = window.location.href;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand("copy");
+                document.body.removeChild(el);
+                alert("post link copied ");
+              }}
+            >
+              <ShareIcon />
+              <p>&emsp;</p>
+            </IconButton>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <p> &emsp;</p>
+              <CommentIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto">
+            <CardContent>
+              <FormControl fullWidth sx={{ m: 1 }}>
+                <InputLabel htmlFor="outlined-adornment-amount">
+                  Comment
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-amount"
+                  value={comment}
+                  onChange={(event) => {
+                    setComment(event.target.value);
+                    // console.log(comment)
+                  }}
+                  label="Comment"
+                />
+                <Button
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  onClick={() => {
+                    fetch("/api/post/comment", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        content: comment,
+                        postId: post.postId,
+                      }),
+                    })
+                      .then((response) => response.json())
+                      .then((data) => {
+                        console.log("Success:", data);
+                        setComment("");
+                        alert("Comment added");
+                        setCommentCount(commentCount + 1);
+                        
+                      })
+                      .catch((error) => {
+                        console.error("Error:", error);
+                        alert("Error in Commenting");
+                      });
+                  }}
+                >
+                  Add Comment
+                </Button>
+              </FormControl>
+              {console.log(comments)}
+              {comments.map((commentDetails) => {
+                return (<CommentCompent author={commentDetails.creatorId} comment={commentDetails.content}></CommentCompent>)
+              })}
+            </CardContent>
+          </Collapse>
+        </Card>
+      </center>
     </>
   );
 }
