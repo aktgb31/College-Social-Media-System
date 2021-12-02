@@ -7,14 +7,24 @@ import "./createpost.css";
 import { useState } from "react";
 function CreatePost() {
   const [user, setUser] = useState({ content: "" });
+  const [selectedFile, setSelectedFile] = useState();
+	const [isFilePicked, setIsFilePicked] = useState(false);
+  const changeHandler = (event) => {
+		setSelectedFile(event.target.files[0]);
+		setIsFilePicked(true);
+	};
   const updateDetails = () => {
     //console.log(user);
+    const formData = new FormData();
+    console.log(user.content);
+    formData.append('File', selectedFile);
+    formData.append('content', user.content);
     fetch("/api/post/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -49,17 +59,29 @@ function CreatePost() {
           type="text"
           name="content"
           id="content-text"
-          // value={user.lastName}
-          placeholder="         Type your content here"
+          value={user.content}
+          placeholder="Type your content here"
           onChange={handleChange}
         ></input>
         <input
           type="file"
-          name="lastName"
+          name="file"
           // value={user.lastName}
-          placeholder="Your Last Name"
-          // onChange={handleChange}
-        ></input>
+           onChange={changeHandler}
+        />
+        {isFilePicked ? (
+				<div>
+					<p>Filename: {selectedFile.name}</p>
+					<p>Filetype: {selectedFile.type}</p>
+					<p>Size in bytes: {selectedFile.size}</p>
+					<p>
+						lastModifiedDate:{' '}
+						{selectedFile.lastModifiedDate.toLocaleDateString()}
+					</p>
+				</div>
+			) : (
+				<p>Select a file to show details</p>
+			)}
         <Button id="update-button" variant="outlined" onClick={updateDetails}>
           Create Post
         </Button>
