@@ -25,19 +25,24 @@ function User() {
   const [user, setUser] = useState({
     firstName: "Navnit",
     lastName: "Anand",
+    name:"clubname",
+    clubType:"Technical",
     emailId: "navnit_b190404cs@nitc.ac.in",
     branch: "CSE",
     passingYear: "2023",
     dob: "28-04-2001",
     gender: "male",
     newPassword:"",
+    userType:"",
   });
   useEffect(async () => {
   const response= await fetch("/api/user/profile/me");
   const data= await response.json();
   console.log(data);
   const tr=data.data;
-  const qw={
+  
+  if(tr.userType=='STUDENT'){
+    const qw={
     firstName: tr.student.firstName,
     lastName: tr.student.lastName,
     emailId: tr.emailId,
@@ -45,8 +50,22 @@ function User() {
     passingYear: tr.student.passingYear,
     dob: tr.student.dob,
     gender: tr.student.gender,
+    userType: tr.userType,
   }
   setUser(qw);
+
+  }
+  else{
+    const qw={
+    name: tr.club.name,
+   userType: tr.userType,
+    emailId: tr.emailId,
+    clubType: tr.club.userType,
+    
+  }
+  setUser(qw);
+
+  }
 },[])
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -98,7 +117,9 @@ function User() {
             }).catch(res => alert(res.response.data.message));
         console.log(user.newPassword);
     }
-  return (
+  if(user.userType=="STUDENT"){
+    return (
+    
     <>
     <div>
     <NavbarComponent name={user.firstName}/>
@@ -117,7 +138,7 @@ function User() {
             required
             id="filled-required"
             label="First Name"
-            defaultValue="Navnit"
+            defaultValue=""
             variant="filled"
             name="firstName"
             value={user.firstName}
@@ -127,7 +148,7 @@ function User() {
             required
             id="filled-required"
             label="Last Name"
-            defaultValue="Anand"
+            defaultValue=""
             variant="filled"
             name="lastName"
             value={user.lastName}
@@ -137,7 +158,7 @@ function User() {
           <TextField
             id="filled-read-only-input"
             label="Email-id"
-            defaultValue="navnit_b19104040cs@nitc.ac.in"
+            defaultValue=""
             InputProps={{
                 readOnly: true,
               }}
@@ -150,7 +171,7 @@ function User() {
             required
             id="filled-required"
             label="Branch"
-            defaultValue="Computer Science"
+            defaultValue=""
             variant="filled"
             name="branch"
             value={user.branch}
@@ -161,7 +182,7 @@ function User() {
             id="filled-required"
             label="Passing Year"
             type="number"
-            defaultValue="2022"
+            defaultValue=""
             variant="filled"
             name="passingYear"
             value={user.passingYear}
@@ -171,7 +192,7 @@ function User() {
             required
             id="filled-required"
             label="Gender"
-            defaultValue="male"
+            defaultValue=""
             variant="filled"
             name="gender"
             value={user.gender}
@@ -211,6 +232,83 @@ function User() {
       </center>
     </div></>
   );
+    }
+  else{
+        return (
+    
+    <>
+    <div>
+    <NavbarComponent name={user.name}/>
+    </div>
+    <div className="userdetails">
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "35ch",height:"10ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <div id="innerform">
+          <TextField
+            required
+            id="filled-required"
+            label="Club Name"
+            defaultValue=""
+            variant="filled"
+            name="firstName"
+            value={user.name}
+            onChange={handleChange}
+          />
+           <TextField
+            required
+            id="filled-required"
+            label="Club Type"
+            defaultValue=""
+            variant="filled"
+            name="lastName"
+            value={user.clubType}
+            onChange={handleChange}
+          />
+          <br/>
+          <TextField
+            id="filled-read-only-input"
+            label="Email-id"
+            defaultValue=""
+            InputProps={{
+                readOnly: true,
+              }}
+              name="emailId"
+            value={user.emailId}
+            variant="filled"
+            onChange={handleChange}
+          />
+           
+        </div>
+      </Box>
+
+      <center>
+      <Stack spacing={2} sx={{ width: '100%' }}>
+      <Button id="update-button" variant="outlined" onClick={updateDetails}>
+        Update Details
+      </Button>
+      <input id="pass-change" type="text" name="newPassword" placeholder="Enter your Email ID" value={user.newPassword} onChange={handleChange} placeholder="Enter your Password" ></input>
+      <Button id="reset-button" className="button" onClick={reset} >Reset password</Button>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Details updated successfully!
+        </Alert>
+      </Snackbar>
+      {/* <Alert severity="error">This is an error message!</Alert>
+      <Alert severity="warning">This is a warning message!</Alert>
+      <Alert severity="info">This is an information message!</Alert>
+      <Alert severity="success">This is a success message!</Alert> */}
+    </Stack>
+      </center>
+    </div></>
+  );
+
+  }
 }
 
 export default User;

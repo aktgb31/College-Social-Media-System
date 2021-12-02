@@ -137,7 +137,7 @@ function ThreadView() {
         <div>&nbsp;&nbsp;</div>
       <div>&nbsp;&nbsp;</div>
         {post.map( (postdetails)=>{
-            return<Hppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content} postId={postdetails.postId}/>
+            return<Hppost title="Thread" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content}/>
         
         })}
       {/* <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>
