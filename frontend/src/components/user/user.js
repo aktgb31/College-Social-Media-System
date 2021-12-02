@@ -107,11 +107,22 @@ function User() {
   
       setOpen(false);
     };
+    const deleteprofile = () => {
+    // console.log(props.eventId);
+    axios.delete("/api/user/delete")
+      .then(res => {
+        alert("Profile Deleted");
+        history.push("/login");
+      }).catch(res => alert(res.response.data.message));
+
+
+  }
    
     const reset = () => {
         
         axios.put("/api/user/password/change", {data:{newPassword:user.newPassword},  withCredentials: true} )
             .then(res => {
+                alert('Password changed');
                 history.push("/user");
                 
             }).catch(res => alert(res.response.data.message));
@@ -219,6 +230,7 @@ function User() {
       </Button>
       <input id="pass-change" type="text" name="newPassword" placeholder="Enter your Email ID" value={user.newPassword} onChange={handleChange} placeholder="Enter your Password" ></input>
       <Button id="reset-button" className="button" onClick={reset} >Reset password</Button>
+      <Button id="delete-button" className="button" onClick={deleteprofile} >DELETE USER PROFILE</Button>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           Details updated successfully!
@@ -256,7 +268,7 @@ function User() {
             label="Club Name"
             defaultValue=""
             variant="filled"
-            name="firstName"
+            name="name"
             value={user.name}
             onChange={handleChange}
           />
@@ -266,7 +278,7 @@ function User() {
             label="Club Type"
             defaultValue=""
             variant="filled"
-            name="lastName"
+            name="clubType"
             value={user.clubType}
             onChange={handleChange}
           />
@@ -294,6 +306,7 @@ function User() {
       </Button>
       <input id="pass-change" type="text" name="newPassword" placeholder="Enter your Email ID" value={user.newPassword} onChange={handleChange} placeholder="Enter your Password" ></input>
       <Button id="reset-button" className="button" onClick={reset} >Reset password</Button>
+      <Button id="delete-button" className="button" onClick={deleteprofile} >DELETE USER PROFILE</Button>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           Details updated successfully!

@@ -24,6 +24,12 @@
     height: 45px;
 
 }
+#delete-button{
+    background: #b84009;
+    color:white;
+    height: 45px;
+
+}
 
 
 #filled-required {
