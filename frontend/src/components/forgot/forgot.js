@@ -47,35 +47,36 @@ const Register = () => {
     } = user;
   };
   const forgot = () => {
-        axios.post("/api/user/password/forgot", user, { withCredentials: true })
-            .then(res => {
-                history.push("/login");
-            }).catch(res => alert(res.response.data.message));
-        console.log(user);
-    }
+    axios.post("/api/user/password/forgot", user, { withCredentials: true })
+      .then(res => {
+        alert(res.data.message);
+        history.push("/login");
+      }).catch(res => alert(res.response.data.message));
+    console.log(user);
+  }
 
   return (
     <div className="forgot">
       {console.log("User", user)}
       <div className="form">
-      <h2>Reset Password</h2>
-      <input
-        type="text"
-        name="emailId"
-        value={user.emailId}
-        placeholder="Your EmailId"
-        onChange={handleChange}
-      ></input>
-      {/* <input
+        <h2>Reset Password</h2>
+        <input
+          type="text"
+          name="emailId"
+          value={user.emailId}
+          placeholder="Your EmailId"
+          onChange={handleChange}
+        ></input>
+        {/* <input
         type="password"
         name="password"
         value={user.password}
         placeholder="Your password"
         onChange={handleChange}
       ></input> */}
-      <div className="button" onClick={forgot}>
-        Send New Password
-      </div></div>
+        <div className="button" onClick={forgot}>
+          Send New Password
+        </div></div>
     </div>
   );
 };
