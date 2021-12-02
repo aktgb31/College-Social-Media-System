@@ -126,7 +126,7 @@ export default function Post(props) {
           <CardMedia
             component="img"
             height="auto"
-            image="https://cdn.pixabay.com/photo/2014/11/13/06/12/boy-529067__340.jpg"
+            image={post.relatedImage}
             alt="Paella dish"
           />
           <CardContent>
