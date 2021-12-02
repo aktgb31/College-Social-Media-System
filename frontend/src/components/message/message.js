@@ -10,6 +10,7 @@ function Message() {
   const search = useLocation().search;
   const [post, setPost] = useState([]);
   const senderId = new URLSearchParams(search).get("senderId");
+  const [count, setCount] = useState(0);
   const [user, setUser] = useState({
     message: "",
   });
@@ -21,7 +22,7 @@ function Message() {
     const dat = await response.json();
     //console.log(dat.data);
     setPost(dat.data);
-  }, []);
+  }, [count]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     //console.log(user);
@@ -46,6 +47,9 @@ function Message() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        alert("Message sent");
+        setCount(count + 1);
+        setUser({message: ""});
       })
       .catch((error) => {
         console.error("Error:", error);
