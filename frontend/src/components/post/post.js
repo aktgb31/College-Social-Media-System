@@ -15,6 +15,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import Button from "@material-ui/core/Button";
 import ReportIcon from "@mui/icons-material/Report";
 import SendIcon from "@mui/icons-material/Send";
@@ -28,6 +29,7 @@ import CommentCompent from "../comment/comment";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -50,6 +52,8 @@ export default function Post(props) {
   const [commentCount, setCommentCount] = React.useState(0);
   const [creator, setCreator] = React.useState();
   const [date, setDate] = React.useState();
+  const [disliked, setDisliked] = React.useState(false);
+  const [dislikes, setDislikes] = React.useState(0);
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("postId");
 
@@ -88,7 +92,7 @@ export default function Post(props) {
       setCreator(dat.data.club.name);
     }
     setLikes(data.data[0].Upvotes.length);
-    
+    setDislikes(data.data[0].Downvotes.length);
     let qw=data.data[0].Comments;
     await Promise.all(qw.map(async (item) => {
       const resp = await fetch(`/api/user/profile/?userId=${item.creatorId}`);
@@ -126,6 +130,12 @@ export default function Post(props) {
                 onClick={() => {
                   if (report) {
                     alert("Post is already reported by you");
+                  }
+                  else if(liked){
+                    alert("You already liked this post");
+                  }
+                  else if(disliked){
+                    alert("You already disliked this post");
                   } else {
                     
                     fetch("/api/post/reaction", {
@@ -176,7 +186,15 @@ export default function Post(props) {
             <IconButton
               aria-label="add to favorites"
               onClick={() => {
-                if (liked) {
+                if(disliked)
+                {
+                  alert("aleready disliked");
+                }
+                else if(report)
+                {
+                  alert("already reported");
+                }
+                else if (liked) {
                   alert("already liked");
                 } else {
                   fetch("/api/post/reaction", {
@@ -205,11 +223,53 @@ export default function Post(props) {
               }}
             >
               {liked ? (
-                <FavoriteIcon style={{ color: "red" }} />
+                <ArrowCircleUpIcon style={{ color: "green" }} />
               ) : (
-                <FavoriteIcon style={{ color: "grey" }} />
+                <ArrowCircleUpIcon style={{ color: "grey" }} />
               )}
               <p>{likes}&emsp;</p>
+              
+            </IconButton>
+            <IconButton onClick={()=>{
+              if(liked){
+                alert("already liked");
+              }
+              else if(disliked){
+                alert("already disliked");
+              }
+              else if(report){
+                alert("already reported");
+              }
+              else{
+                fetch("/api/post/reaction", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    reactionType: "downvote",
+                    postId: post.postId,
+                  }),
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log("Success:", data);
+                    alert("disliked");
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                    alert("Error in Disliking");
+                  });
+                setDisliked(!disliked);
+                setDislikes(dislikes + 1);
+              }
+            }}>
+            {disliked ? (
+                <ArrowCircleDownIcon style={{ color: "red" }} />
+              ) : (
+                <ArrowCircleDownIcon style={{ color: "grey" }} />
+              )}
+              <p>{dislikes}&emsp;</p>
             </IconButton>
             <IconButton
               aria-label="share"
