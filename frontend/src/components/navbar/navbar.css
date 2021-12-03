@@ -19,6 +19,7 @@
 h2{
     font-size: 35px;
     color:#153372;
+    
     font-family: Copperplate,
     fantasy;
 }
@@ -44,9 +45,9 @@ h2{
 }
 
 #search-box{
-    background-image: linear-gradient(to bottom right, rgb(38, 38, 59), rgb(27, 27, 80));
-    margin-left: 30%;
-    margin-right:30%;
+    /* background-image: linear-gradient(to bottom right, rgb(38, 38, 59), rgb(27, 27, 80)); */
+    margin-left: 25%;
+    margin-right:18%;
     margin-top:5%;
     border-radius: 8px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
