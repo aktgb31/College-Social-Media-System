@@ -108,6 +108,7 @@ function Message() {
         return (
           <MessageComponent
             author={postdetails.senderId==senderId?friend:name}
+            style={postdetails.senderId==senderId?"sent":"recieved"}
             content={postdetails.hashedContent}
           />
         );

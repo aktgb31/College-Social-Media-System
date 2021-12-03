@@ -5,21 +5,21 @@ import { Link } from "react-router-dom";
 import "./messagecomponent.css";
 
 function MessageComponent(props) {
-    return (
-      <>
-        <div>&nbsp;&nbsp;</div>
-        <div id="message-outer">
+  return (
+    <>
+      <div>&nbsp;&nbsp;</div>
+      <div id={(props.style == 'sent' ? 'message-outer-sent' : 'message-outer-recieved')}>
         <Card id="message-card">
-        <Card.Header as="h5" id="author-box">{props.author}</Card.Header>
-        <Card.Body>
-          <Card.Text>{props.content}</Card.Text>
-          {/* <Link to="/post">
+          <Card.Header as="h5" id="author-box">{props.author}</Card.Header>
+          <Card.Body>
+            <Card.Text>{props.content}</Card.Text>
+            {/* <Link to="/post">
           <Button variant="primary">Read More</Button>
           </Link> */}
-        </Card.Body>
-      </Card>
-        </div></>
-    )
+          </Card.Body>
+        </Card>
+      </div></>
+  )
 }
 
 export default MessageComponent
