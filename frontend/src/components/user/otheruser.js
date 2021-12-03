@@ -7,6 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import MuiAlert from '@mui/material/Alert';
 import Box from "@mui/material/Box";
+import CardMedia from "@mui/material/CardMedia";
 import Container from "react-bootstrap/Container";
 import "./user.css";
 import TextField from "@mui/material/TextField";
@@ -68,6 +69,7 @@ function Otheruser() {
     dob: tr.student.dob,
     gender: tr.student.gender,
     userType: tr.userType,
+    image:tr.profilePic,
     
   }
   setUser(qw);
@@ -80,6 +82,7 @@ function Otheruser() {
    userType: tr.userType,
     emailId: tr.emailId,
     clubType: tr.club.userType,
+    image:tr.profilePic,
     
   }
   setUser(qw);
@@ -130,130 +133,266 @@ function Otheruser() {
    
   
   if(flag=='1'){
+    if(user.gender=='MALE'){
 
-    return (
-    
-    <>
-    <div>
-    <NavbarComponent name={uname}/>
-    </div>
-    <div className="userdetails">
-      <Box
-        component="form"
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "35ch",height:"10ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <div id="innerform">
-          <TextField
-            required
-            id="filled-read-only-input"
-            label="First Name"
-            defaultValue=""
-            InputProps={{
-                readOnly: true,
-              }}
-            variant="filled"
-            name="firstName"
-            value={user.firstName}
-            onChange={handleChange}
-          />
-           <TextField
-            required
-            id="filled-read-only-input"
-            label="Last Name"
-            defaultValue=""
-            InputProps={{
-                readOnly: true,
-              }}
-            variant="filled"
-            name="lastName"
-            value={user.lastName}
-            onChange={handleChange}
-          />
-          <br/>
-          <TextField
-            id="filled-read-only-input"
-            label="Email-id"
-            defaultValue=""
-            InputProps={{
-                readOnly: true,
-              }}
-              name="emailId"
-            value={user.emailId}
-            variant="filled"
-            onChange={handleChange}
-          />
-            <TextField
-            required
-            id="filled-read-only-input"
-            label="Branch"
-            defaultValue=""
-            InputProps={{
-                readOnly: true,
-              }}
-            variant="filled"
-            name="branch"
-            value={user.branch}
-            onChange={handleChange}
-          /><br/>
-           <TextField
-            required
-            id="filled-read-only-input"
-            label="Passing Year"
-            type="number"
-            defaultValue=""
-            InputProps={{
-                readOnly: true,
-              }}
-            variant="filled"
-            name="passingYear"
-            value={user.passingYear}
-            onChange={handleChange}
-          />
-          <TextField
-            required
-            id="filled-read-only-input"
-            label="Gender"
-            defaultValue=""
-            InputProps={{
-                readOnly: true,
-              }}
-            variant="filled"
-            name="gender"
-            value={user.gender}
-            onChange={handleChange}
-          /><br/>
-          <TextField
-            required
-            id="filled-read-only-input"
-            label="DOB"
-            type="date"
-            defaultValue=""
-            InputProps={{
-                readOnly: true,
-              }}
-            variant="filled"
-            name="dob"
-            value={user.dob}
-            onChange={handleChange}
-          />
-        </div>
-      </Box>
+            return (
+            
+            <>
+            <div>
+            <NavbarComponent name={uname}/>
+            </div>
+            <div className="userdetails">
+            <Box
+                component="form"
+                sx={{
+                "& .MuiTextField-root": { m: 1, width: "35ch",height:"10ch" },
+                }}
+                noValidate
+                autoComplete="off"
+            >
+                <div id="innerform">
+                    <center><CardMedia height="100px"
+                            alt="Paella dish">
+                            <img src="male.png" alt="ghhh" />  
+                        </CardMedia></center>
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="First Name"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="firstName"
+                    value={user.firstName}
+                    onChange={handleChange}
+                />
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="Last Name"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="lastName"
+                    value={user.lastName}
+                    onChange={handleChange}
+                />
+                <br/>
+                <TextField
+                    id="filled-read-only-input"
+                    label="Email-id"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    name="emailId"
+                    value={user.emailId}
+                    variant="filled"
+                    onChange={handleChange}
+                />
+                    <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="Branch"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="branch"
+                    value={user.branch}
+                    onChange={handleChange}
+                /><br/>
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="Passing Year"
+                    type="number"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="passingYear"
+                    value={user.passingYear}
+                    onChange={handleChange}
+                />
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="Gender"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="gender"
+                    value={user.gender}
+                    onChange={handleChange}
+                /><br/>
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="DOB"
+                    type="date"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="dob"
+                    value={user.dob}
+                    onChange={handleChange}
+                />
+                </div>
+            </Box>
 
-      <center>
-      <Stack spacing={2} sx={{ width: '100%' }}>
-     
-      {/* <Alert severity="error">This is an error message!</Alert>
-      <Alert severity="warning">This is a warning message!</Alert>
-      <Alert severity="info">This is an information message!</Alert>
-      <Alert severity="success">This is a success message!</Alert> */}
-    </Stack>
-      </center>
-    </div></>
-  );
+            <center>
+            <Stack spacing={2} sx={{ width: '100%' }}>
+            
+            {/* <Alert severity="error">This is an error message!</Alert>
+            <Alert severity="warning">This is a warning message!</Alert>
+            <Alert severity="info">This is an information message!</Alert>
+            <Alert severity="success">This is a success message!</Alert> */}
+            </Stack>
+            </center>
+            </div></>
+        );
+    }
+    else{
+              return (
+            
+            <>
+            <div>
+            <NavbarComponent name={uname}/>
+            </div>
+            <div className="userdetails">
+            <Box
+                component="form"
+                sx={{
+                "& .MuiTextField-root": { m: 1, width: "35ch",height:"10ch" },
+                }}
+                noValidate
+                autoComplete="off"
+            >
+                <div id="innerform">
+                    <center><CardMedia height="100px"
+                            alt="Paella dish">
+                            <img src="female.png" alt="ghhh" />  
+                        </CardMedia></center>
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="First Name"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="firstName"
+                    value={user.firstName}
+                    onChange={handleChange}
+                />
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="Last Name"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="lastName"
+                    value={user.lastName}
+                    onChange={handleChange}
+                />
+                <br/>
+                <TextField
+                    id="filled-read-only-input"
+                    label="Email-id"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    name="emailId"
+                    value={user.emailId}
+                    variant="filled"
+                    onChange={handleChange}
+                />
+                    <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="Branch"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="branch"
+                    value={user.branch}
+                    onChange={handleChange}
+                /><br/>
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="Passing Year"
+                    type="number"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="passingYear"
+                    value={user.passingYear}
+                    onChange={handleChange}
+                />
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="Gender"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="gender"
+                    value={user.gender}
+                    onChange={handleChange}
+                /><br/>
+                <TextField
+                    required
+                    id="filled-read-only-input"
+                    label="DOB"
+                    type="date"
+                    defaultValue=""
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    variant="filled"
+                    name="dob"
+                    value={user.dob}
+                    onChange={handleChange}
+                />
+                </div>
+            </Box>
+
+            <center>
+            <Stack spacing={2} sx={{ width: '100%' }}>
+            
+            {/* <Alert severity="error">This is an error message!</Alert>
+            <Alert severity="warning">This is a warning message!</Alert>
+            <Alert severity="info">This is an information message!</Alert>
+            <Alert severity="success">This is a success message!</Alert> */}
+            </Stack>
+            </center>
+            </div></>
+        );
+
+    }
     }
   else{
         return (
@@ -272,6 +411,10 @@ function Otheruser() {
         autoComplete="off"
       >
         <div id="innerform">
+            <center><CardMedia height="10px"
+                    alt="Paella dish">
+                    <img src="club.png" />  
+                  </CardMedia></center>
           <TextField
             required
             id="filled-read-only-input"

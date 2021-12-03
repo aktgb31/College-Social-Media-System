@@ -18,7 +18,7 @@ const Myposts = () => {
     const res= await fetch("/api/user/profile/me");
     const dat= await res.json();
     try {
-       const tr=dat.data.student.firstName;
+       const tr=dat.data.student.firstName+" "+dat.data.student.lastName;
        setUser(tr);
     }
   catch(err) {
@@ -53,7 +53,7 @@ const Myposts = () => {
             <div>&nbsp;</div></h1></center>
         
         {post.map( (postdetails)=>{
-            return<Myhppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content} postId={postdetails.postId}/>
+            return<Myhppost title="home" id_={postdetails.postId} author={user} content={postdetails.content} postId={postdetails.postId}/>
         
         })}
       {/* <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>
