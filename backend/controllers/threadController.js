@@ -84,4 +84,4 @@ const deleteOldThreads = async() => {
     }).catch(err => { console.log(err.message) });
 };
 
-let cron = setInterval(deleteOldThreads, 30 * 60 * 60 * 1000);
+let cron = setInterval(deleteOldThreads, 30 * 60 * 1000);
