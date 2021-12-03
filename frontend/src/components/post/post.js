@@ -48,7 +48,7 @@ export default function Post(props) {
   const [comment, setComment] = React.useState();
   const [comments, setComments] = React.useState([]);
   const [commentCount, setCommentCount] = React.useState(0);
-  const [creator , setCreator] = React.useState();
+  const [creator, setCreator] = React.useState();
   const [date, setDate] = React.useState();
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("postId");
@@ -57,48 +57,48 @@ export default function Post(props) {
     setExpanded(!expanded);
   };
   const [post, setPost] = useState({});
-  const [username,setName] = useState(null);
+  const [username, setName] = useState(null);
   useEffect(async () => {
-    const res= await fetch("/api/user/profile/me");
-    const datap= await res.json();
+    const res = await fetch("/api/user/profile/me");
+    const datap = await res.json();
     try {
-       const tr=datap.data.student.firstName;
-       setName(tr);
+      const tr = datap.data.student.firstName;
+      setName(tr);
     }
-  catch(err) {
-    const tr=datap.data.club.name;
-    setName(tr);
-  }
+    catch (err) {
+      const tr = datap.data.club.name;
+      setName(tr);
+    }
     const response = await fetch(`/api/post/?postId=${name}`);
     const data = await response.json();
-    
+
     setPost(data.data[0]);
-    const dates=new Date(data.data[0].createdAt);
-    const dates1=dates.toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', weekday:"long", hour: '2-digit', hour12: false, minute:'2-digit', second:'2-digit'});
+    const dates = new Date(data.data[0].createdAt);
+    const dates1 = dates.toLocaleString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: "long", hour: '2-digit', hour12: false, minute: '2-digit', second: '2-digit' });
     setDate(dates1);
 
-    const qwert=data.data[0].creatorId;
-    const resp= await fetch(`/api/user/profile/?userId=${qwert}`);
+    const qwert = data.data[0].creatorId;
+    const resp = await fetch(`/api/user/profile/?userId=${qwert}`);
     const dat = await resp.json();
-      //console.log(dat.data.student.firstName);
-      try{
-        setCreator(dat.data.student.firstName);
-      }
-      catch(err){
-        setCreator(dat.data.club.name);
-      }
+    //console.log(dat.data.student.firstName);
+    try {
+      setCreator(dat.data.student.firstName);
+    }
+    catch (err) {
+      setCreator(dat.data.club.name);
+    }
     setLikes(data.data[0].Upvotes.length);
-    
-    const qw=data.data[0].Comments;
-    qw.map(async(item)=>{
-      const resp= await fetch(`/api/user/profile/?userId=${item.creatorId}`);
+
+    const qw = data.data[0].Comments;
+    qw.map(async (item) => {
+      const resp = await fetch(`/api/user/profile/?userId=${item.creatorId}`);
       const dat = await resp.json();
       //console.log(dat.data.student.firstName);
-      try{
-        item.creatorId=dat.data.student.firstName;
+      try {
+        item.creatorId = dat.data.student.firstName;
       }
-      catch(err){
-        item.creatorId=dat.data.club.name;
+      catch (err) {
+        item.creatorId = dat.data.club.name;
       }
     })
     setComments(qw);
@@ -107,7 +107,7 @@ export default function Post(props) {
   return (
     <>
       {/* {console.log(post.postId)} */}
-      <NavbarComponent name={username}/>
+      <NavbarComponent name={username} />
       <div>&nbsp;&nbsp;</div>
       <div>&nbsp;&nbsp;</div>
       <center>
@@ -138,12 +138,12 @@ export default function Post(props) {
               </IconButton>
             }
             title={creator}
-             subheader={date}
+            subheader={date}
           />
           <CardMedia
             component="img"
             height="auto"
-            image={post.relatedImage}
+            image={"/" + post.relatedImage}
             alt="Paella dish"
           />
           <CardContent>
@@ -250,7 +250,7 @@ export default function Post(props) {
                         setComment("");
                         alert("Comment added");
                         setCommentCount(commentCount + 1);
-                        
+
                       })
                       .catch((error) => {
                         console.error("Error:", error);
