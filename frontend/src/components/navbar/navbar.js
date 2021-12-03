@@ -34,18 +34,15 @@ function NavbarComponent(props) {
           <Navbar.Toggle />
             
           <Navbar.Collapse className="justify-content-end" id="nav-nav">
-            <div class="input-group" id="search-outer">
-            <div id="input-outer">
-              <input type="search" placeholder="search user by name" id="form1" class="form-control" />
-              <label class="form-label" for="form1">Search</label>
-            </div>
-            <div>&nbsp;&nbsp;&nbsp;</div>
-            <button type="button" id="btn-nav">
-              <FaSearch/>
-            </button>
-            </div>
             
             
+            <Link to="/search">
+              <Button variant="contained" color="primary" id="btn-nav">
+                <FaSearch className="App-logo"/>
+              </Button>
+            </Link>
+            
+            <Navbar.Text>&nbsp;&nbsp;</Navbar.Text>
             <Link to="/createpost">
               <Button variant="contained" color="primary" id="btn-nav">
                 <FaRegPlusSquare className="App-logo"/>
