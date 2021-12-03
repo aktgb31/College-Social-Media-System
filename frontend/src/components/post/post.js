@@ -127,7 +127,26 @@ export default function Post(props) {
                   if (report) {
                     alert("Post is already reported by you");
                   } else {
-                    alert("Post Reported");
+                    
+                    fetch("/api/post/reaction", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        reactionType: "report",
+                        postId: post.postId,
+                      }),
+                    })
+                      .then((response) => response.json())
+                      .then((data) => {
+                        console.log("Success:", data);
+                        alert("reported");
+                      })
+                      .catch((error) => {
+                        console.error("Error:", error);
+                        alert("Error in Reporting");
+                      });
                     setReport(true);
                   }
                 }}
