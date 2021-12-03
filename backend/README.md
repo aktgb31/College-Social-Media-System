@@ -26,8 +26,3 @@ Create a new .env file with the following variables
 To start the Server, run `npm start` and the server will start on http://localhost:PORT
 
 
-## API Documentation
-
- * #### User Related 
- 	User Related apis [here](./USER.md)
-
