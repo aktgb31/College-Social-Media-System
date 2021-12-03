@@ -1,5 +1,7 @@
+const Db = require("../config/database");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const Event = require("../models/event");
+const { Student } = require("../models/user");
 const ErrorHandler = require("../utils/errorHandler");
 const { formatEventDetails } = require("../utils/eventUtils");
 
@@ -45,3 +47,23 @@ exports.deleteEvent = catchAsyncErrors(async(req, res, next) => {
         message: "Event deleted successfully"
     });
 });
+
+// const addBirthday = async() => {
+//     const currentTime=new Date();
+//     const nextTime=new Date(Date.now()+)
+//     const birthdays=Student.findAll({where:Db.where(Db.fn)})
+
+// };
+
+const deleteOldEvents = async() => {
+    const lastDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000);
+    await Event.destroy({
+        where: {
+            eventTime: {
+                [Op.lt]: lastDate
+            }
+        }
+    }).catch(err => { console.log(err.message) });
+};
+
+let cron = setInterval(deleteOldEvents, 15 * 60 * 1000);
