@@ -36,6 +36,13 @@
     width:100px;
 }
 
+#btn-profile {
+    background: #395591;
+    color: white;
+    height: 40px;
+    width:150px;
+}
+
 #chat-title{
     /* background-image: linear-gradient(to bottom, rgb(222, 222, 230), rgb(136, 135, 151)); */
     width:100%;

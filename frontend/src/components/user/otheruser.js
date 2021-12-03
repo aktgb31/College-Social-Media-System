@@ -11,6 +11,7 @@ import Container from "react-bootstrap/Container";
 import "./user.css";
 import TextField from "@mui/material/TextField";
 import { FaHome } from 'react-icons/fa';
+import { useLocation } from "react-router-dom";
 import {ImExit} from 'react-icons/im';
 import { useEffect } from "react";
 import NavbarComponent from "../navbar/navbar";
@@ -22,6 +23,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   });
 function Otheruser() {
   const history = useHistory()
+  const search = useLocation().search;
+  const [flag, setFlag] = useState(null);
+  const profileId = new URLSearchParams(search).get("userId");
   const [user, setUser] = useState({
     firstName: "Navnit",
     lastName: "Anand",
@@ -35,13 +39,26 @@ function Otheruser() {
     newPassword:"",
     userType:"",
   });
+  const [uname, setUname] = useState();
   useEffect(async () => {
-  const response= await fetch("/api/user/profile/me");
+      const res = await fetch("/api/user/profile/me");
+    const dat = await res.json();
+    try {
+       const tr=dat.data.student.firstName;
+       setUname(tr);
+    }
+  catch(err) {
+    const tr=dat.data.club.name;
+    setUname(tr);
+  }
+  console.log(profileId);
+  const response= await fetch(`/api/user/profile/?userId=${profileId}`);
   const data= await response.json();
   console.log(data);
   const tr=data.data;
   
-  if(tr.userType=='STUDENT'){
+  
+  try{
     const qw={
     firstName: tr.student.firstName,
     lastName: tr.student.lastName,
@@ -51,11 +68,13 @@ function Otheruser() {
     dob: tr.student.dob,
     gender: tr.student.gender,
     userType: tr.userType,
+    
   }
   setUser(qw);
+  setFlag('1');
 
   }
-  else{
+  catch(err){
     const qw={
     name: tr.club.name,
    userType: tr.userType,
@@ -109,13 +128,14 @@ function Otheruser() {
     };
     
    
-    
-  if(user.userType=="STUDENT"){
+  
+  if(flag=='1'){
+
     return (
     
     <>
     <div>
-    <NavbarComponent name={user.firstName}/>
+    <NavbarComponent name={uname}/>
     </div>
     <div className="userdetails">
       <Box
