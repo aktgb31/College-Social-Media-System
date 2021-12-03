@@ -13,19 +13,31 @@ function Thread() {
     useEffect(async () => {
     const res = await fetch("/api/user/profile/me");
     const dat = await res.json();
-    try {
-       const tr=dat.data.student.firstName;
-       setUser(tr);
+    if (dat.data.userType == "STUDENT"){
+      const tr = dat.data.student.firstName + " " + dat.data.student.lastName;
+      setUser(tr);
     }
-  catch(err) {
-    const tr=dat.data.club.name;
-    setUser(tr);
-  }
+    else {
+      const tr = dat.data.club.name;
+      setUser(tr);
+    }
     const response= await fetch("/api/thread");
-    const data= await response.json();
+    let data= await response.json();
+    data=data.data;
+    await Promise.all(data.map(async (item) => {
+      const resp = await fetch(`/api/user/profile/?userId=${item.creatorId}`);
+      const dat = await resp.json();
+      if (dat.data.userType == "STUDENT")
+        item.creatorId = dat.data.student.firstName + " " + dat.data.student.lastName;
+      else
+        item.creatorId = dat.data.club.name;
+        return item;
+    }
+    )).then(data=> {
+      console.log(data)
+      setPost(data);
+    });
 
-    console.log(data);
-    setPost(data.data);
   },[])
     return (
         <div>
