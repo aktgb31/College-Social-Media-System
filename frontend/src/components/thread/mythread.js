@@ -15,44 +15,44 @@ function MyThread() {
   useEffect(async () => {
     const res = await fetch("/api/user/profile/me");
     const dat = await res.json();
-    try {
-       const tr=dat.data.student.firstName;
-       setUser(tr);
+    if (dat.data.userType == "STUDENT") {
+      const tr = dat.data.student.firstName + " " + dat.data.student.lastName;
+      setUser(tr);
     }
-  catch(err) {
-    const tr=dat.data.club.name;
-    setUser(tr);
-  }
+    else {
+      const tr = dat.data.club.name;
+      setUser(tr);
+    }
     const id = dat.data.userId;
-    
+
     setId(id)
-    console.log({id});
+    console.log({ id });
     const response = await axios.get('/api/thread', {
       params: {
         creatorId: id
-      }, 
+      },
       withCredentials: true
-    
+
     })
-    
+
     // const data = await response.json();
     // console.log(data);
     setPost(response.data.data);
   }, []);
   return (
     <div>
-      <NavbarComponent name={user}/>
+      <NavbarComponent name={user} />
       <div>&nbsp;&nbsp;</div>
       <div>&nbsp;&nbsp;</div>
       <div id="thread-box">
         <div>
           <h2 id="thread-title">MY THREADS</h2>
-          <div id = "full-thread-btn">
-            <Link to = "/createthread" > <Button variant = "primary" id = "show-thread-btn" > Create Thread </Button> </Link >
-            </div> <div id = "full-thread-btn" >
-            <Link to = "/thread" > <Button variant = "primary"id = "show-thread-btn" > All Threads </Button> </Link >
-            </div> 
-            <div >&nbsp;</div>
+          <div id="full-thread-btn">
+            <Link to="/createthread" > <Button variant="primary" id="show-thread-btn" > Create Thread </Button> </Link >
+          </div> <div id="full-thread-btn" >
+            <Link to="/thread" > <Button variant="primary" id="show-thread-btn" > All Threads </Button> </Link >
+          </div>
+          <div >&nbsp;</div>
 
           {/* <Threadcomponent name="CP vs DEV" author="Kunal" />*/}
           {post && post.map((postdetails) => {
