@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./event.css";
 function EventComponent(props) {
+  var s = new Date(props.time).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'});
   return (
     <div id="outer-message">
        <br></br>
@@ -11,7 +12,7 @@ function EventComponent(props) {
         <Card.Header as="h5">{props.name}</Card.Header>
         <Card.Body>
           <Card.Text>{props.author}</Card.Text>
-          <Card.Text>{props.time}</Card.Text>
+          <Card.Text>{s}</Card.Text>
           {/* <Link to="/post">
           <Button variant="primary">Read More</Button>
           </Link> */}

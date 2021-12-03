@@ -49,6 +49,7 @@ export default function Post(props) {
   const [comments, setComments] = React.useState([]);
   const [commentCount, setCommentCount] = React.useState(0);
   const [creator , setCreator] = React.useState();
+  const [isttime , setTime] = React.useState();
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("postId");
 
@@ -70,7 +71,11 @@ export default function Post(props) {
   }
     const response = await fetch(`/api/post/?postId=${name}`);
     const data = await response.json();
+    
     setPost(data.data[0]);
+    const t =Date(post.createdAt).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'});
+    setTime(t);
+
     const qwert=data.data[0].creatorId;
     const resp= await fetch(`/api/user/profile/?userId=${qwert}`);
     const dat = await resp.json();
@@ -132,7 +137,7 @@ export default function Post(props) {
               </IconButton>
             }
             title={creator}
-            subheader={post.createdAt}
+            subheader={isttime}
           />
           <CardMedia
             component="img"
