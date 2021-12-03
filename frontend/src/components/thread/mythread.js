@@ -55,7 +55,7 @@ function MyThread() {
             <div >&nbsp;</div>
 
           {/* <Threadcomponent name="CP vs DEV" author="Kunal" />*/}
-          {post.map((postdetails) => {
+          {post && post.map((postdetails) => {
             return (
               <Mythreadcomponent
                 name={postdetails.threadTitle}
