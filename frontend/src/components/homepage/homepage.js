@@ -53,7 +53,7 @@ const Homepage = () => {
         // const resp= await fetch(`/api/user/profile/?userId=${postdetails.creatorId}`);
         // const dat = await resp.json();
         // console.log(dat)
-        return <Hppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content} />
+        return <Hppost title="" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content} />
 
       })}
       {/* <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>

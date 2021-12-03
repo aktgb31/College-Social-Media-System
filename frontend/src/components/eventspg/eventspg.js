@@ -13,18 +13,33 @@ function Eventspg() {
     useEffect(async () => {
     const res = await fetch("/api/user/profile/me");
     const dat = await res.json();
-    try {
-       const tr=dat.data.student.firstName;
+    if(dat.data.userType=="STUDENT") {
+       const tr=dat.data.student.firstName+" "+dat.data.student.lastName;
        setUser(tr);
     }
-  catch(err) {
+  else {
     const tr=dat.data.club.name;
     setUser(tr);
   }
-    const response= await fetch("/api/event");
+  const response= await fetch("/api/event");
     const data= await response.json();
-    console.log(data);
-    setPost(data.data);
+  let qw = data.data;
+    await Promise.all(qw.map(async (item) => {
+      const resp = await fetch(`/api/user/profile/?userId=${item.creatorId}`);
+      const dat = await resp.json();
+      if (dat.data.userType == "STUDENT")
+        item.creatorId = dat.data.student.firstName + " " + dat.data.student.lastName;
+      else
+        item.creatorId = dat.data.club.name;
+        return item;
+    }
+    )).then(qw => {
+      console.log(qw)
+      setPost(qw);
+    });
+    
+    
+    
     },[])
     return (
         <div>

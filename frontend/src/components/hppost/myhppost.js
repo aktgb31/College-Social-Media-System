@@ -29,7 +29,7 @@ function Myhppost(props) {
       <Card id="post-card">
         <Card.Header as="h5">{props.author}</Card.Header>
         <Card.Body>
-          <Card.Title>{props.title}</Card.Title>
+          
           <Card.Text>{props.content}</Card.Text>
           {/* {console.log(props.id_)} */}
           <Link
