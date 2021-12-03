@@ -29,11 +29,11 @@ const Homepage = () => {
     });
     const res = await fetch("/api/user/profile/me");
     const dat = await res.json();
-    try {
+       if (dat.data.userType == "STUDENT"){
       const tr = dat.data.student.firstName + " " + dat.data.student.lastName;
       setUser(tr);
     }
-    catch (err) {
+    else {
       const tr = dat.data.club.name;
       setUser(tr);
     }
