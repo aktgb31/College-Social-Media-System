@@ -33,7 +33,7 @@ function Chat() {
       <div id="chat-box">
         <div>
           <h2 id="chat-title">&nbsp;CHAT</h2>
-          {post.map((postdetails) => {
+          {post && post.map((postdetails) => {
             const username=   postdetails.emailId.split("_")
              if(username.length==1){
                const authorname=postdetails.emailId.split("@")[0].toUpperCase();
