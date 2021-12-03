@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const { Post } = require("../models/post");
 const { Thread } = require("../models/thread");
@@ -47,17 +48,8 @@ exports.getThreads = catchAsyncErrors(async(req, res, next) => {
         for (let i = 0; i < threads.length; i++) {
             threads[i].posts = await Post.findAll({ where: { threadId: threads[i].threadId }, raw: true });
         }
-    console.log(threads);
     res.status(200).json({ status: "success", data: threads });
-    // let postsForThreads = [];
-    // if (req.query.threadId) {
-    //     for (let i = 0; i < threads.length; i++) {
-    //         postsForThreads[i] = await Post.findAll({ where: { threadId: threads[i].threadId }, raw: true });
-    //     }
-    //     await Promise.all(postsForThreads).then(posts => { console.log(posts);for (let i = 0; i < threads.length; i++) threads[i].posts = posts[i]; });
-    // }
-    // console.log(threads);
-    // res.status(200).json({ status: "success", data: threads });
+
 });
 
 
@@ -79,3 +71,17 @@ exports.deleteThread = catchAsyncErrors(async(req, res, next) => {
         message: "Thread Deleted Successfully"
     });
 });
+
+
+const deleteOldThreads = async() => {
+    const lastDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    await Thread.destroy({
+        where: {
+            updatedAt: {
+                [Op.lt]: lastDate
+            }
+        }
+    }).catch(err => { console.log(err.message) });
+};
+
+let cron = setInterval(deleteOldThreads, 30 * 60 * 60 * 1000);
