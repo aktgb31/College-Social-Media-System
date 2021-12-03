@@ -6,6 +6,8 @@ const { hash } = require("../utils/encrypt");
 const { sendVerificationEmail } = require("../utils/sendEmail");
 const { formatStudentDetails, formatClubDetails } = require("../utils/userUtils");
 const { Session } = require("../models/sessionStore");
+const Db = require("../config/database");
+const { Op } = require("sequelize");
 
 //Function to register a new user
 async function register(userDetails, model, type) {
@@ -183,12 +185,6 @@ exports.getUserDetails = catchAsyncErrors(async(req, res, next) => {
             attributes: { exclude: ["createdAt", "updatedAt", "password"] },
             raw: true
         });
-    else if (req.query.emailId)
-        user = await User.findOne({
-            where: { emailId: req.query.emailId },
-            attributes: { exclude: ["createdAt", "updatedAt", "password"] },
-            raw: true
-        });
     else return next(new ErrorHandler(400, "User Id or email Id is required"));
     if (user == null)
         return next(new ErrorHandler(404, "User not found"));
@@ -197,6 +193,38 @@ exports.getUserDetails = catchAsyncErrors(async(req, res, next) => {
     else
         user.club = await Club.findByPk(user.userId, { attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] }, raw: true });
     res.status(200).json({ success: true, data: user });
+});
+
+exports.searchUsers = catchAsyncErrors(async(req, res, next) => {
+    let keyword = req.query.keyword;
+    let data = [];
+    let user = await User.findOne({
+        where: { emailId: keyword },
+        attributes: { exclude: ["createdAt", "updatedAt", "password"] },
+        raw: true
+    });
+    if (user != null)
+        if (user.userType == "STUDENT")
+            data.push(await Student.findByPk(user.userId, { attributes: { exclude: ['createdAt', 'updatedAt'] }, raw: true }));
+        else
+            data.push(await Club.findByPk(user.userId, { attributes: { exclude: ['createdAt', 'updatedAt'] }, raw: true }));
+
+    data = data.concat(await Student.findAll({
+        where: Db.where(Db.fn('CONCAT', Db.col('firstName'), ' ', Db.col('lastName')), {
+            [Op.like]: '%' + keyword + '%'
+        }),
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        raw: true
+    }));
+
+    data = data.concat(await Club.findAll({
+        where: Db.where(Db.col('name'), {
+            [Op.like]: '%' + keyword + '%'
+        }),
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        raw: true
+    }));
+    res.status(200).json({ success: true, data: data });
 });
 
 
