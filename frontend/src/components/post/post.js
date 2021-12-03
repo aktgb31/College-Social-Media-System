@@ -49,6 +49,7 @@ export default function Post(props) {
   const [comments, setComments] = React.useState([]);
   const [commentCount, setCommentCount] = React.useState(0);
   const [creator , setCreator] = React.useState();
+  const [date, setDate] = React.useState();
   const search = useLocation().search;
   const name = new URLSearchParams(search).get("postId");
 
@@ -71,6 +72,9 @@ export default function Post(props) {
     const response = await fetch(`/api/post/?postId=${name}`);
     const data = await response.json();
     setPost(data.data[0]);
+    const dates=new Date(data.data[0].createdAt);
+    const dates1=dates.toLocaleString(undefined, {year: 'numeric', month: '2-digit', day: '2-digit', weekday:"long", hour: '2-digit', hour12: false, minute:'2-digit', second:'2-digit'});
+    setDate(dates1);
     const qwert=data.data[0].creatorId;
     const resp= await fetch(`/api/user/profile/?userId=${qwert}`);
     const dat = await resp.json();
@@ -132,7 +136,8 @@ export default function Post(props) {
               </IconButton>
             }
             title={creator}
-            subheader={post.createdAt}
+            
+            subheader={date}
           />
           <CardMedia
             component="img"
