@@ -26,7 +26,7 @@ exports.getThreads = catchAsyncErrors(async(req, res, next) => {
         queryOptions.where.creatorId = parseInt(req.query.creatorId);
 
     queryOptions.order = [
-        ['createdAt', 'DESC']
+        ['updatedAt', 'DESC']
     ];
 
     if (req.query.perPage) {
@@ -45,9 +45,19 @@ exports.getThreads = catchAsyncErrors(async(req, res, next) => {
 
     if (req.query.threadId)
         for (let i = 0; i < threads.length; i++) {
-            threads[i].Posts = await Post.findAll({ where: { threadId: threads[i].threadId }, raw: true });
+            threads[i].posts = await Post.findAll({ where: { threadId: threads[i].threadId }, raw: true });
         }
+    console.log(threads);
     res.status(200).json({ status: "success", data: threads });
+    // let postsForThreads = [];
+    // if (req.query.threadId) {
+    //     for (let i = 0; i < threads.length; i++) {
+    //         postsForThreads[i] = await Post.findAll({ where: { threadId: threads[i].threadId }, raw: true });
+    //     }
+    //     await Promise.all(postsForThreads).then(posts => { console.log(posts);for (let i = 0; i < threads.length; i++) threads[i].posts = posts[i]; });
+    // }
+    // console.log(threads);
+    // res.status(200).json({ status: "success", data: threads });
 });
 
 
