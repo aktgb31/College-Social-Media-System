@@ -79,15 +79,21 @@ function ThreadView() {
     formData.append('relatedImage', selectedFile);
     formData.append('content', content.content);
     formData.append('threadId', currthreadId);
-    axios("/api/post/", {
+    fetch("/api/post/", {
       method: "POST",
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        alert("Message sent in thread");
-        history.push("/thread");
+        if(data.success==false)
+        {
+          console.error("Error:",data.message);
+        alert("Error in Posting");
+        }
+        else
+        {alert("Message sent in thread");
+        history.push("/thread");}
       })
       .catch((error) => {
         console.error("Error:", error);

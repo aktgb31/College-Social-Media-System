@@ -16,14 +16,14 @@ function Chat() {
 
     const res= await fetch("/api/user/profile/me");
     const dat= await res.json();
-    try {
-       const tr=dat.data.student.firstName;
-       setUser(tr);
+    if (dat.data.userType == "STUDENT"){
+      const tr = dat.data.student.firstName + " " + dat.data.student.lastName;
+      setUser(tr);
     }
-  catch(err) {
-    const tr=dat.data.club.name;
-    setUser(tr);
-  }
+    else {
+      const tr = dat.data.club.name;
+      setUser(tr);
+    }
   }, []);
   return (
     <>

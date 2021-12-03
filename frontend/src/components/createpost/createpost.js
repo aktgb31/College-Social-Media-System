@@ -21,11 +21,12 @@ function CreatePost() {
   useEffect(async () => {
     const resp = await fetch("/api/user/profile/me");
     const datap = await resp.json();
-    try {
-      const tr = datap.data.student.firstName;
+
+    if (datap.data.userType == "STUDENT") {
+      const tr = datap.data.student.firstName + " " + datap.data.student.lastName;
       setName(tr);
     }
-    catch (err) {
+    else {
       const tr = datap.data.club.name;
       setName(tr);
     }
@@ -38,15 +39,21 @@ function CreatePost() {
     console.log(user.content);
     formData.append('relatedImage', selectedFile);
     formData.append('content', user.content);
-    axios("/api/post/", {
+    fetch("/api/post/", {
       method: "POST",
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        alert("Post Created");
-        history.push("/myposts");
+        if (data.success == false) {
+          console.error("Error:", data.message);
+          alert("Error in Posting");
+        }
+        else {
+          alert("Post Created");
+          history.push("/myposts");
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
