@@ -1,7 +1,6 @@
-const Db = require("../config/database");
+const { Op } = require("sequelize");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const Event = require("../models/event");
-const { Student } = require("../models/user");
 const ErrorHandler = require("../utils/errorHandler");
 const { formatEventDetails } = require("../utils/eventUtils");
 
