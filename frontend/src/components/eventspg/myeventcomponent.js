@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 import { AiFillDelete } from 'react-icons/ai';
 function MyEventComponent(props) {
+  var s = new Date(props.time).toLocaleString(undefined, {timeZone: 'Asia/Kolkata'});
   const deleteevent = () => {
     // console.log(props.eventId);
     axios.delete("/api/event", {params:{
@@ -25,7 +26,7 @@ function MyEventComponent(props) {
         <Card.Header as="h5">{props.name}</Card.Header>
         <Card.Body>
           <Card.Text>{props.author}</Card.Text>
-          <Card.Text>{props.time}</Card.Text>
+          <Card.Text>{s}</Card.Text>
           {/* <Link to="/post">
           <Button variant="primary">Read More</Button>
           </Link> */}
