@@ -89,19 +89,21 @@ export default function Post(props) {
       }
     setLikes(data.data[0].Upvotes.length);
     
-    const qw=data.data[0].Comments;
-    qw.map(async(item)=>{
-      const resp= await fetch(`/api/user/profile/?userId=${item.creatorId}`);
+    let qw=data.data[0].Comments;
+    await Promise.all(qw.map(async (item) => {
+      const resp = await fetch(`/api/user/profile/?userId=${item.creatorId}`);
       const dat = await resp.json();
-      //console.log(dat.data.student.firstName);
-      try{
-        item.creatorId=dat.data.student.firstName;
-      }
-      catch(err){
-        item.creatorId=dat.data.club.name;
-      }
-    })
-    setComments(qw);
+      if (dat.data.userType == "STUDENT")
+        item.creatorId = dat.data.student.firstName + " " + dat.data.student.lastName;
+      else
+        item.creatorId = dat.data.club.name;
+        return item;
+    }
+    )).then(qw => {
+      console.log(qw)
+      setComments(qw);
+    });
+    
   }, [commentCount]);
 
   return (
