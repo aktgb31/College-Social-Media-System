@@ -66,7 +66,7 @@ function Searchprofile() {
             <div class="input-group" id="search-outer">
             <div id="input-outer">
               <input type="text" name="uname" value={user.uname} placeholder="search User by name / emailId" onChange={handleChange} id="form1" class="form-control" />
-              <label class="form-label" for="form1"  >Search</label>
+              <div>&nbsp;&nbsp;&nbsp;</div>
             </div>
             <div>&nbsp;&nbsp;&nbsp;</div>
 <button type="button" id="btn-nav" onClick={search} >
