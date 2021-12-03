@@ -7,56 +7,55 @@ import Button from "react-bootstrap/Button";
 import NavbarComponent from "../navbar/navbar";
 import Hppost from "../hppost/hppost";
 const Homepage = () => {
-  const [post,setPost] = useState([]);
-  const [user,setUser] = useState(null);
+  const [post, setPost] = useState([]);
+  const [user, setUser] = useState(null);
   useEffect(async () => {
-    const response= await fetch("/api/post");
-    const data= await response.json();
-    
-    const qw=data.data;
-    qw.map(async(item)=>{
-      const resp= await fetch(`/api/user/profile/?userId=${item.creatorId}`);
+    const response = await fetch("/api/post");
+    const data = await response.json();
+
+    let qw = data.data;
+    await Promise.all(qw.map(async (item) => {
+      const resp = await fetch(`/api/user/profile/?userId=${item.creatorId}`);
       const dat = await resp.json();
-      //console.log(dat.data.student.firstName);
-      try{
-        item.creatorId=dat.data.student.firstName;
-      }
-      catch(err){
-        item.creatorId=dat.data.club.name;
-      }
-      
-    })
-    console.log(qw)
-    setPost(qw);
-    const res= await fetch("/api/user/profile/me");
-    const dat= await res.json();
-    try {
-       const tr=dat.data.student.firstName;
-       setUser(tr);
+      if (dat.data.userType == "STUDENT")
+        item.creatorId = dat.data.student.firstName + " " + dat.data.student.lastName;
+      else
+        item.creatorId = dat.data.club.name;
+        return item;
     }
-  catch(err) {
-    const tr=dat.data.club.name;
-    setUser(tr);
-  }
-    
-    
-  },[])
+    )).then(qw => {
+      console.log(qw)
+      setPost(qw);
+    });
+    const res = await fetch("/api/user/profile/me");
+    const dat = await res.json();
+       if (dat.data.userType == "STUDENT"){
+      const tr = dat.data.student.firstName + " " + dat.data.student.lastName;
+      setUser(tr);
+    }
+    else {
+      const tr = dat.data.club.name;
+      setUser(tr);
+    }
+
+
+  }, [])
   return (
     <>
-     <NavbarComponent name={user}/>
-        <center><h1>HOMEPAGE
-            < Link to = "/myposts"
-             > <center>< Button variant = "primary" id = "show-thread-btn" > My Posts </Button> </center></Link >
-            
-            <div>&nbsp;</div></h1></center>
-        
-        {post.map( (postdetails)=>{
-              // const resp= await fetch(`/api/user/profile/?userId=${postdetails.creatorId}`);
-              // const dat = await resp.json();
-            // console.log(dat)
-            return<Hppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content}/>
-        
-        })}
+      <NavbarComponent name={user} />
+      <center><h1>HOMEPAGE
+        < Link to="/myposts"
+        > <center>< Button variant="primary" id="show-thread-btn" > My Posts </Button> </center></Link >
+
+        <div>&nbsp;</div></h1></center>
+
+      {post.map((postdetails) => {
+        // const resp= await fetch(`/api/user/profile/?userId=${postdetails.creatorId}`);
+        // const dat = await resp.json();
+        // console.log(dat)
+        return <Hppost title="home" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content} />
+
+      })}
       {/* <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>
       <Hppost title="Title fetched" author="Amit Kumar" content="this is the content"/>
       <Hppost title="Title fetched" author="Gopal Chaudhary" content="this is the content"/>
@@ -77,4 +76,3 @@ export default Homepage;
             // name=userDetail.name;
             // if(userDetail.firstName && userDetail.lastName)
             //   name=userDetail.firstName+" "+userDetail.lastName;
-            

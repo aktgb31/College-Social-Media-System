@@ -29,7 +29,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/uploads", isAuthenticatedUser, express.static(path.join(__dirname, "uploads")));
+
 
 //Routes
 app.get("/api/ping", ping); // Ping Support
@@ -41,5 +41,7 @@ app.use("/api/message", message); // Message based services
 
 //Error Middleware in the end
 app.use(errorMiddleware);
+
+app.use("/", isAuthenticatedUser, express.static(path.join(__dirname, "uploads")));
 
 module.exports = app;

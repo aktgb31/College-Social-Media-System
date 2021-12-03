@@ -15,6 +15,7 @@ const {
     getMyDetails,
     getAllUsers,
     updateProfilePic,
+    searchUsers,
 } = require("../controllers/userController");
 
 const { isAuthenticatedUser, isLoginedUser } = require("../middlewares/auth");
@@ -46,5 +47,7 @@ router.put("/profile/update", isAuthenticatedUser, updateUserDetails);
 router.post("/profile/update/profilePic", isAuthenticatedUser, uploadProfilePic, updateProfilePic);
 
 router.delete("/delete", isAuthenticatedUser, deleteUser);
+
+router.get("/search", isAuthenticatedUser, searchUsers);
 
 module.exports = router;
