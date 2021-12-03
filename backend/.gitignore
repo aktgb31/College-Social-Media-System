@@ -3,4 +3,5 @@ node_modules
 uploads/*
 !uploads/male.png
 !uploads/female.png
+!uploads/club.png
 test.js
