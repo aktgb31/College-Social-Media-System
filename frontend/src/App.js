@@ -21,6 +21,7 @@ import Createthread from './components/thread/createthread';
 import ThreadView from './components/thread/threadview';
 import MyThread from './components/thread/mythread';
 import Myposts from './components/homepage/myposts';
+import Searchprofile from './components/navbar/search';
 function App() {
   const [ user, setLoginUser] = useState({ 
     firstName: "",
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <Route  path="/home">
             <Homepage/>
+          </Route>
+          <Route  path="/search">
+            <Searchprofile/>
           </Route>
           <Route  path="/createpost">
             <CreatePost/>
