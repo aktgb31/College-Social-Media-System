@@ -17,44 +17,53 @@ import axios from "axios"
 import { useHistory } from "react-router-dom"
 
 function ThreadView() {
-  const [post,setPost] = useState([]);
-  const [user,setUser] = useState(null);
+  const [post, setPost] = useState([]);
+  const [user, setUser] = useState(null);
+  const [threadName, setThreadName] = useState("");
   const search = useLocation().search;
   const currthreadId = new URLSearchParams(search).get("threadId");
   console.log(currthreadId);
   useEffect(async () => {
-    const response= await fetch("/api/post");
-    const data= await response.json();
-    setPost(data.data);
-    const res= await fetch("/api/user/profile/me");
-    const dat= await res.json();
-    try {
-       const tr=dat.data.student.firstName;
-       setUser(tr);
+    const res = await fetch("/api/user/profile/me");
+    const dat = await res.json();
+    if (dat.data.userType == "STUDENT") {
+      const tr = dat.data.student.firstName + " " + dat.data.student.lastName;
+      setUser(tr);
     }
-  catch(err) {
-    const tr=dat.data.club.name;
-    setUser(tr);
-  }
-  // const id = dat.data.userId;
-    
-  //   setId(id)
-  //   console.log({id});
-    const pstresponse = await axios.get('/api/post', {
+    else {
+      const tr = dat.data.club.name;
+      setUser(tr);
+    }
+    // const id = dat.data.userId;
+
+    //   setId(id)
+    //   console.log({id});
+    const pstresponse = await axios.get('/api/thread', {
       params: {
         threadId: currthreadId
-      }, 
+      },
       withCredentials: true
-    
+
     })
-    
+    let qw = pstresponse.data.data[0].posts;
+    await Promise.all(qw.map(async (item) => {
+      const resp = await fetch(`/api/user/profile/?userId=${item.creatorId}`);
+      const dat = await resp.json();
+      if (dat.data.userType == "STUDENT")
+        item.creatorId = dat.data.student.firstName + " " + dat.data.student.lastName;
+      else
+        item.creatorId = dat.data.club.name;
+        return item;
+    }
+    )).then(qw => {
+      setPost(qw);
+    });
     // const data = await response.json();
     // console.log(data);
-    setPost(pstresponse.data.data);
-    console.log(pstresponse)
-    
-    
-  },[])
+    setPost(pstresponse.data.data[0].posts);
+    setThreadName(pstresponse.data.data[0].threadTitle);
+
+  }, [])
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [content, setContent] = useState({ content: "" });
@@ -69,7 +78,7 @@ function ThreadView() {
     console.log(content.content);
     formData.append('relatedImage', selectedFile);
     formData.append('content', content.content);
-    formData.append('threadId',currthreadId);
+    formData.append('threadId', currthreadId);
     fetch("/api/post/", {
       method: "POST",
       body: formData,
@@ -93,12 +102,12 @@ function ThreadView() {
       [name]: value,
     });
   };
-  
+
   return (
     <>
-     <NavbarComponent name={user}/>
-        <center><h1>Thread ID : {currthreadId}</h1></center>
-        <div>&nbsp;&nbsp;</div>
+      <NavbarComponent name={user} />
+      <center><h1>Thread Title : {threadName}</h1></center>
+      <div>&nbsp;&nbsp;</div>
       <div>&nbsp;&nbsp;</div>
       <form class="form">
         <h4>Enter your Thread Message here</h4>
@@ -134,12 +143,13 @@ function ThreadView() {
           Send Message
         </Button>
       </form>
-        <div>&nbsp;&nbsp;</div>
       <div>&nbsp;&nbsp;</div>
-        {post.map( (postdetails)=>{
-            return<Hppost title="Thread" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content}/>
-        
-        })}
+      <div>&nbsp;&nbsp;</div>
+      {post.map((postdetails) => {
+        console.log(postdetails);
+        return <Hppost title="Thread" id_={postdetails.postId} author={postdetails.creatorId} content={postdetails.content} />
+
+      })}
       {/* <Hppost title="Title fetched" author="Navnit Anand" content="this is the content"/>
       <Hppost title="Title fetched" author="Amit Kumar" content="this is the content"/>
       <Hppost title="Title fetched" author="Gopal Chaudhary" content="this is the content"/>
