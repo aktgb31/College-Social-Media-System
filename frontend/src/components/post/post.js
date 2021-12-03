@@ -161,12 +161,12 @@ export default function Post(props) {
             title={creator}
             subheader={date}
           />
-          <CardMedia
+          {post.relatedImage && <CardMedia
             component="img"
             height="auto"
             image={"/" + post.relatedImage}
-            alt="Paella dish"
-          />
+            alt="Post Image"
+          />}
           <CardContent>
             <Typography variant="body2" color="text.secondary">
               {post.content}
