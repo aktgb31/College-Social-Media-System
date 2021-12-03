@@ -7,12 +7,7 @@ exports.getMessage = (catchAsyncErrors(async(req, res, next) => {
     const id1 = req.session.userId;
     const id2 = parseInt(req.query.userId);
     queryOptions.where = {
-        senderId: {
-            [Op.or]: [id1, id2]
-        },
-        receiverId: {
-            [Op.or]: [id1, id2]
-        }
+        [Op.or]: [{ senderId: id1, receiverId: id2 }, { receiverId: id1, senderId: id2 }]
     };
 
     if (req.query.perPage) {
