@@ -19,6 +19,8 @@ Create a new .env file with the following variables
 - **DATABASE_NAME** The MYSQL database name
 - **DATABASE_USER** Database User Name
 - **DATABASE_PASS** Database User password
+- **ENCRYPTION_KEY** Key to encrypt messages
+- **ENCRYPTION_SALT** Key to salt messages
 - **SESSION_SECRET** Key to encrypt sessions
 - **GMAIL_ID** Gmail id to send mails to users
 - **GMAIL_PASSWORD** Gmail password
