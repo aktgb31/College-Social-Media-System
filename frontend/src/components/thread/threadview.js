@@ -53,14 +53,14 @@ function ThreadView() {
         item.creatorId = dat.data.student.firstName + " " + dat.data.student.lastName;
       else
         item.creatorId = dat.data.club.name;
-        return item;
+      return item;
     }
     )).then(qw => {
       setPost(qw);
     });
     // const data = await response.json();
     // console.log(data);
-    setPost(pstresponse.data.data[0].posts);
+    //    setPost(pstresponse.data.data[0].posts);
     setThreadName(pstresponse.data.data[0].threadTitle);
 
   }, [])
@@ -79,7 +79,7 @@ function ThreadView() {
     formData.append('relatedImage', selectedFile);
     formData.append('content', content.content);
     formData.append('threadId', currthreadId);
-    fetch("/api/post/", {
+    axios("/api/post/", {
       method: "POST",
       body: formData,
     })

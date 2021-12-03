@@ -7,36 +7,38 @@ import "./createpost.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom"
+import axios from "axios";
 function CreatePost() {
   const [user, setUser] = useState({ content: "" });
   const [selectedFile, setSelectedFile] = useState();
   const [isFilePicked, setIsFilePicked] = useState(false);
-  const [name,setName] = useState(null);
+  const [name, setName] = useState(null);
   const changeHandler = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
   };
   const history = useHistory()
   useEffect(async () => {
-    const resp= await fetch("/api/user/profile/me");
-    const datap= await resp.json();
+    const resp = await fetch("/api/user/profile/me");
+    const datap = await resp.json();
     try {
-       const tr=datap.data.student.firstName;
-       setName(tr);
-    }
-    catch(err) {
-      const tr=datap.data.club.name;
+      const tr = datap.data.student.firstName;
       setName(tr);
-    }});
-  
+    }
+    catch (err) {
+      const tr = datap.data.club.name;
+      setName(tr);
+    }
+  });
+
   const updateDetails = () => {
     //console.log(user);
-    
+
     const formData = new FormData();
     console.log(user.content);
     formData.append('relatedImage', selectedFile);
     formData.append('content', user.content);
-    fetch("/api/post/", {
+    axios("/api/post/", {
       method: "POST",
       body: formData,
     })
@@ -51,7 +53,7 @@ function CreatePost() {
         alert("Error in Posting");
       });
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     //console.log(user);
@@ -104,6 +106,6 @@ function CreatePost() {
       </form>
     </>
   );
-        }
+}
 
 export default CreatePost;
