@@ -19,6 +19,16 @@ function PeopleComponent(props) {
               Chat
             </Button>
           </Link>
+           <Link
+            to={{
+              pathname: "/otheruser",
+              search: `?userId=${props.id_}`,
+            }}
+          >
+            <Button variant="primary" id="btn-profile">
+              View Profile
+            </Button>
+          </Link>
         </Card.Body>
       </Card>
     </div>
