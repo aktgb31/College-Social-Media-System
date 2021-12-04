@@ -26,7 +26,7 @@ exports.getEvents = catchAsyncErrors(async(req, res, next) => {
             queryOptions.offset = 0;
     }
     queryOptions.order = [
-        ['eventTime', 'DESC']
+        ['eventTime', 'ASC']
     ];
     queryOptions.raw = true;
     const events = await Event.findAll(queryOptions);
